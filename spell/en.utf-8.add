@@ -1,0 +1,13 @@
+autoload
+unicode
+powerline
+Inconsolata
+guifont
+syntastic
+neocomplete
+autocomplete
+popup
+NeoComplete
+#eosnippet/!
+neosnippet/!
+cont'd

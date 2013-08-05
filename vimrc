@@ -1,7 +1,7 @@
 " vim: foldlevel=0 sts=4 sw=4 smarttab et ai textwidth=0
 " adapt settings from sites:
 "  * http://lambdalisue.hatenablog.com/entry/2013/06/23/071344
-"  * https://github.com/amix/vimrc 
+"  * https://github.com/amix/vimrc
 if !&compatible
     " disable vi compatible features
     set nocompatible
@@ -31,9 +31,11 @@ augroup END
 " set lines of histroy to remember
 set history=100
 
-" :W sudo saves the file 
+" :w!! sudo saves the file
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+cmap w!! w !sudo tee % > /dev/null
+
+command -nargs=? W w <args>
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -43,41 +45,22 @@ else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
-
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
     exe "normal mz"
     %s/\s\+$//ge
     exe "normal `z"
 endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
+autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWS()
+autocmd MyAutoCmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 
 """""""""""""""
-" Key Mapping " 
+" Key Mapping "
 """""""""""""""
 
-" use ',' insted of '\' as <Leader>
+" use ',' instead of '\' as <Leader>
 let mapreader = ','
 let g:mapleader = ','
 
@@ -105,13 +88,17 @@ nnoremap <C-l> <C-w>l
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
 
-"global syntax highlightling
+" pressing ,pp will toggle and untoggle paste mode
+" vim does not handle auto-indent in paste mode
+map <leader>pp :set invpaste<CR>
+
+" global syntax highlighting
 map <c-s> :syntax sync fromstart<cr>
 
 
 
 """""""""""
-" Plugins " 
+" Plugins "
 """""""""""
 
 let s:noplugin = 0
@@ -129,11 +116,11 @@ else
 
     " enable async process via vimproc
     NeoBundle "Shougo/vimproc", {
-    \     "build": {
-    \         "windows"   : "make -f make_mingw32.mak",
-    \         "cygwin"    : "make -f make_cygwin.mak",
-    \         "mac"       : "make -f make_mac.mak",
-    \         "unix"      : "make -f make_unix.mak",
+        \ "build": {
+        \    "windows"   : "make -f make_mingw32.mak",
+        \    "cygwin"    : "make -f make_cygwin.mak",
+        \    "mac"       : "make -f make_mac.mak",
+        \    "unix"      : "make -f make_unix.mak",
     \ }}
 
     """""""""""""""""""
@@ -145,7 +132,7 @@ else
     NeoBundle "bling/vim-airline"
     "let g:airline_powerline_fonts = 1
     let g:airline_theme='powerlineish'
-   
+
     NeoBundleLazy "skammer/vim-css-color", {
         \ "autoload": {
         \   "filetypes": ["html", "css", "less", "sass", "javascript", "coffee", "coffeescript", "djantohtml"],
@@ -157,23 +144,23 @@ else
     " syntax /indent /filetypes for git
     NeoBundleLazy 'tpope/vim-git', {'autoload': {
         \ 'filetypes': 'git' }}
-    
+
     " syntax for CSS3
     NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload': {
         \ 'filetypes': 'css' }}
-    
+
     " syntax for HTML5
     NeoBundleLazy 'othree/html5.vim', {'autoload': {
         \ 'filetypes': ['html', 'djangohtml'] }}
-    
+
     " syntax /indent /omnicomplete for LESS
     NeoBundleLazy 'groenewege/vim-less.git', {'autoload': {
         \ 'filetypes': 'less' }}
-    
+
     " syntax for SASS
     NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {
         \ 'filetypes': 'sass' }}
- 
+
     """""""""""""""""""
     " File Management "
     """""""""""""""""""
@@ -203,11 +190,12 @@ else
     nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
     nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
+    nnoremap <silent> [unite]k :<C-u>Unite mapping<CR>
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
         " start unite in insert mode
         let g:unite_enable_start_insert = 1
-         
+
         " use vimfiler to open directory
         call unite#custom_default_action("source/bookmark/directory", "vimfiler")
         call unite#custom_default_action("directory", "vimfiler")
@@ -235,7 +223,7 @@ else
     function! s:hooks.on_source(bundle)
         let g:vimfiler_as_default_explorer = 1
         let g:vimfiler_enable_auto_cd = 1
-        let g:vimfiler_force_overwrite_statusline=0 
+        let g:vimfiler_force_overwrite_statusline=0
         let g:vimfiler_explorer_columns="size"
 
         " ignore swap, backup, temporary files
@@ -246,7 +234,7 @@ else
         let g:vimfiler_tree_closed_icon = '▸'
         let g:vimfiler_file_icon = '-'
         let g:vimfiler_marked_file_icon = '*'
-    
+
         " vimfiler specific key mappings
         autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
         function! s:vimfiler_settings()
@@ -273,6 +261,8 @@ else
     let s:hooks = neobundle#get_hooks("YankRing.vim")
     function! s:hooks.on_source(bundle)
         let yankring_history_file = ".yankring_history"
+        let g:yankring_replace_n_pkey = '<Leader>p'
+        let g:yankring_replace_n_nkey = '<Leader>n'
     endfunction
 
     if has('lua') && v:version > 703 || (v:version == 703 && has('patch885'))
@@ -287,11 +277,11 @@ else
             let g:neocomplete#auto_completion_start_length = 3
             let g:neocomplete#sources#syntax#min_keyword_length = 3
             let g:neocomplete#max_list = 20
-            
+
             " prevent cursor trigger autopop in insert mode
             let g:neocomplete#enable_insert_char_pre = 1
             " trigger after some time
-            "let g:neocomplete#enable_cursor_hold_i = 1 
+            "let g:neocomplete#enable_cursor_hold_i = 1
 
             " <CR>: close popup and save indent.
             inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -303,18 +293,22 @@ else
 
             " <TAB>: completion.
             inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-            
+
             " <C-h>, <BS>: close popup and delete backword char.
             inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
             inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
             inoremap <expr><C-y>  neocomplete#close_popup()
             inoremap <expr><C-e>  neocomplete#cancel_popup()
-            
+
             " Close popup by <Space>.
             "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-            
+
             " trigger popup manually
-            inoremap <expr><C-f> neocomplete#start_manual_complete() 
+            inoremap <expr><C-f> neocomplete#start_manual_complete()
+
+            " toggle autocomplete mode
+            inoremap <C-g> <C-O>:NeoCompleteToggle<CR>
+            nnoremap <C-g> :NeoCompleteToggle<CR>
 
         endfunction
         function! s:hooks.on_post_source(bundle)
@@ -346,36 +340,115 @@ else
         smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
             \ "\<Plug>(neosnippet_expand_or_jump)"
             \: "\<TAB>"
-        
+
         " For snippet_complete marker.
         if has('conceal')
             set conceallevel=2 concealcursor=i
         endif
-        
+
         " Enable snipMate compatibility feature.
         let g:neosnippet#enable_snipmate_compatibility = 1
-        
+
         " Tell Neosnippet about the other snippets
         let g:neosnippet#snippets_directory=s:bundle_root . '/vim-snippets/snippets'
     endfunction
 
+    NeoBundle "terryma/vim-multiple-cursors"
+
     NeoBundleLazy "sjl/gundo.vim", {
         \ "autoload": {
-        \   "commands": ['GundoToggle'],
+        \     "commands": ['GundoToggle'],
         \}}
-    let s:hooks = neobundle#get_hooks('gundo.vim')
-    function! s:hooks.on_post_source(bundle)
-        nnoremap <c-g> :GundoToggle<CR>
-    endfunction
+    nnoremap <Leader>z :GundoToggle<CR>
 
     """""""""""""""
     " Programming "
     """""""""""""""
+    NeoBundle 'majutsushi/tagbar', {
+        \ "build": {
+        \     "mac": "brew install ctags",
+        \ }}
+    nmap <TAB> :TagbarToggle<CR>
+    let g:tagbar_width=32
+    let g:tagbar_autofocus=1
+    let g:tagbar_compact=1
+    let g:tagbar_sort=0
 
-    " NeoBundle: install missing plugins
-    " all bundles should be inserted before this line
-    NeoBundleCheck
+    NeoBundle "scrooloose/syntastic", {
+        \ "build": {
+        \     "mac": ["pip-3 install flake8", "npm -g install coffeelint"],
+        \     "unix": ["pip-3 install flake8", "npm -g install coffeelint"],
+        \ }}
+    let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291"
+        "W302,W291 trailing whitespace
+        "E302 expected 2 blank lines
+        "W293 blank line contains whitespace
+        "W391 blank line at end of file
 
+    set statusline+=%#warningmsg#
+    set statusline+=%{SyntasticStatuslineFlag()}
+    set statusline+=%*
+    let g:syntastic_auto_loc_list=1
+    let g:syntastic_loc_list_height=5
+    "let g:syntastic_python_checker='pylint' " pylint is heavy
+    let g:syntastic_python_checkers=['flake8']
+    let g:syntastic_mode_map={'mode': 'active',
+                         \ 'passive_filetypes': ["tex"] }
+
+    " jQuery
+    NeoBundleLazy "jQuery", {'autoload': {
+                \ 'filetypes': ['coffee', 'coffeescript', 'javascript', 'html', 'djangohtml'] }}
+
+    " CoffeeScript
+    NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {
+                \ 'filetypes': ['coffee', 'coffeescript'] }}
+    " HTML & CSS
+    NeoBundleLazy 'mattn/zencoding-vim', {'autoload': {
+        \ 'filetypes': ['html', 'djangohtml'] }}
+
+    """"""""""
+    " Python "
+    """"""""""
+    NeoBundleLazy "lambdalisue/vim-django-support", {
+        \ "autoload": {
+        \     "filetypes": ["python", "python3", "djangohtml"]
+        \ }}
+    NeoBundleLazy "jmcantrell/vim-virtualenv", {
+        \ "autoload": {
+        \     "filetypes": ["python", "python3", "djangohtml"]
+        \ }}
+    NeoBundleLazy "davidhalter/jedi-vim", {
+        \ "autoload": {
+        \     "filetypes": ["python", "python3", "djangohtml"],
+        \     "build": {
+        \         "mac": "pip install jedi",
+        \         "unix": "pip install jedi",
+        \     }
+        \ }}
+    let s:hooks = neobundle#get_hooks("jedi-vim")
+    function! s:hooks.on_source(bundle)
+        let g:jedi#auto_vim_configuration = 0
+        let g:jedi#popup_select_first = 0
+        let g:jedi#show_function_definition = 1
+        let g:jedi#rename_command = '<Leader>r'
+        let g:jedi#goto_command = '<Leader>g'
+        let g:jedi#autocompletion_command = "<C-d>"
+    endfunction
+
+    """"""""""
+    " Pandoc "
+    """"""""""
+    NeoBundleLazy "vim-pandoc/vim-pandoc", {
+        \ "autoload": {
+        \     "filetypes":
+        \         ["text", "pandoc", "markdown", "rst", "textile"],
+        \ }}
+
+    """"""""""""""""""""
+    " End of NeoBundle "
+    """"""""""""""""""""
+    " ALL bundles should be inserted BEFORE this line
+    NeoBundleCheck " check and install missing bundles
     unlet s:hooks
 endif
 
@@ -396,9 +469,10 @@ set smarttab
 set shiftwidth=4
 set tabstop=4
 
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
+set autoindent " Auto indent
+set smartindent " Smart indent
+set copyindent
+set wrap " Wrap lines
 
 
 
@@ -409,17 +483,17 @@ set wrap "Wrap lines
 " Ignore case when searching
 set ignorecase
 
-" When searching try to be smart about cases 
+" When searching try to be smart about cases
 set smartcase
 
 " Highlight search results
 set hlsearch
 
 " Makes search act like search in modern browsers
-set incsearch 
+set incsearch
 
 " Don't redraw while executing macros (good performance config)
-set lazyredraw 
+set lazyredraw
 
 " For regular expressions turn magic on
 set magic
@@ -435,23 +509,39 @@ cnoremap <expr> ?
 " User Interface "
 """"""""""""""""""
 
-" turn on wild menu
-set wildmenu 
-
 " always show current position
 set ruler
 
 " show line number
-set number 
+set number
+
+" highlight syntax
+syntax on
+
+" always display statusline
+set laststatus=2
 
 " use mouse for navigation
 set mouse=a
 
+"set showcmd " show command on statusline
+
+set scrolloff=4 " minimum line above/below the cursor
+
+set whichwrap+=<,>,[,],b,s,~
+
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 
+set linebreak
+let &showbreak = '+++ '
+set breakat=\ \ ;:,!?
+set cpoptions+=n
+
 " Show matching brackets when text indicator is over them
-set showmatch 
+set showmatch
+" add <>
+set matchpairs& matchpairs+=<:>
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
@@ -464,5 +554,58 @@ set tm=500
 " color theme
 colorscheme wombat256mod
 
+" No folding
+set nofoldenable
 
-set laststatus=2                    " always display statusline
+
+""""""""""""
+" Encoding "
+""""""""""""
+
+" Set utf8 as standard encoding and en_US as the standard language
+set encoding=utf8
+
+" Use Unix as the standard file type
+set ffs=unix,dos,mac
+
+
+
+"""""""""""""""
+" Vim Editing "
+"""""""""""""""
+
+" hide buffer insted of closing to prevent Undo history
+set hidden
+" use opend buffer insted of create new buffer
+set switchbuf=useopen
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+    set guioptions-=T
+    set guioptions-=e
+    set t_Co=256
+    set guitablabel=%M\ %t
+endif
+
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nowritebackup
+set nobackup
+set nowb
+set noswapfile
+
+" turn on wild menu
+set wildmenu
+set wildmode=longest:full
+set wildoptions=tagfile
+
+set report=0 " number of the lines being changed
+
+" automatically create the directory if it does not exist
+function! s:mkdir(dir, force)
+  if !isdirectory(a:dir) && (a:force ||
+        \ input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
+    call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
+  endif
+endfunction
+autocmd MyAutoCmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
+
