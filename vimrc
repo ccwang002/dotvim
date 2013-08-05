@@ -575,6 +575,7 @@ set t_vb=
 set tm=500
 
 " color theme
+set t_Co=256
 colorscheme wombat256mod
 
 " No folding
