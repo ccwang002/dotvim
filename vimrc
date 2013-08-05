@@ -213,45 +213,63 @@ else
         endfunction
     endfunction
 
-    NeoBundleLazy "Shougo/vimfiler", {
-        \ "depends": ["Shougo/unite.vim"],
-        \ "autoload": {
-        \   "commands": ["VimFilerTab", "VimFiler", "VimFilerExplorer"],
-        \   "mappings": ['<Plug>(vimfiler_switch)'],
-        \   "explorer": 1,
-        \ }}
-    nnoremap <C-b> :VimFilerExplorer -winminwidth=32<CR>
-    " close vimfiler automatically when there are only vimfiler open
-    autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
-    let s:hooks = neobundle#get_hooks("vimfiler")
-    function! s:hooks.on_source(bundle)
-        let g:vimfiler_as_default_explorer = 1
-        let g:vimfiler_enable_auto_cd = 1
-        let g:vimfiler_force_overwrite_statusline=0
-        let g:vimfiler_explorer_columns="size"
-
-        " ignore dot files and folders
-        let g:vimfiler_ignore_pattern = '^\.'
-        " Like Textmate icons.
-        let g:vimfiler_tree_leaf_icon = ' '
-        let g:vimfiler_tree_opened_icon = '▾'
-        let g:vimfiler_tree_closed_icon = '▸'
-        let g:vimfiler_file_icon = '-'
-        let g:vimfiler_marked_file_icon = '*'
-
-        " vimfiler specific key mappings
-        autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
-        function! s:vimfiler_settings()
-            " u to go up
-            nmap <buffer> u <Plug>(vimfiler_switch_to_parent_directory)
-            " use R to refresh
-            nmap <buffer> R <Plug>(vimfiler_redraw_screen)
-            " overwrite C-l ignore <Plug>(vimfiler_redraw_screen)
-            nmap <buffer> <C-l> <C-w>l
-            " overwrite C-j ignore <Plug>(vimfiler_switch_to_history_directory)
-            nmap <buffer> <C-j> <C-w>j
-        endfunction
+    " NERDTree
+    NeoBundleLazy 'scrooloose/nerdtree', {
+                \ 'autoload' : {
+                \      "commands": ["NERDTreeToggle"],
+                \ }}
+    nnoremap <c-b> :NERDTreeToggle<cr>
+    let s:hooks = neobundle#get_hooks("nerdtree")
+    function! s:hooks.on_post_source(bundle)
+        let NERDTreeDirArrows=1
+        let NERDTreeMouseMode=1
+        let NERDTreeChDirMode=2
+        let g:NERDTreeMinimalUI=1
+        let g:NERDTreeWinSize=32
     endfunction
+    " close NERDTree automatically when there are only NERDTree open
+    autocmd MyAutoCmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+    " Vimfiler (good but for now use NERDTree)
+    "NeoBundleLazy "Shougo/vimfiler", {
+    "    \ "depends": ["Shougo/unite.vim"],
+    "    \ "autoload": {
+    "    \   "commands": ["VimFilerTab", "VimFiler", "VimFilerExplorer"],
+    "    \   "mappings": ['<Plug>(vimfiler_switch)'],
+    "    \   "explorer": 1,
+    "    \ }}
+    "nnoremap <C-b> :VimFilerExplorer -winminwidth=32<CR>
+    "" close vimfiler automatically when there are only vimfiler open
+    "autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
+    "let s:hooks = neobundle#get_hooks("vimfiler")
+    "function! s:hooks.on_source(bundle)
+    "    let g:vimfiler_as_default_explorer = 1
+    "    let g:vimfiler_enable_auto_cd = 1
+    "    let g:vimfiler_force_overwrite_statusline=0
+    "    let g:vimfiler_explorer_columns="size"
+    "
+    "    " ignore dot files and folders
+    "    let g:vimfiler_ignore_pattern = '^\.'
+    "    " Like Textmate icons.
+    "    let g:vimfiler_tree_leaf_icon = ' '
+    "    let g:vimfiler_tree_opened_icon = '▾'
+    "    let g:vimfiler_tree_closed_icon = '▸'
+    "    let g:vimfiler_file_icon = '-'
+    "    let g:vimfiler_marked_file_icon = '*'
+    "
+    "    " vimfiler specific key mappings
+    "    autocmd MyAutoCmd FileType vimfiler call s:vimfiler_settings()
+    "    function! s:vimfiler_settings()
+    "        " u to go up
+    "        nmap <buffer> u <Plug>(vimfiler_switch_to_parent_directory)
+    "        " use R to refresh
+    "        nmap <buffer> R <Plug>(vimfiler_redraw_screen)
+    "        " overwrite C-l ignore <Plug>(vimfiler_redraw_screen)
+    "        nmap <buffer> <C-l> <C-w>l
+    "        " overwrite C-j ignore <Plug>(vimfiler_switch_to_history_directory)
+    "        nmap <buffer> <C-j> <C-w>j
+    "    endfunction
+    "endfunction
 
     " vim-fugitive use `autocmd` a lost so cannot be loaded with Lazy
     NeoBundle "tpope/vim-fugitive"
@@ -366,7 +384,7 @@ else
     """""""""""""""
     " Programming "
     """""""""""""""
-    NeoBundle 'majutsushi/tagbar', {        
+    NeoBundle 'majutsushi/tagbar', {
         \ "autoload": {
         \     "commands": ['TagbarToggle'],
         \ },
@@ -628,7 +646,7 @@ if has('gui_running')
     """""""""""""
     " Scrollbar "
     """""""""""""
-    " Disable scrollbars 
+    " Disable scrollbars
     " (real hackers don't use scrollbars for navigation!)
     set guioptions-=r
     set guioptions-=R
