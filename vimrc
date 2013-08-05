@@ -61,7 +61,7 @@ autocmd MyAutoCmd BufWrite *.coffee :call DeleteTrailingWS()
 """""""""""""""
 
 " use ',' instead of '\' as <Leader>
-let mapreader = ','
+let mapleader = ','
 let g:mapleader = ','
 
 " remove highlight with pressing ESC twice or <leader><cr>
@@ -87,6 +87,11 @@ nnoremap <C-l> <C-w>l
 
 " Pressing ,ss will toggle and untoggle spell checking
 map <leader>ss :setlocal spell!<cr>
+" Shortcuts using <leader>
+map <leader>sn ]s
+map <leader>sp [s
+map <leader>sa zg
+map <leader>s? z=
 
 " pressing ,pp will toggle and untoggle paste mode
 " vim does not handle auto-indent in paste mode
@@ -216,7 +221,7 @@ else
         \   "mappings": ['<Plug>(vimfiler_switch)'],
         \   "explorer": 1,
         \ }}
-    nnoremap <C-b> :VimFilerExplorer -winminwidth=25<CR>
+    nnoremap <C-b> :VimFilerExplorer -winminwidth=32<CR>
     " close vimfiler automatically when there are only vimfiler open
     autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') | q | endif
     let s:hooks = neobundle#get_hooks("vimfiler")
@@ -226,8 +231,8 @@ else
         let g:vimfiler_force_overwrite_statusline=0
         let g:vimfiler_explorer_columns="size"
 
-        " ignore swap, backup, temporary files
-        let g:vimfiler_ignore_pattern = '^\(.git\|.DS_Store\|\.\|.*\.pyc\)$'
+        " ignore dot files and folders
+        let g:vimfiler_ignore_pattern = '^\.'
         " Like Textmate icons.
         let g:vimfiler_tree_leaf_icon = ' '
         let g:vimfiler_tree_opened_icon = '▾'
@@ -258,13 +263,11 @@ else
     NeoBundle 'vim-scripts/Align'
 
     NeoBundle 'vim-scripts/YankRing.vim'
-    let s:hooks = neobundle#get_hooks("YankRing.vim")
-    function! s:hooks.on_source(bundle)
-        let yankring_history_file = ".yankring_history"
-        let g:yankring_replace_n_pkey = '<Leader>p'
-        let g:yankring_replace_n_nkey = '<Leader>n'
-    endfunction
+    let yankring_history_file = ".yankring_history"
+    let g:yankring_replace_n_pkey = '<Leader>p'
+    let g:yankring_replace_n_nkey = '<Leader>n'
 
+    " NeoComplete
     if has('lua') && v:version > 703 || (v:version == 703 && has('patch885'))
         NeoBundleLazy "Shougo/neocomplete.vim", {
             \ "autoload": {
@@ -364,11 +367,14 @@ else
     """""""""""""""
     " Programming "
     """""""""""""""
-    NeoBundle 'majutsushi/tagbar', {
+    NeoBundle 'majutsushi/tagbar', {        
+        \ "autoload": {
+        \     "commands": ['TagbarToggle'],
+        \ },
         \ "build": {
         \     "mac": "brew install ctags",
         \ }}
-    nmap <TAB> :TagbarToggle<CR>
+    nnoremap <TAB> :TagbarToggle<CR>
     let g:tagbar_width=32
     let g:tagbar_autofocus=1
     let g:tagbar_compact=1
@@ -579,14 +585,6 @@ set hidden
 " use opend buffer insted of create new buffer
 set switchbuf=useopen
 
-" Set extra options when running in GUI mode
-if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
-endif
-
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nowritebackup
 set nobackup
@@ -609,3 +607,40 @@ function! s:mkdir(dir, force)
 endfunction
 autocmd MyAutoCmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
 
+
+""""""""""""""""
+" GUI settings "
+""""""""""""""""
+
+if has('gui_running')
+
+    """"""""
+    " Font "
+    """"""""
+    if has("mac") || has("macunix")
+        set gfn=Inconsolata\ for\ Powerline:h18
+    elseif has("win16") || has("win32")
+        set gfn=Consolas:h18
+    elseif has("linux")
+        set gfn=Consolas\ 18
+        set gfn=Inconsolata\ 18
+    endif
+
+    """""""""""""
+    " Scrollbar "
+    """""""""""""
+    " Disable scrollbars 
+    " (real hackers don't use scrollbars for navigation!)
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=l
+    set guioptions-=L
+
+    """"""""""""""""""
+    " User Interface "
+    """"""""""""""""""
+    if has("gui_running")
+        set guitablabel=%M\ %t
+    endif
+
+endif
