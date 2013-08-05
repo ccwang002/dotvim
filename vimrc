@@ -382,8 +382,8 @@ else
 
     NeoBundle "scrooloose/syntastic", {
         \ "build": {
-        \     "mac": ["pip-3 install flake8", "npm -g install coffeelint"],
-        \     "unix": ["pip-3 install flake8", "npm -g install coffeelint"],
+        \     "mac": ["pip-3.3 install flake8", "npm -g install coffeelint"],
+        \     "unix": ["pip-3.3 install flake8", "npm -g install coffeelint"],
         \ }}
     let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291"
         "W302,W291 trailing whitespace
