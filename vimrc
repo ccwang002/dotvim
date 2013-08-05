@@ -2,10 +2,9 @@
 " adapt settings from sites:
 "  * http://lambdalisue.hatenablog.com/entry/2013/06/23/071344
 "  * https://github.com/amix/vimrc
-if !&compatible
-    " disable vi compatible features
-    set nocompatible
-endif
+
+" disable vi compatible features
+set nocompatible
 
 " skip initialization for vim-tiny or vim-small
 if !1 | finish | endif
@@ -383,7 +382,7 @@ else
     NeoBundle "scrooloose/syntastic", {
         \ "build": {
         \     "mac": ["pip-3.3 install flake8", "npm -g install coffeelint"],
-        \     "unix": ["pip-3.3 install flake8", "npm -g install coffeelint"],
+        \     "unix": ["sudo pip-3.3 install flake8", "sudo npm -g install coffeelint"],
         \ }}
     let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291"
         "W302,W291 trailing whitespace
