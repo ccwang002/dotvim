@@ -23,11 +23,12 @@ augroup MyAutoCmd
 augroup END
 
 
+
 """""""""""
 " General "
 """""""""""
 
-" set lines of histroy to remember
+" set lines of history to remember
 set history=100
 
 " :w!! sudo saves the file
@@ -85,21 +86,22 @@ nnoremap <C-k> <C-w>k
 nnoremap <C-l> <C-w>l
 
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+noremap <leader>ss :setlocal spell!<cr>
 " Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
+noremap <leader>sn ]s
+noremap <leader>sp [s
+noremap <leader>sa zg
+noremap <leader>s? z=
 
 " pressing ,pp will toggle and untoggle paste mode
 " vim does not handle auto-indent in paste mode
-map <leader>pp :set invpaste<CR>
+nnoremap <leader>pp :set invpaste<CR>
 
 " global syntax highlighting
-map <c-s> :syntax sync fromstart<cr>
+nnoremap <c-s> :syntax sync fromstart<cr>
 
-
+" show hidden symbols
+nnoremap <leader>. :set invlist<CR>
 
 """""""""""
 " Plugins "
@@ -279,10 +281,10 @@ else
     """""""""""""""""""
     NeoBundle 'vim-scripts/Align'
 
-    NeoBundle 'vim-scripts/YankRing.vim'
-    let yankring_history_file = ".yankring_history"
-    let g:yankring_replace_n_pkey = '<Leader>p'
-    let g:yankring_replace_n_nkey = '<Leader>n'
+    "NeoBundle 'vim-scripts/YankRing.vim'
+    "let yankring_history_file = ".yankring_history"
+    "let g:yankring_replace_n_pkey = '<Leader>p'
+    "let g:yankring_replace_n_nkey = '<Leader>n'
 
     " NeoComplete
     if has('lua') && v:version > 703 || (v:version == 703 && has('patch885'))
@@ -482,44 +484,28 @@ endif
 
 filetype plugin indent on
 
-" Use spaces instead of tabs
-set expandtab
 
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=4
+set expandtab           " Use spaces instead of tabs
+set smarttab            " Be smart when using tabs ;)
+set shiftwidth=4        " 1 tab == 4 spaces
 set tabstop=4
 
-set autoindent " Auto indent
-set smartindent " Smart indent
+set autoindent          " Auto indent
+set smartindent         " Smart indent
 set copyindent
-set wrap " Wrap lines
+set wrap                " Wrap lines
 
 
 
 """""""""""""
 " Searching "
 """""""""""""
-
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" For regular expressions turn magic on
-set magic
+set ignorecase          " Ignore case when searching
+set smartcase           " When searching try to be smart about cases
+set hlsearch            " Highlight search results
+set incsearch           " Makes search act like search in modern browsers
+set lazyredraw          " Don't redraw while executing macros (good performance config)
+set magic               " For regular expressions turn magic on
 
 cnoremap <expr> /
       \ getcmdtype() == '/' ? '\/' : '/'
@@ -532,41 +518,24 @@ cnoremap <expr> ?
 " User Interface "
 """"""""""""""""""
 
-" always show current position
-set ruler
-
-" show line number
-set number
-
-" highlight syntax
-syntax on
-
-" always display statusline
-set laststatus=2
-
-" use mouse for navigation
-set mouse=a
-
-"set showcmd " show command on statusline
-
-set scrolloff=4 " minimum line above/below the cursor
-
+set ruler               " always show current position
+set number              " show line number
+syntax on               " highlight syntax
+set laststatus=2        " always display statusline
+set mouse=a             " use mouse for navigation
+"set showcmd            " show command on statusline
+set scrolloff=4                         " minimum line above/below the cursor
 set whichwrap+=<,>,[,],b,s,~
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
+set backspace=eol,start,indent          " Configure backspace so it acts as it should act
 
 set linebreak
 let &showbreak = '+++ '
 set breakat=\ \ ;:,!?
 set cpoptions+=n
 
-" Show matching brackets when text indicator is over them
-set showmatch
-" add <>
-set matchpairs& matchpairs+=<:>
-" How many tenths of a second to blink when matching brackets
-set mat=2
+set showmatch                           " Show matching brackets when text indicator is over them
+set matchpairs& matchpairs+=<:>         " add <>
+set mat=2               " How many tenths of a second to blink when matching brackets
 
 " No annoying sound on errors
 set noerrorbells
@@ -581,16 +550,16 @@ colorscheme wombat256mod
 " No folding
 set nofoldenable
 
+set list
+set listchars=tab:»\ ,trail:␣
+
 
 """"""""""""
 " Encoding "
 """"""""""""
 
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
+set encoding=utf8               " Set utf8 as standard encoding and en_US as the standard language
+set ffs=unix,dos,mac            " Use Unix as the standard file type
 
 
 
@@ -598,10 +567,8 @@ set ffs=unix,dos,mac
 " Vim Editing "
 """""""""""""""
 
-" hide buffer insted of closing to prevent Undo history
-set hidden
-" use opend buffer insted of create new buffer
-set switchbuf=useopen
+set hidden                      " hide buffer insted of closing to prevent Undo history
+set switchbuf=useopen           " use opend buffer insted of create new buffer
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nowritebackup
@@ -614,7 +581,7 @@ set wildmenu
 set wildmode=longest:full
 set wildoptions=tagfile
 
-set report=0 " number of the lines being changed
+set report=0                    " number of the lines being changed
 
 " automatically create the directory if it does not exist
 function! s:mkdir(dir, force)
