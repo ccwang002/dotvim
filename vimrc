@@ -167,6 +167,10 @@ else
     NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {
         \ 'filetypes': 'sass' }}
 
+    NeoBundleLazy 'hynek/vim-python-pep8-indent', {'autoload': {
+        \ "filetypes": ["python", "python3", "djangohtml"],
+        \ }}
+
     """""""""""""""""""
     " File Management "
     """""""""""""""""""
@@ -582,7 +586,7 @@ set wildoptions=tagfile
 set report=0                    " report for number of lines being changed everytime
 
 set wrap
-set textwidth=80                " add a newline for every 80 chars
+set textwidth=0                 " never add a newline for some number of chars
 
 " automatically create the directory if it does not exist
 function! s:mkdir(dir, force)
@@ -594,6 +598,13 @@ endfunction
 autocmd MyAutoCmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
 
 
+
+"""""""""""""""""""""""""""""
+" Language Specific Setting "
+"""""""""""""""""""""""""""""
+
+" Python
+autocmd FileType python,python3 setlocal tw=80
 
 """"""""""""""""
 " GUI settings "
