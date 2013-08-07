@@ -404,7 +404,7 @@ else
         \     "mac": ["pip-3.3 install flake8", "npm -g install coffeelint"],
         \     "unix": ["sudo pip-3.3 install flake8", "sudo npm -g install coffeelint"],
         \ }}
-    let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291"
+    let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291 --max-complexity 12"
         "W302,W291 trailing whitespace
         "E302 expected 2 blank lines
         "W293 blank line contains whitespace
@@ -493,7 +493,6 @@ set tabstop=4
 set autoindent          " Auto indent
 set smartindent         " Smart indent
 set copyindent
-set wrap                " Wrap lines
 
 
 
@@ -533,9 +532,9 @@ let &showbreak = '+++ '
 set breakat=\ \ ;:,!?
 set cpoptions+=n
 
-set showmatch                           " Show matching brackets when text indicator is over them
-set matchpairs& matchpairs+=<:>         " add <>
-set mat=2               " How many tenths of a second to blink when matching brackets
+set showmatch                       " Show matching brackets when text indicator is over them
+set matchpairs& matchpairs+=<:>     " add <>
+set matchtime=2                     " How many tenths of a second to blink when matching brackets
 
 " No annoying sound on errors
 set noerrorbells
@@ -547,10 +546,9 @@ set tm=500
 set t_Co=256
 colorscheme wombat256mod
 
-" No folding
-set nofoldenable
+set nofoldenable                " No folding
 
-set list
+set nolist
 set listchars=tab:»\ ,trail:␣
 
 
@@ -581,7 +579,10 @@ set wildmenu
 set wildmode=longest:full
 set wildoptions=tagfile
 
-set report=0                    " number of the lines being changed
+set report=0                    " report for number of lines being changed everytime
+
+set wrap
+set textwidth=80                " add a newline for every 80 chars
 
 " automatically create the directory if it does not exist
 function! s:mkdir(dir, force)
@@ -591,6 +592,7 @@ function! s:mkdir(dir, force)
   endif
 endfunction
 autocmd MyAutoCmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
+
 
 
 """"""""""""""""
