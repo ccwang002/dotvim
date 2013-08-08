@@ -473,6 +473,27 @@ else
         \         ["text", "pandoc", "markdown", "rst", "textile"],
         \ }}
 
+    NeoBundleLazy "lambdalisue/shareboard.vim", {
+          \ "autoload": {
+          \   "commands": ["ShareboardPreview", "ShareboardCompile"],
+          \ },
+          \ "build": {
+          \   "mac": "pip install shareboard",
+          \   "unix": "pip install shareboard",
+          \ }}
+    function! s:shareboard_settings()
+          nnoremap <buffer>[shareboard] <Nop>
+          nmap <buffer><Leader> [shareboard]
+          nnoremap <buffer><silent> [shareboard]v :ShareboardPreview<CR>
+          nnoremap <buffer><silent> [shareboard]c :ShareboardCompile<CR>
+    endfunction
+    autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
+    let s:hooks = neobundle#get_hooks("shareboard.vim")
+    function! s:hooks.on_source(bundle)
+          " VimからPandocが見えないことが多々あるので念の為~/.cabal/binをPATHに追加
+          let $PATH=expand("~/.cabal/bin:") . $PATH
+    endfunction
+
     """"""""""""""""""""
     " End of NeoBundle "
     """"""""""""""""""""
