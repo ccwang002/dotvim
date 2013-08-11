@@ -1,5 +1,6 @@
 if exists('did_load_filetypes')
-  finish
+    echo "custom filetypes not loaded"
+    finish
 endif
 
 augroup filetypedetect

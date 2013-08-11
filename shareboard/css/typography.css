@@ -73,8 +73,7 @@ pre, code {
     word-wrap: break-word; /* Internet Explorer 5.5+ */
 }
 pre {
-    background: #3d3d3d;
-    color: #fff;
+    background: #FFF7E0;
     padding: 1.5em;
     margin: 1.5em;
     border-radius: 5px;

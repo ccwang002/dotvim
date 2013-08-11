@@ -468,31 +468,47 @@ else
     " Pandoc "
     """"""""""
     NeoBundleLazy "vim-pandoc/vim-pandoc", {
-        \ "autoload": {
-        \     "filetypes":
-        \         ["text", "pandoc", "markdown", "rst", "textile"],
-        \ }}
+          \ "autoload": {
+          \     "filetypes":
+          \         ["pandoc", "markdown", "rst", "textile"],
+          \ }}
 
     NeoBundleLazy "lambdalisue/shareboard.vim", {
           \ "autoload": {
-          \   "commands": ["ShareboardPreview", "ShareboardCompile"],
+          \   "commands": ["SbFtPreview", "ShareboardPreview", "ShareboardCompile"],
           \ },
           \ "build": {
           \   "mac": "pip install shareboard",
           \   "unix": "pip install shareboard",
           \ }}
+    function SbFtPreview(...)
+        " filetype can be given through argument or guess by file extension
+        let ft_tmp = a:0? a:1 : expand("%:e")
+        " if no ft_tmp obtained, end with an error
+        if ft_tmp == ''
+            throw "No filetype found!"
+        elseif ft_tmp =~? 'md\|mkd\|markdown'   " uniform markdown file extension
+            let forced_ft = "markdown"
+        else
+            let forced_ft = ft_tmp
+        endif
+        let g:shareboard_command = expand('~/.vim/shareboard/command.sh '
+                    \ . forced_ft . '+autolink_bare_uris+abbreviations')
+        ShareboardPreview
+    endfunction
     function! s:shareboard_settings()
         nnoremap <buffer>[shareboard] <Nop>
         nmap <buffer><Leader> [shareboard]
-        nnoremap <buffer><silent> [shareboard]v :ShareboardPreview<CR>
+        nnoremap <buffer><silent> [shareboard]v :call SbFtPreview()<CR>
         nnoremap <buffer><silent> [shareboard]c :ShareboardCompile<CR>
     endfunction
     autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
     let s:hooks = neobundle#get_hooks("shareboard.vim")
     function! s:hooks.on_source(bundle)
-        let g:shareboard_command = expand('~/.vim/shareboard/command.sh markdown+autolink_bare_uris+abbreviations')
-        " Let Vim see Pandoc
-        let $PATH=expand("~/.cabal/bin:") . $PATH
+        let g:shareboard_use_default_mapping = 0
+        if s:is_linux
+            let g:shareboard_host = "0.0.0.0"
+        endif
     endfunction
 
     """"""""""""""""""""
