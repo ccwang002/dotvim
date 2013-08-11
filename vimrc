@@ -475,13 +475,13 @@ else
 
     NeoBundleLazy "lambdalisue/shareboard.vim", {
           \ "autoload": {
-          \   "commands": ["SbFtPreview", "ShareboardPreview", "ShareboardCompile"],
+          \   "commands": ["SbFtPreview", "SbFtCompile", "ShareboardPreview", "ShareboardCompile"],
           \ },
           \ "build": {
           \   "mac": "pip install shareboard",
           \   "unix": "pip install shareboard",
           \ }}
-    function SbFtPreview(...)
+    function GetFileType(...)
         " filetype can be given through argument or guess by file extension
         let ft_tmp = a:0? a:1 : expand("%:e")
         " if no ft_tmp obtained, end with an error
@@ -492,22 +492,17 @@ else
         else
             let forced_ft = ft_tmp
         endif
-        let g:shareboard_command = expand('~/.vim/shareboard/command.sh '
-                    \ . forced_ft)
+        return forced_ft
+    endfunction
+
+    function SbFtPreview(...)
+        let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
+        let g:shareboard_command = expand('~/.vim/shareboard/command.sh ' . ft_tmp)
         ShareboardPreview
     endfunction
     function SbFtCompile(...)
-        " filetype can be given through argument or guess by file extension
-        let ft_tmp = a:0? a:1 : expand("%:e")
-        " if no ft_tmp obtained, end with an error
-        if ft_tmp == ''
-            throw "No filetype found!"
-        elseif ft_tmp =~? 'md\|mkd\|markdown'   " uniform markdown file extension
-            let forced_ft = "markdown"
-        else
-            let forced_ft = ft_tmp
-        endif
-        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . forced_ft . " > " . expand("%:r") . ".html; "
+        let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
+        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . " > " . expand("%:r") . ".html"
         silent! execute cmd
     endfunction
     function! s:shareboard_settings()
