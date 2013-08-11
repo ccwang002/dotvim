@@ -493,14 +493,28 @@ else
             let forced_ft = ft_tmp
         endif
         let g:shareboard_command = expand('~/.vim/shareboard/command.sh '
-                    \ . forced_ft . '+autolink_bare_uris+abbreviations')
+                    \ . forced_ft)
         ShareboardPreview
+    endfunction
+    function SbFtCompile(...)
+        " filetype can be given through argument or guess by file extension
+        let ft_tmp = a:0? a:1 : expand("%:e")
+        " if no ft_tmp obtained, end with an error
+        if ft_tmp == ''
+            throw "No filetype found!"
+        elseif ft_tmp =~? 'md\|mkd\|markdown'   " uniform markdown file extension
+            let forced_ft = "markdown"
+        else
+            let forced_ft = ft_tmp
+        endif
+        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . forced_ft . " > " . expand("%:r") . ".html; "
+        silent! execute cmd
     endfunction
     function! s:shareboard_settings()
         nnoremap <buffer>[shareboard] <Nop>
         nmap <buffer><Leader> [shareboard]
         nnoremap <buffer><silent> [shareboard]v :call SbFtPreview()<CR>
-        nnoremap <buffer><silent> [shareboard]c :ShareboardCompile<CR>
+        nnoremap <buffer><silent> [shareboard]c :call SbFtCompile()<CR>
     endfunction
     autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
     let s:hooks = neobundle#get_hooks("shareboard.vim")
