@@ -205,11 +205,15 @@ else
     function! s:hooks.on_source(bundle)
         " start unite in insert mode
         let g:unite_enable_start_insert = 1
-
+        
+        " To track long mru history.
+	    let g:unite_source_file_mru_long_limit = 3000
+	    let g:unite_source_directory_mru_long_limit = 3000
+        
         " use vimfiler to open directory
-        call unite#custom_default_action("source/bookmark/directory", "vimfiler")
-        call unite#custom_default_action("directory", "vimfiler")
-        call unite#custom_default_action("directory_mru", "vimfiler")
+        "call unite#custom_default_action("source/bookmark/directory", "vimfiler")
+        "call unite#custom_default_action("directory", "vimfiler")
+        "call unite#custom_default_action("directory_mru", "vimfiler")
         autocmd MyAutoCmd FileType unite call s:unite_settings()
         function! s:unite_settings()
             imap <buffer> <Esc><Esc> <Plug>(unite_exit)
@@ -512,7 +516,9 @@ else
     endfunction
     function SbFtStatic(...)
         let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --self-contained --webtex' . " > " . expand("%:r") . ".static.html &"
+        let cp_cmd = "!cp ~/.vim/shareboard/css/combined.css " . expand("%:p:h")
+        silent! execute cp_cmd
+        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --webtex --self-contained' . " > " . expand("%:r") . ".static.html"
         silent! execute cmd
         redraw!
     endfunction 
