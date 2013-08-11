@@ -472,6 +472,10 @@ else
           \     "filetypes":
           \         ["pandoc", "markdown", "rst", "textile"],
           \ }}
+    let s:hooks = neobundle#get_hooks("vim-pandoc")
+    function! s:hooks.on_source(bundle)
+        let g:pandoc_no_spans = 1
+    endfunction
 
     NeoBundleLazy "lambdalisue/shareboard.vim", {
           \ "autoload": {
@@ -497,19 +501,27 @@ else
 
     function SbFtPreview(...)
         let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        let g:shareboard_command = expand('~/.vim/shareboard/command.sh ' . ft_tmp)
+        let g:shareboard_command = expand('~/.vim/shareboard/command.sh ' . ft_tmp . ' --mathjax')
         ShareboardPreview
     endfunction
     function SbFtCompile(...)
         let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . " > " . expand("%:r") . ".html"
+        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --mathjax' . " > " . expand("%:r") . ".html &"
         silent! execute cmd
+        redraw!
     endfunction
+    function SbFtStatic(...)
+        let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
+        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --self-contained --webtex' . " > " . expand("%:r") . ".static.html &"
+        silent! execute cmd
+        redraw!
+    endfunction 
     function! s:shareboard_settings()
         nnoremap <buffer>[shareboard] <Nop>
         nmap <buffer><Leader> [shareboard]
         nnoremap <buffer><silent> [shareboard]v :call SbFtPreview()<CR>
         nnoremap <buffer><silent> [shareboard]c :call SbFtCompile()<CR>
+        nnoremap <buffer><silent> [shareboard]s :call SbFtStatic()<CR>
     endfunction
     autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
     let s:hooks = neobundle#get_hooks("shareboard.vim")
@@ -602,6 +614,7 @@ set nofoldenable                " No folding
 set nolist
 set listchars=tab:»\ ,trail:␣
 
+set display=lastline    " always show part of the long line
 
 """"""""""""
 " Encoding "
