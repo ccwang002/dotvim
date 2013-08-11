@@ -1,0 +1,47 @@
+body {
+    position: relative;
+    margin: 0;
+    padding: 2em;
+}
+div#header {
+    padding: 1.5em 0;
+    margin: 0 0 1.5em;
+}
+div#TOC, nav#TOC {
+    border-top: 1px solid #ababab;
+    border-bottom: 1px solid #ababab;
+}
+div#header h1 {
+  font-size: 2.625em; /* 42px */
+  line-height: 1.1429em; /* 48px */
+  margin-top: 0.5714em;
+  margin-bottom: 0em;
+}
+div#header h2 {
+  font-size: 2em; /* 32px */
+  line-height: 1.5em; /* 48px */
+  margin-top: 0.75em;
+  margin-bottom: 0em;
+}
+div#header h3 {
+  font-size: 1.75em; /* 28px */
+  line-height: 1.7143em; /* 48px */
+  margin-top: 0.8571em;
+  margin-bottom: 0em;
+}
+
+@media screen and (min-width: 980px) {
+    body {
+        padding-left: 320px;
+        padding-top: 0;
+    }
+    div#TOC, nav#TOC {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 300px;
+        border: none;
+        padding: 2em 0.5em;
+    }
+}
+

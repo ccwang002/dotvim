@@ -482,16 +482,17 @@ else
           \   "unix": "pip install shareboard",
           \ }}
     function! s:shareboard_settings()
-          nnoremap <buffer>[shareboard] <Nop>
-          nmap <buffer><Leader> [shareboard]
-          nnoremap <buffer><silent> [shareboard]v :ShareboardPreview<CR>
-          nnoremap <buffer><silent> [shareboard]c :ShareboardCompile<CR>
+        nnoremap <buffer>[shareboard] <Nop>
+        nmap <buffer><Leader> [shareboard]
+        nnoremap <buffer><silent> [shareboard]v :ShareboardPreview<CR>
+        nnoremap <buffer><silent> [shareboard]c :ShareboardCompile<CR>
     endfunction
     autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
     let s:hooks = neobundle#get_hooks("shareboard.vim")
     function! s:hooks.on_source(bundle)
-          " VimからPandocが見えないことが多々あるので念の為~/.cabal/binをPATHに追加
-          let $PATH=expand("~/.cabal/bin:") . $PATH
+        let g:shareboard_command = expand('~/.vim/shareboard/command.sh markdown+autolink_bare_uris+abbreviations')
+        " Let Vim see Pandoc
+        let $PATH=expand("~/.cabal/bin:") . $PATH
     endfunction
 
     """"""""""""""""""""
