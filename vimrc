@@ -619,12 +619,13 @@ function! s:mkdir(dir, force)
 endfunction
 autocmd MyAutoCmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
 
+" system clipboard integration
+if s:is_darwin
+    set clipboard=unnamed
+elseif s:is_linux
+    set clipboard=unnamedplus
+endif
 
-" System Clipboard Integration
-" copy to sys clipboard by Alt-C
-vnoremap <silent> ç "*y
-" paste from sys clipboard by Alt-V
-vnoremap <silent> √ "*p
 
 
 """""""""""""""""""""""""""""
@@ -645,7 +646,6 @@ if has('gui_running')
     """"""""
     if has("mac") || has("macunix")
         set gfn=Inconsolata\ for\ Powerline:h18
-        set clipboard=unnamed " Use Mac Clipboard `pbcopy` and `pbpaste`
     elseif has("win16") || has("win32")
         set gfn=Consolas:h18
     elseif has("linux")
