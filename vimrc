@@ -689,7 +689,7 @@ endif
 autocmd FileType python,python3 setlocal tw=80
 
 " Pandoc (markdown, ...)
-autocmd FileType pandoc, markdown setlocal conceallevel=0
+autocmd FileType pandoc,markdown setlocal conceallevel=0
 
 """"""""""""""""
 " GUI settings "
