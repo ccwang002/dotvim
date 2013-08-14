@@ -13,7 +13,7 @@ TEXT=`echo "$TEXT" | perl -pe 's/\&angstrom;/\&#8491;/g'`
 
 # convert with pandoc
 # TEXT=`echo "$TEXT" | pandoc -f $1 -sS --toc --webtex -c "$CSS" --bibliography="$BIB" 2>/dev/null`
-TEXT=`echo "$TEXT" | pandoc -f $1 -sS --toc $2 --highlight-style pygments -c "$CSS"`  # 2>/dev/null`
+TEXT=`echo "$TEXT" | pandoc -f $* -sS --toc --highlight-style pygments -c "$CSS"`  # 2>/dev/null`
 
 echo "$TEXT"
 
