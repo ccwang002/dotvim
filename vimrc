@@ -478,7 +478,9 @@ else
           \ }}
     let s:hooks = neobundle#get_hooks("vim-pandoc")
     function! s:hooks.on_source(bundle)
-        let g:pandoc_no_spans = 1
+        " let g:pandoc_no_spans = 1
+        let g:pandoc_no_empty_implicits = 1
+        let g:pandoc_no_folding = 1
     endfunction
 
     NeoBundleLazy "lambdalisue/shareboard.vim", {
@@ -518,7 +520,7 @@ else
         let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
         let cp_cmd = "!cp ~/.vim/shareboard/css/combined.css " . expand("%:p:h")
         silent! execute cp_cmd
-        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --webtex --self-contained' . " > " . expand("%:r") . ".static.html"
+        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --self-contained' . " > " . expand("%:r") . ".static.html"
         silent! execute cmd
         redraw!
     endfunction 
@@ -616,6 +618,7 @@ set t_Co=256
 colorscheme wombat256mod
 
 set nofoldenable                " No folding
+set conceallevel=0              " No transform symbols automatically
 
 set nolist
 set listchars=tab:»\ ,trail:␣
