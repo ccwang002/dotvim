@@ -198,18 +198,25 @@ else
     nnoremap [unite] <Nop>
     nmap U [unite]
     nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-    nnoremap <silent> [unite]m :<C-u>Unite file_mru<CR>
+    nnoremap <silent> [unite]m :<C-u>Unite file_mru directory_mru<CR>
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
     nnoremap <silent> [unite]k :<C-u>Unite mapping<CR>
+    nnoremap <silent> [unite]h :<C-u>Unite history/yank<CR>
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
         " start unite in insert mode
         let g:unite_enable_start_insert = 1
-        
+
         " To track long mru history.
 	    let g:unite_source_file_mru_long_limit = 3000
 	    let g:unite_source_directory_mru_long_limit = 3000
-        
+
+        " Time to update MRU list (now for evey 1 minute)
+        let g:unite_source_mrc_update_interval = 60
+
+        " Enable yank history
+        let g:unite_source_history_yank_enable = 1
+
         " use vimfiler to open directory
         "call unite#custom_default_action("source/bookmark/directory", "vimfiler")
         "call unite#custom_default_action("directory", "vimfiler")
@@ -231,9 +238,9 @@ else
     nnoremap <c-b> :NERDTreeToggle<cr>
     let s:hooks = neobundle#get_hooks("nerdtree")
     function! s:hooks.on_post_source(bundle)
-        let NERDTreeDirArrows=1
-        let NERDTreeMouseMode=1
-        let NERDTreeChDirMode=2
+        let g:NERDTreeDirArrows=1
+        let g:NERDTreeMouseMode=1
+        let g:NERDTreeChDirMode=2
         let g:NERDTreeMinimalUI=1
         let g:NERDTreeWinSize=32
     endfunction
@@ -523,7 +530,7 @@ else
         let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --self-contained' . " > " . expand("%:r") . ".static.html"
         silent! execute cmd
         redraw!
-    endfunction 
+    endfunction
     function! s:shareboard_settings()
         nnoremap <buffer>[shareboard] <Nop>
         nmap <buffer><Leader> [shareboard]
@@ -618,7 +625,6 @@ set t_Co=256
 colorscheme wombat256mod
 
 set nofoldenable                " No folding
-set conceallevel=0              " No transform symbols automatically
 
 set nolist
 set listchars=tab:»\ ,trail:␣
@@ -681,6 +687,9 @@ endif
 
 " Python
 autocmd FileType python,python3 setlocal tw=80
+
+" Pandoc (markdown, ...)
+autocmd FileType pandoc, markdown setlocal conceallevel=0
 
 """"""""""""""""
 " GUI settings "
