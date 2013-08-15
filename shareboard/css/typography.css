@@ -4,7 +4,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Optima LT Std', 'Times New Roman', serif;
+    font-family: 'Optima LT Std', "微軟正黑體", "Microsoft Jhenghei", 'Times New Roman', serif;
 }
 h1 {
   font-size: 2em;     /* 32px */

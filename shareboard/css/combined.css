@@ -424,6 +424,14 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+@page  {
+    size: auto;   /* auto is the initial value */
+
+    /* this affects the margin in the printer settings */
+    margin: 15mm 10mm 15mm 10mm;
+}
+
+
 @media print {
     body {
         font-size: 12px;
@@ -445,7 +453,7 @@ table {
         font-size: 90%;
         font-family: monospace;
     }
-    table a[href^="http://"]:after, 
+    table a[href^="http://"]:after,
     table a[href^="https://"]:after {
         content: "";
     }
@@ -475,7 +483,7 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Optima LT Std', 'Times New Roman', serif;
+    font-family: 'Optima LT Std', "微軟正黑體", "Microsoft Jhenghei", 'Times New Roman', serif;
 }
 h1 {
   font-size: 2em;     /* 32px */

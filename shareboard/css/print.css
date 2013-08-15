@@ -1,3 +1,11 @@
+@page  {
+    size: auto;   /* auto is the initial value */
+
+    /* this affects the margin in the printer settings */
+    margin: 15mm 10mm 15mm 10mm;
+}
+
+
 @media print {
     body {
         font-size: 12px;
@@ -19,7 +27,7 @@
         font-size: 90%;
         font-family: monospace;
     }
-    table a[href^="http://"]:after, 
+    table a[href^="http://"]:after,
     table a[href^="https://"]:after {
         content: "";
     }
