@@ -139,7 +139,7 @@ else
     "let g:airline_powerline_fonts = 1
     let g:airline_theme='powerlineish'
 
-    NeoBundleLazy "skammer/vim-css-color", {
+    NeoBundleLazy "ap/vim-css-color", {
         \ "autoload": {
         \   "filetypes": ["html", "css", "less", "sass", "javascript", "coffee", "coffeescript", "djantohtml"],
         \ }}
