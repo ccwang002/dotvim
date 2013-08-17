@@ -525,8 +525,9 @@ else
     endfunction
     function SbFtStatic(...)
         let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        let cp_cmd = "!cp ~/.vim/shareboard/css/combined.css " . expand("%:p:h")
-        silent! execute cp_cmd
+        "copy css file
+        "let cp_cmd = "!cp ~/.vim/shareboard/css/combined.css " . expand("%:p:h")
+        "silent! execute cp_cmd
         let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --self-contained --webtex' . " > " . expand("%:r") . ".static.html"
         silent! execute cmd
         redraw!
