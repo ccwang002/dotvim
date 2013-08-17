@@ -416,8 +416,8 @@ else
 
     NeoBundle "scrooloose/syntastic", {
         \ "build": {
-        \     "mac": ["pip-3.3 install flake8", "npm -g install coffeelint"],
-        \     "unix": ["sudo pip-3.3 install flake8", "sudo npm -g install coffeelint"],
+        \     "mac": "pip-3.3 install flake8 && npm -g install coffeelint",
+        \     "unix": "sudo pip-3.3 install flake8 && sudo npm -g install coffeelint",
         \ }}
     let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291 --max-complexity 12"
         "W302,W291 trailing whitespace
@@ -481,7 +481,7 @@ else
     NeoBundleLazy "vim-pandoc/vim-pandoc", {
           \ "autoload": {
           \     "filetypes":
-          \         ["pandoc", "markdown", "rst", "textile"],
+          \         ["pandoc", "markdown", "textile"],
           \ }}
     let s:hooks = neobundle#get_hooks("vim-pandoc")
     function! s:hooks.on_source(bundle)
@@ -496,7 +496,7 @@ else
           \ },
           \ "build": {
           \   "mac": "pip install shareboard",
-          \   "unix": "pip install shareboard",
+          \   "unix": "sudo pip install shareboard",
           \ }}
     function GetFileType(...)
         " filetype can be given through argument or guess by file extension
