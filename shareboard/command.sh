@@ -1,5 +1,6 @@
 #!/bin/bash
 CSS="$HOME/.vim/shareboard/css/combined.css"
+RST_CSS="$HOME/.vim/shareboard/rst_css/pygments-long.css"
 #BIB="$HOME/Documents/Mendeley/library.bib"
 TEXT=`cat /dev/stdin`
 
@@ -13,7 +14,14 @@ TEXT=`echo "$TEXT" | perl -pe 's/\&angstrom;/\&#8491;/g'`
 
 # convert with pandoc
 # TEXT=`echo "$TEXT" | pandoc -f $1 -sS --toc --webtex -c "$CSS" --bibliography="$BIB" 2>/dev/null`
-TEXT=`echo "$TEXT" | pandoc -f $* -sS --toc --highlight-style pygments -c "$CSS"`  # 2>/dev/null`
+
+# use docutils for rst
+
+if [ "$1" == "rst" ]; then
+    TEXT=`echo "$TEXT" | rst2html.py --math-output MathJax --stylesheet=$CSS,$RST_CSS`
+else
+    TEXT=`echo "$TEXT" | pandoc -f $* -sS --toc --highlight-style pygments -c "$CSS"`  # 2>/dev/null`
+fi
 
 echo "$TEXT"
 

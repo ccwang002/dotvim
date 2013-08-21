@@ -608,7 +608,7 @@ set backspace=eol,start,indent          " Configure backspace so it acts as it s
 
 set linebreak
 let &showbreak = '+++ '
-set breakat=\ \ ;:,!?
+set breakat=\ ;:,!?
 set cpoptions+=n
 
 set showmatch                       " Show matching brackets when text indicator is over them
