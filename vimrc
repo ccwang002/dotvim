@@ -543,7 +543,7 @@ else
     let s:hooks = neobundle#get_hooks("shareboard.vim")
     function! s:hooks.on_source(bundle)
         let g:shareboard_use_default_mapping = 0
-        if s:is_linux
+        if s:is_linux || s:is_darwin
             let g:shareboard_host = "0.0.0.0"
         endif
     endfunction
