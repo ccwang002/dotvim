@@ -354,8 +354,8 @@ else
 
     else
         echo "Error: Cannot Load NeoComplete"
-        echo "NeoComplete requires Lua support and VIM > 7.3.885"
-        echo 'To enable Neocomplete, recompile Vim with "lua" support'
+        echo "NeoComplete requires Lua support and Vim > 7.3.885"
+        echo 'To enable Neocomplete, upgrade and compile Vim with "lua" support'
     endif
 
     NeoBundleLazy "Shougo/neosnippet.vim", {
