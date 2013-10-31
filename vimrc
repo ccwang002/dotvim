@@ -425,6 +425,12 @@ else
         "W293 blank line contains whitespace
         "W391 blank line at end of file
 
+    " Setting for C++ Linter
+    let g:syntastic_cpp_include_dirs = [
+                \ '/usr/local/Cellar/r/3.0.1/R.framework/Headers',
+                \ '/usr/local/Cellar/r/3.0.1/R.framework/Resources/library/Rcpp/include',
+                \ ]
+
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
@@ -691,6 +697,9 @@ autocmd FileType python,python3 setlocal tw=80
 
 " Pandoc (markdown, ...)
 autocmd FileType pandoc,markdown setlocal conceallevel=0
+
+" C
+autocmd FileType c setlocal conceallevel=0 noexpandtab
 
 """"""""""""""""
 " GUI settings "
