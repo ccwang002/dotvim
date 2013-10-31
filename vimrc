@@ -390,6 +390,9 @@ else
         let g:neosnippet#snippets_directory=s:bundle_root . '/vim-snippets/snippets'
     endfunction
 
+    NeoBundle "mattn/emmet-vim", { 'autoload': {
+        \ "filetypes": ['html', 'htmldjango']}}
+
     NeoBundle "terryma/vim-multiple-cursors"
 
     NeoBundleLazy "sjl/gundo.vim", {
@@ -419,6 +422,8 @@ else
         \     "mac": "pip-3.3 install flake8 && npm -g install coffeelint",
         \     "unix": "sudo pip-3.3 install flake8 && sudo npm -g install coffeelint",
         \ }}
+    
+    " Setting for Python Linter
     let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291 --max-complexity 12"
         "W302,W291 trailing whitespace
         "E302 expected 2 blank lines
@@ -463,23 +468,23 @@ else
         \ "autoload": {
         \     "filetypes": ["python", "python3", "djangohtml"]
         \ }}
-    NeoBundleLazy "davidhalter/jedi-vim", {
-        \ "autoload": {
-        \     "filetypes": ["python", "python3", "djangohtml"],
-        \     "build": {
-        \         "mac": "pip install jedi",
-        \         "unix": "pip install jedi",
-        \     }
-        \ }}
-    let s:hooks = neobundle#get_hooks("jedi-vim")
-    function! s:hooks.on_source(bundle)
-        let g:jedi#auto_vim_configuration = 0
-        let g:jedi#popup_select_first = 0
-        let g:jedi#show_function_definition = 1
-        let g:jedi#rename_command = '<Leader>r'
-        let g:jedi#goto_command = '<Leader>g'
-        let g:jedi#autocompletion_command = "<C-d>"
-    endfunction
+    "NeoBundleLazy "davidhalter/jedi-vim", {
+    "    \ "autoload": {
+    "    \     "filetypes": ["python", "python3", "djangohtml"],
+    "    \     "build": {
+    "    \         "mac": "pip install jedi",
+    "    \         "unix": "pip install jedi",
+    "    \     }
+    "    \ }}
+    "let s:hooks = neobundle#get_hooks("jedi-vim")
+    "function! s:hooks.on_source(bundle)
+    "    let g:jedi#auto_vim_configuration = 0
+    "    let g:jedi#popup_select_first = 0
+    "    let g:jedi#show_function_definition = 1
+    "    let g:jedi#rename_command = '<Leader>r'
+    "    let g:jedi#goto_command = '<Leader>g'
+    "    let g:jedi#autocompletion_command = "<C-d>"
+    "endfunction
 
     """"""""""
     " Pandoc "
