@@ -6,6 +6,11 @@
 " disable vi compatible features
 set nocompatible
 
+" using bash shell (considering fish is not POSIX-compatible)
+if &shell =~# 'fish$'
+    set shell=/bin/bash
+endif
+
 " skip initialization for vim-tiny or vim-small
 if !1 | finish | endif
 
