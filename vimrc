@@ -236,6 +236,8 @@ else
                 \      "commands": ["NERDTreeToggle"],
                 \ }}
     nnoremap <c-b> :NERDTreeToggle<cr>
+    " change NERDTree to folder of current file
+    nnoremap <Leader>cd :NERDTree %:p:h<cr>
     let s:hooks = neobundle#get_hooks("nerdtree")
     function! s:hooks.on_post_source(bundle)
         let g:NERDTreeDirArrows=1
@@ -705,6 +707,9 @@ autocmd FileType pandoc,markdown setlocal conceallevel=0
 
 " C
 autocmd FileType c setlocal conceallevel=0 noexpandtab
+
+" TeX
+autocmd FileType tex setlocal conceallevel=0
 
 """"""""""""""""
 " GUI settings "
