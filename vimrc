@@ -207,6 +207,7 @@ else
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
     nnoremap <silent> [unite]k :<C-u>Unite mapping<CR>
     nnoremap <silent> [unite]h :<C-u>Unite history/yank<CR>
+    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
         " start unite in insert mode
