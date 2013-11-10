@@ -214,8 +214,8 @@ else
         let g:unite_enable_start_insert = 1
 
         " To track long mru history.
-	    let g:unite_source_file_mru_long_limit = 3000
-	    let g:unite_source_directory_mru_long_limit = 3000
+        let g:unite_source_file_mru_long_limit = 3000
+        let g:unite_source_directory_mru_long_limit = 3000
 
         " Time to update MRU list (now for evey 1 minute)
         let g:unite_source_mrc_update_interval = 60
@@ -435,7 +435,7 @@ else
         \     "mac": "pip-3.3 install flake8 && npm -g install coffeelint",
         \     "unix": "sudo pip-3.3 install flake8 && sudo npm -g install coffeelint",
         \ }}
-    
+
     " Setting for Python Linter
     let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291 --max-complexity 12"
         "W302,W291 trailing whitespace
