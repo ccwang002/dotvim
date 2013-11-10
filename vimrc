@@ -517,7 +517,7 @@ else
     function! s:hooks.on_source(bundle)
         " let g:pandoc_no_spans = 1
         let g:pandoc_no_empty_implicits = 1
-        let g:pandoc_no_folding = 1
+        " let g:pandoc_no_folding = 1
     endfunction
 
     NeoBundleLazy "lambdalisue/shareboard.vim", {
@@ -655,7 +655,7 @@ set tm=500
 set t_Co=256
 colorscheme wombat256mod
 
-set nofoldenable                " No folding
+" set nofoldenable                " No folding
 
 set nolist
 set listchars=tab:»\ ,trail:␣
