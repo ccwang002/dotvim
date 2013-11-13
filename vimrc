@@ -652,7 +652,7 @@ set matchtime=2                     " How many tenths of a second to blink when 
 
 " No annoying sound on errors
 set noerrorbells
-set novisualbell
+set visualbell
 set t_vb=
 set tm=500
 
