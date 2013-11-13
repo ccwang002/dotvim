@@ -738,14 +738,11 @@ function! GetHTMLFold(lnum)
     let n = a:lnum
     if getline(n) =~? '\v\<section'
         return '1'
-    endif
-    if getline(n) =~? '\v\<style'
+    elseif getline(n) =~? '\v\<style'
         return 'a1'
-    endif
-    if getline(n-1) =~? '\v(\<\/style\>\<\/section\>)|(\<\/section\>)'
+    elseif getline(n-1) =~? '\v(\<\/style\>\<\/section\>)|(\<\/section\>)'
         return '0'
-    endif
-    if getline(n) =~? '\v\<\/style\>'
+    elseif getline(n) =~? '\v\<\/style\>'
         return 's1'
     endif
     return '='
