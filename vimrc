@@ -521,6 +521,11 @@ else
     endfunction
 
 
+    NeoBundleLazy "Rykka/riv.vim", {
+                \ "autoload": {
+                \   "filetypes":
+                \       ["pandoc", "markdown", "rst"],
+                \ }}
 
     """"""""""""""
     " Shareboard "
