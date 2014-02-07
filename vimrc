@@ -108,6 +108,10 @@ nnoremap <c-s> :syntax sync fromstart<cr>
 " show hidden symbols
 nnoremap <leader>. :set invlist<CR>
 
+" trim trailing white spaces
+nnoremap <leader>dw :call DeleteTrailingWS()<CR>
+
+
 """""""""""
 " Plugins "
 """""""""""
