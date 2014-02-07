@@ -767,13 +767,26 @@ autocmd FileType html setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum)
 " GUI settings "
 """"""""""""""""
 
+" Transparency in MacVim
+function! ToggleGuiTransp()
+    if &transparency > 0
+        let g:current_gui_transp = &transparency
+        set transparency=0
+    else
+        let &transparency=g:current_gui_transp
+    endif
+endfunction
+
 if has('gui_running')
 
     """"""""
     " Font "
     """"""""
     if has("mac") || has("macunix")
-        set gfn=Inconsolata\ for\ Powerline:h18
+        set gfn=Inconsolata:h18
+        let g:current_gui_transp=20
+        call ToggleGuiTransp()
+        nmap <D-u> :call ToggleGuiTransp()<CR>
     elseif has("win16") || has("win32")
         set gfn=Consolas:h18
     elseif has("linux")
