@@ -221,8 +221,8 @@ else
         let g:unite_source_file_mru_long_limit = 3000
         let g:unite_source_directory_mru_long_limit = 3000
 
-        " Time to update MRU list (now for evey 1 minute)
-        let g:unite_source_mrc_update_interval = 60
+        " Time to update MRU list (now for evey half minute)
+        let g:unite_source_mrc_update_interval = 30
 
         " Enable yank history
         let g:unite_source_history_yank_enable = 1
