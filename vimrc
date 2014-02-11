@@ -306,7 +306,8 @@ else
     """""""""""""""""""
     " Editing Support "
     """""""""""""""""""
-    NeoBundle 'vim-scripts/Align'
+    NeoBundleLazy 'vim-scripts/Align', {
+        \ 'autoload': {'commands': ['Align', 'AlignCtrl']}}
 
     "NeoBundle 'vim-scripts/YankRing.vim'
     "let yankring_history_file = ".yankring_history"
