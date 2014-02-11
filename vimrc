@@ -488,10 +488,6 @@ else
         \ "autoload": {
         \     "filetypes": ["python", "python3", "djangohtml"]
         \ }}
-    NeoBundleLazy "jmcantrell/vim-virtualenv", {
-        \ "autoload": {
-        \     "filetypes": ["python", "python3", "djangohtml"]
-        \ }}
     "NeoBundleLazy "davidhalter/jedi-vim", {
     "    \ "autoload": {
     "    \     "filetypes": ["python", "python3", "djangohtml"],
