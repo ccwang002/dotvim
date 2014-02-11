@@ -512,24 +512,18 @@ else
     """"""""""
     " Pandoc "
     """"""""""
-    NeoBundleLazy "vim-pandoc/vim-pandoc", {
-          \ "autoload": {
-          \     "filetypes":
-          \         ["pandoc", "markdown", "textile"],
-          \ }}
-    let s:hooks = neobundle#get_hooks("vim-pandoc")
-    function! s:hooks.on_source(bundle)
-        " let g:pandoc_no_spans = 1
-        let g:pandoc_no_empty_implicits = 1
-        let g:pandoc_no_folding = 1
-    endfunction
+    "NeoBundleLazy "vim-pandoc/vim-pandoc", {
+    "      \ "autoload": {
+    "      \     "filetypes":
+    "      \         ["pandoc", "markdown", "textile"],
+    "      \ }}
+    "let s:hooks = neobundle#get_hooks("vim-pandoc")
+    "function! s:hooks.on_source(bundle)
+    "    " let g:pandoc_no_spans = 1
+    "    let g:pandoc_no_empty_implicits = 1
+    "    let g:pandoc_no_folding = 1
+    "endfunction
 
-
-    "NeoBundleLazy "Rykka/riv.vim", {
-    "            \ "autoload": {
-    "            \   "filetypes":
-    "            \       ["pandoc", "markdown", "rst"],
-    "            \ }"}
 
     """"""""""""""
     " Shareboard "
