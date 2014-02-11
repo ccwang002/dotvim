@@ -578,6 +578,8 @@ else
         nnoremap <buffer><silent> [shareboard]s :call SbFtStatic()<CR>
     endfunction
     autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
+
+    " hooks for shareboard.vim
     let s:hooks = neobundle#get_hooks("shareboard.vim")
     function! s:hooks.on_source(bundle)
         let g:shareboard_use_default_mapping = 0
