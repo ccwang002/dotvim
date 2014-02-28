@@ -204,10 +204,11 @@ else
         \     "unite_sources": ["outline"],
         \ }}
 
+    NeoBundle 'Shougo/neomru.vim'
     nnoremap [unite] <Nop>
     nmap U [unite]
     nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
-    nnoremap <silent> [unite]m :<C-u>Unite file_mru directory_mru<CR>
+    nnoremap <silent> [unite]m :<C-u>Unite neomru/file neomru/directory<CR>
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
     nnoremap <silent> [unite]k :<C-u>Unite mapping<CR>
     nnoremap <silent> [unite]h :<C-u>Unite history/yank<CR>
@@ -218,11 +219,11 @@ else
         let g:unite_enable_start_insert = 1
 
         " To track long mru history.
-        let g:unite_source_file_mru_long_limit = 3000
-        let g:unite_source_directory_mru_long_limit = 3000
+        let g:neomru#file_mru_limit = 3000
+        let g:neomru#directory_mru_limit = 3000
 
         " Time to update MRU list (now for evey half minute)
-        let g:unite_source_mrc_update_interval = 30
+        let g:neomru#update_interval = 30
 
         " Enable yank history
         let g:unite_source_history_yank_enable = 1
