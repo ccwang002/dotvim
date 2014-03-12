@@ -461,6 +461,11 @@ else
                 \ "trimming empty <div>",
                 \ ]
 
+    " Setting for rst Linter
+    let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
+                \ "regex": 'Unknown directive type "\(seealso\|todo\)"',
+                \ }
+
     set statusline+=%#warningmsg#
     set statusline+=%{SyntasticStatuslineFlag()}
     set statusline+=%*
