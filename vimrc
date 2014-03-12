@@ -451,8 +451,8 @@ else
 
     " Setting for C++ Linter
     let g:syntastic_cpp_include_dirs = [
-                \ '/usr/local/Cellar/r/3.0.1/R.framework/Headers',
-                \ '/usr/local/Cellar/r/3.0.1/R.framework/Resources/library/Rcpp/include',
+                \ '/usr/local/Cellar/r/3.0.2/R.framework/Headers',
+                \ '/usr/local/Cellar/r/3.0.2/R.framework/Resources/library/Rcpp/include',
                 \ ]
 
     " Setting for HTML(5) Linter
