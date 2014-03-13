@@ -462,8 +462,9 @@ else
                 \ ]
 
     " Setting for rst Linter
+    let s:rst_accepted_dir_type = '\(seealso\|todo\|toctree\)'
     let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
-                \ "regex": 'Unknown directive type "\(seealso\|todo\)"',
+                \ "regex": 'Unknown directive type "' . s:rst_accepted_dir_type . '"',
                 \ }
 
     set statusline+=%#warningmsg#
