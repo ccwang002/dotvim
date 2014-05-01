@@ -459,6 +459,7 @@ else
     let g:syntastic_html_tidy_ignore_errors = [
                 \ "<style> isn't allowed in <section>",
                 \ "trimming empty <div>",
+                \ "trimming empty <span>",
                 \ ]
 
     " Setting for rst Linter
@@ -761,7 +762,7 @@ function! GetHTMLFold(lnum)
     return '='
 endfunction
 
-autocmd FileType html setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum)
+autocmd FileType html setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum) ts=2 sw=2
 
 """"""""""""""""
 " GUI settings "
