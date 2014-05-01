@@ -762,7 +762,7 @@ function! GetHTMLFold(lnum)
     return '='
 endfunction
 
-autocmd FileType html setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum) ts=2 sw=2
+autocmd FileType html,htmldjango setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum) ts=2 sw=2
 
 """"""""""""""""
 " GUI settings "
