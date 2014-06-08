@@ -456,10 +456,19 @@ else
                 \ ]
 
     " Setting for HTML(5) Linter
+    " Use tidy-html5
+    let g:syntastic_html_tidy_exec='/usr/local/bin/tidy'
     let g:syntastic_html_tidy_ignore_errors = [
                 \ "<style> isn't allowed in <section>",
                 \ "trimming empty <div>",
                 \ "trimming empty <span>",
+                \ ]
+
+    let g:syntastic_html_tidy_blocklevel_tags = [
+                \ "svg",
+                \ ]
+    let g:syntastic_html_tidy_inline_tags = [
+                \ "rect",
                 \ ]
 
     " Setting for rst Linter
