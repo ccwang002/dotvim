@@ -681,6 +681,7 @@ set tm=500
 
 " color theme
 set t_Co=256
+set t_ut=
 colorscheme wombat256mod
 
 " set nofoldenable                " No folding
