@@ -800,9 +800,8 @@ if has('gui_running')
         nmap <D-u> :call ToggleGuiTransp()<CR>
     elseif has("win16") || has("win32")
         set gfn=Consolas:h18
-    elseif has("linux")
-        set gfn=Consolas\ 18
-        set gfn=Inconsolata\ 18
+    elseif has("gui_gtk2")
+        set guifont=Inconsolata\ for\ Powerline\ 14
     endif
 
     """""""""""""
