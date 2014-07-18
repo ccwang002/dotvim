@@ -734,7 +734,9 @@ autocmd MyAutoCmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
 
 " system clipboard integration
 if s:is_darwin
-    set clipboard=unnamed
+    if $TMUX == ''
+        set clipboard=unnamed
+    endif
 elseif s:is_linux
     set clipboard=unnamedplus
 endif
