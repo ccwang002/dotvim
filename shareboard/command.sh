@@ -18,7 +18,11 @@ TEXT=`echo "$TEXT" | perl -pe 's/\&angstrom;/\&#8491;/g'`
 # use docutils for rst
 
 if [ "$1" == "rst" ]; then
-    TEXT=`echo "$TEXT" | rst2html.py --math-output MathJax --stylesheet=$CSS,$RST_CSS`
+    if [ -f /etc/debian_version ]; then
+        TEXT=`echo "$TEXT" | rst2html --math-output MathJax --stylesheet=$CSS,$RST_CSS`
+    else
+        TEXT=`echo "$TEXT" | rst2html.py --math-output MathJax --stylesheet=$CSS,$RST_CSS`
+    fi
 else
     TEXT=`echo "$TEXT" | pandoc -f $* -sS --toc --highlight-style pygments -c "$CSS"`  # 2>/dev/null`
 fi
