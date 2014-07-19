@@ -823,7 +823,7 @@ if has('gui_running')
     """"""""
     " Font "
     """"""""
-    if has("mac") || has("macunix")
+    if s:is_darwin
         set gfn=Inconsolata:h18
         let g:current_gui_transp=20
         call ToggleGuiTransp()
