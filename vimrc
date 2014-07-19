@@ -315,6 +315,24 @@ else
     "let g:yankring_replace_n_pkey = '<Leader>p'
     "let g:yankring_replace_n_nkey = '<Leader>n'
 
+    " clang_complete
+    NeoBundleLazy "Rip-Rip/clang_complete", {
+        \ "autoload": {
+        \   "filetypes": ['c', 'cpp'],
+        \   "insert": 1,
+        \ }}
+    let s:hooks = neobundle#get_hooks("clang_complete")
+    function! s:hooks.on_source(bundle)
+        let g:clang_complete_auto = 0
+        let g:clang_auto_select = 0
+        if s:is_linux
+            let g:clang_use_library = 1
+            let g:clang_library_path = "/usr/lib/llvm-3.4/lib"
+        elseif s:is_darwin
+            let g:clang_use_library = 1
+        endif
+    endfunction
+
     " NeoComplete
     if has('lua') && v:version > 703 || (v:version == 703 && has('patch885'))
         NeoBundleLazy "Shougo/neocomplete.vim", {
@@ -360,6 +378,20 @@ else
             " toggle autocomplete mode
             inoremap <C-g> <C-O>:NeoCompleteToggle<CR>
             nnoremap <C-g> :NeoCompleteToggle<CR>
+
+            " Settings with clang_complete
+            if !exists('g:neocomplete#force_omni_input_patterns')
+              let g:neocomplete#force_omni_input_patterns = {}
+            endif
+            let g:neocomplete#force_overwrite_completefunc = 1
+            let g:neocomplete#force_omni_input_patterns.c =
+                  \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+            let g:neocomplete#force_omni_input_patterns.cpp =
+                  \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+            let g:neocomplete#force_omni_input_patterns.objc =
+                  \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+            let g:neocomplete#force_omni_input_patterns.objcpp =
+                  \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
 
         endfunction
         function! s:hooks.on_post_source(bundle)
