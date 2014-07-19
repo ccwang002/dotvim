@@ -767,8 +767,14 @@ endif
 " Language Specific Setting "
 """""""""""""""""""""""""""""
 
+" Enable omni completion
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTag
+
 " Python
-autocmd FileType python,python3 setlocal tw=80
+autocmd FileType python,python3
+    \ setlocal tw=80 omnifunc=pythoncomplete#Complete completeopt-=preview
 
 " Pandoc (markdown, ...)
 autocmd FileType pandoc,markdown setlocal conceallevel=0
@@ -794,7 +800,9 @@ function! GetHTMLFold(lnum)
     return '='
 endfunction
 
-autocmd FileType html,htmldjango setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum) ts=2 sw=2
+autocmd FileType html,htmldjango
+    \ setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum) ts=2 sw=2
+    \ omnifunc=htmlcomplete#CompleteTags
 
 """"""""""""""""
 " GUI settings "
