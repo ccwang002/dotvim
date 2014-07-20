@@ -330,6 +330,7 @@ else
             let g:clang_library_path = "/usr/lib/llvm-3.4/lib"
         elseif s:is_darwin
             let g:clang_use_library = 1
+            let g:clang_library_path = "/Library/Developer/CommandLineTools/usr/lib"
         endif
     endfunction
 
