@@ -464,10 +464,10 @@ else
     let s:rst_accepted_dir_type = '\(seealso\|todo\|toctree\|auto.*\)'
     let s:rst_accepted_text_role = '\(ref\)'
     let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
-                \ "regex": 
-                \ '\(' . 
+                \ "regex":
+                \ '\(' .
                 \ 'Unknown directive type "' . s:rst_accepted_dir_type . '"\|' .
-                \ 'Unknown interpreted text role "' . s:rst_accepted_text_role . '"' . 
+                \ 'Unknown interpreted text role "' . s:rst_accepted_text_role . '"' .
                 \ '\)',
                 \ }
 
