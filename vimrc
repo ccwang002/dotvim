@@ -461,8 +461,13 @@ else
                 \ ]
 
     " Setting for rst Linter
-    let s:rst_accepted_dir_type = '\(seealso\|todo\|toctree\|auto.*\)'
-    let s:rst_accepted_text_role = '\(ref\)'
+    let s:rst_accepted_dir_type =
+                \ '\(' .
+                \ 'seealso\|todo\|toctree\|' .
+                \ 'literalinclude\|' .
+                \ 'auto.*' .
+                \ '\)'
+    let s:rst_accepted_text_role = '\(ref\|command\|file\)'
     let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
                 \ "regex":
                 \ '\(' .
