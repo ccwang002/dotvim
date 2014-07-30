@@ -74,7 +74,13 @@ nmap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 nmap <silent> <Leader><cr> :noh<cr>
 
 " Remap VIM 0 to first non-blank character
-map 0 ^
+" map 0 ^
+
+" Makke easier movement between display lines
+nnoremap j      gj
+nnoremap <Down> g<Down>
+nnoremap k      gk
+nnoremap <Up>   g<Up>
 
 " Select till a end of a line
 vnoremap v $h
