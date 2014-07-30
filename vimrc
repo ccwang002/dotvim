@@ -73,11 +73,6 @@ let g:mapleader = ','
 nmap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
 nmap <silent> <Leader><cr> :noh<cr>
 
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :call VisualSelection('f', '')<CR>
-vnoremap <silent> # :call VisualSelection('b', '')<CR>
-
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
