@@ -468,7 +468,7 @@ else
                 \ 'literalinclude\|' .
                 \ 'auto.*' .
                 \ '\)'
-    let s:rst_accepted_text_role = '\(ref\|command\|file\)'
+    let s:rst_accepted_text_role = '\(ref\|command\|file\|py:[a-z]*\)'
     let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
                 \ "regex":
                 \ '\(' .
