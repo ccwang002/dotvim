@@ -469,11 +469,13 @@ else
                 \ 'auto.*' .
                 \ '\)'
     let s:rst_accepted_text_role = '\(ref\|command\|file\|py:[a-z]*\)'
+    let s:rst_def_substitution = '\(version\|today\)'
     let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
                 \ "regex":
                 \ '\(' .
                 \ 'Unknown directive type "' . s:rst_accepted_dir_type . '"\|' .
-                \ 'Unknown interpreted text role "' . s:rst_accepted_text_role . '"' .
+                \ 'Unknown interpreted text role "' . s:rst_accepted_text_role . '"\|' .
+                \ 'Undefined substitution referenced: "' . s:rst_def_substitution . '"' .
                 \ '\)',
                 \ }
 
