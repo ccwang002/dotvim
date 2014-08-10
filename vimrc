@@ -250,6 +250,7 @@ else
     NeoBundleLazy 'scrooloose/nerdtree', {
                 \ 'autoload' : {
                 \      "commands": ["NERDTreeToggle"],
+                \ 'augroup' : 'NERDTreeHijackNetrw'
                 \ }}
     nnoremap <c-b> :NERDTreeToggle<cr>
     " change NERDTree to folder of current file
@@ -266,7 +267,7 @@ else
     autocmd MyAutoCmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
     " vim-fugitive use `autocmd` a lost so cannot be loaded with Lazy
-    NeoBundle "tpope/vim-fugitive"
+    NeoBundle "tpope/vim-fugitive", { 'augroup' : 'fugitive'}
 
     """""""""""""""""""
     " Editing Support "
@@ -581,6 +582,7 @@ else
     """"""""""""""""""""
     " End of NeoBundle "
     """"""""""""""""""""
+    call neobundle#end()
     " ALL bundles should be inserted BEFORE this line
     NeoBundleCheck " check and install missing bundles
     unlet s:hooks
