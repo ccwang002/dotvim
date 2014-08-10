@@ -151,7 +151,11 @@ else
 
     NeoBundleLazy "ap/vim-css-color", {
         \ "autoload": {
-        \   "filetypes": ["html", "css", "less", "sass", "javascript", "coffee", "coffeescript", "djantohtml"],
+        \   "filetypes": [
+        \       "html", "css",
+        \       "stylus", "less", "sass",
+        \       "javascript", "coffee", "coffeescript",
+        \       "djantohtml"],
         \ }}
 
     """"""""""""""""""""""""""
