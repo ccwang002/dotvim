@@ -4,7 +4,6 @@ if exists('did_load_filetypes')
 endif
 
 augroup filetypedetect
-  autocmd!
   " Markdown
   autocmd! BufNewFile,BufRead *.md setfiletype markdown
   autocmd! BufNewFile,BufRead *.mkd setfiletype markdown
@@ -21,6 +20,5 @@ augroup filetypedetect
   " SASS/SCSS
   autocmd! BufNewFile,BufRead *.sass setfiletype sass
   autocmd! BufNewFile,BufRead *.scss setfiletype scss
-  " Python
-  " utocmd! BufNewFile,BufRead SConstruct setfiletype python
+  autocmd! BufNewFile,BufRead *.styl setfiletype stylus
 augroup END

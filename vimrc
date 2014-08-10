@@ -177,6 +177,10 @@ else
     NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {
         \ 'filetypes': 'sass' }}
 
+    " syntax for Stylus
+    NeoBundleLazy 'wavded/vim-stylus', {'autoload': {
+        \ 'filetypes': 'stylus' }}
+
     NeoBundleLazy 'hynek/vim-python-pep8-indent', {'autoload': {
         \ "filetypes": ["python", "python3", "djangohtml"],
         \ }}
