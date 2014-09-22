@@ -6,11 +6,6 @@
 " disable vi compatible features
 set nocompatible
 
-" using bash shell (considering fish is not POSIX-compatible)
-if &shell =~# 'fish$'
-    set shell=/bin/bash
-endif
-
 " skip initialization for vim-tiny or vim-small
 if !1 | finish | endif
 
@@ -19,7 +14,18 @@ let s:is_cygwin = has('win32unix')
 let s:is_darwin = has('mac') || has('macunix') || has('gui_macvim')
 let s:is_linux = !s:is_windows && !s:is_cygwin && !s:is_darwin
 
-let s:config_root = expand('~/.vim')
+if !s:is_windows
+    " using bash shell (considering fish is not POSIX-compatible)
+    if &shell =~# 'fish$'
+        set shell=/bin/bash
+    endif
+endif
+
+if s:is_windows
+    let s:config_root = expand('~/vimfiles')
+else
+    let s:config_root = expand('~/.vim')
+endif
 let s:bundle_root = s:config_root . '/bundle'
 
 " release autogroup in MyAutoCmd
@@ -628,6 +634,13 @@ cnoremap <expr> ?
       \ getcmdtype() == '?' ? '\?' : '?'
 
 
+""""""""""""
+" Encoding "
+""""""""""""
+
+set encoding=utf8               " Set utf8 as standard encoding and en_US as the standard language
+set ffs=unix,dos,mac            " Use Unix as the standard file type
+
 
 """"""""""""""""""
 " User Interface "
@@ -673,13 +686,6 @@ set nolist
 set listchars=tab:»\ ,trail:␣
 
 set display=lastline    " always show part of the long line
-
-""""""""""""
-" Encoding "
-""""""""""""
-
-set encoding=utf8               " Set utf8 as standard encoding and en_US as the standard language
-set ffs=unix,dos,mac            " Use Unix as the standard file type
 
 
 
@@ -791,8 +797,8 @@ if has('gui_running')
         let g:current_gui_transp=20
         call ToggleGuiTransp()
         nmap <D-u> :call ToggleGuiTransp()<CR>
-    elseif has("win16") || has("win32")
-        set gfn=Consolas:h18
+    elseif s:is_windows
+        set gfn=Inconsolata\ for\ Powerline:h18
     elseif has("gui_gtk2")
         set guifont=Inconsolata\ for\ Powerline\ 14
     endif
