@@ -728,6 +728,8 @@ if s:is_darwin
     endif
 elseif s:is_linux
     set clipboard=unnamedplus
+elseif s:is_windows
+    set clipboard=unnamed
 endif
 
 
@@ -798,7 +800,12 @@ if has('gui_running')
         call ToggleGuiTransp()
         nmap <D-u> :call ToggleGuiTransp()<CR>
     elseif s:is_windows
-        set gfn=Inconsolata\ for\ Powerline:h16
+        set guifont=Inconsolata_for_Powerline:h16
+        set guifontwide=MS_Gothic:h16
+        if has('kaoriya')
+            set ambiwidth=auto
+        endif
+        set guioptions+=a
     elseif has("gui_gtk2")
         set guifont=Inconsolata\ for\ Powerline\ 14
     endif
