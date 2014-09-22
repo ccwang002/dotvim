@@ -798,7 +798,7 @@ if has('gui_running')
         call ToggleGuiTransp()
         nmap <D-u> :call ToggleGuiTransp()<CR>
     elseif s:is_windows
-        set gfn=Inconsolata\ for\ Powerline:h18
+        set gfn=Inconsolata\ for\ Powerline:h16
     elseif has("gui_gtk2")
         set guifont=Inconsolata\ for\ Powerline\ 14
     endif
