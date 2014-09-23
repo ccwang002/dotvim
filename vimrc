@@ -683,7 +683,7 @@ colorscheme wombat256mod
 " set nofoldenable                " No folding
 
 set nolist
-set listchars=tab:»\ ,trail:␣
+set listchars=tab:»\ ,trail:·
 
 set display=lastline    " always show part of the long line
 
