@@ -549,21 +549,21 @@ else
     endfunction
     function SbFtPreview(...)
         let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        let g:shareboard_command = expand('~/.vim/shareboard/command.sh ' . ft_tmp . ' --mathjax')
+        let g:shareboard_command = s:config_root . '/shareboard/command.sh ' . ft_tmp . ' --mathjax'
         ShareboardPreview
     endfunction
     function SbFtCompile(...)
         let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --mathjax' . " > " . expand("%:r") . ".html &"
+        let cmd = "!cat % | " . s:config_root . "/shareboard/command.sh " . ft_tmp . ' --mathjax' . " > " . expand("%:r") . ".html &"
         silent! execute cmd
         redraw!
     endfunction
     function SbFtStatic(...)
         let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
         "copy css file
-        "let cp_cmd = "!cp ~/.vim/shareboard/css/combined.css " . expand("%:p:h")
+        "let cp_cmd = "!cp " . s:config_root . "/shareboard/css/combined.css " . expand("%:p:h")
         "silent! execute cp_cmd
-        let cmd = "!cat % | ~/.vim/shareboard/command.sh " . ft_tmp . ' --self-contained --webtex' . " > " . expand("%:r") . ".static.html"
+        let cmd = "!cat % | " . s:config_root . "/shareboard/command.sh " . ft_tmp . ' --self-contained --webtex' . " > " . expand("%:r") . ".static.html"
         silent! execute cmd
         redraw!
     endfunction
