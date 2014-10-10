@@ -3,9 +3,6 @@
 "  * http://lambdalisue.hatenablog.com/entry/2013/06/23/071344
 "  * https://github.com/amix/vimrc
 
-" disable vi compatible features
-set nocompatible
-
 " skip initialization for vim-tiny or vim-small
 if !1 | finish | endif
 
@@ -130,8 +127,10 @@ if !isdirectory(s:neobundle_root) || v:version < 702
 else
     if has('vim_starting')
         execute "set runtimepath+=" . s:neobundle_root
+        " disable vi compatible features
+        set nocompatible
     endif
-    call neobundle#rc(s:bundle_root)
+    call neobundle#begin(s:bundle_root)
 
     " let NeoBundle manage NeoBundle
     NeoBundleFetch 'Shougo/neobundle.vim'
