@@ -436,8 +436,8 @@ else
 
     NeoBundle "scrooloose/syntastic", {
         \ "build": {
-        \     "mac": "pip-3.3 install flake8 && npm -g install coffeelint",
-        \     "unix": "sudo pip-3.3 install flake8 && sudo npm -g install coffeelint",
+        \     "mac": "pip3 install flake8 && npm -g install coffeelint",
+        \     "unix": "sudo pip3 install flake8 && sudo npm -g install coffeelint",
         \ }}
 
     " Setting for Python Linter
@@ -517,10 +517,10 @@ else
     """"""""""
     " Python "
     """"""""""
-    NeoBundleLazy "lambdalisue/vim-django-support", {
-                \ "autoload": {
-                \     "filetypes": ["python", "python3", "djangohtml"]
-                \ }}
+    " NeoBundleLazy "lambdalisue/vim-django-support", {
+    "             \ "autoload": {
+    "             \     "filetypes": ["python", "python3", "djangohtml"]
+    "             \ }}
 
     """"""""""""""
     " Shareboard "
