@@ -581,6 +581,9 @@ else
         let g:shareboard_use_default_mapping = 0
         if s:is_linux || s:is_darwin
             let g:shareboard_host = "0.0.0.0"
+        elseif s:is_windows
+            let g:shareboard_python_path = "C:\\Python34\\pythonw.exe"
+            let g:shareboard_path = "C:\\Python34\\Scripts\\shareboard-script.py"
         endif
     endfunction
 
