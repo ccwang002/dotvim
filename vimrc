@@ -407,7 +407,7 @@ else
     let s:hooks = neobundle#get_hooks("emmet-vim")
     function! s:hooks.on_source(bundle)
         " Plugin key-mappings.
-        let g:user_emmet_expandabbr_key = '<c-e>'
+        "let g:user_emmet_expandabbr_key = '<c-e>'
     endfunction
 
     NeoBundle "terryma/vim-multiple-cursors"
