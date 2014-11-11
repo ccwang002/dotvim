@@ -197,17 +197,6 @@ else
     """""""""""""""""""
     " File Management "
     """""""""""""""""""
-    NeoBundle "thinca/vim-template"
-    autocmd MyAutoCmd User plugin-template-loaded call s:template_keywords()
-    function! s:template_keywords()
-        silent! %s/<+DATE+>/\=strftime('%Y-%m-%d')/g
-        silent! %s/<+FILENAME+>/\=expand('%:r')/g
-    endfunction
-    autocmd MyAutoCmd User plugin-template-loaded
-        \    if search('<+CURSOR+>')
-        \ |      silent! execute 'normal! "_da>'
-        \ |  endif
-
     NeoBundleLazy "Shougo/unite.vim", {
         \ "autoload": {
         \     "commands": ["Unite", "UniteWithBufferDir"]
@@ -358,12 +347,10 @@ else
                   \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
             let g:neocomplete#force_omni_input_patterns.objcpp =
                   \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-
         endfunction
         function! s:hooks.on_post_source(bundle)
             NeoCompleteEnable
         endfunction
-
     else
         echo "Error: Cannot Load NeoComplete"
         echo "NeoComplete requires Lua support and Vim > 7.3.885"
@@ -503,24 +490,13 @@ else
     let g:syntastic_mode_map={'mode': 'active',
                          \ 'passive_filetypes': ["tex"] }
 
-    " jQuery
-    NeoBundleLazy "jQuery", {'autoload': {
-                \ 'filetypes': ['coffee', 'coffeescript', 'javascript', 'html', 'djangohtml'] }}
-
-    " CoffeeScript
+   " CoffeeScript
     NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {
                 \ 'filetypes': ['coffee', 'coffeescript'] }}
     " HTML & CSS
     NeoBundleLazy 'mattn/zencoding-vim', {'autoload': {
         \ 'filetypes': ['html', 'djangohtml'] }}
 
-    """"""""""
-    " Python "
-    """"""""""
-    " NeoBundleLazy "lambdalisue/vim-django-support", {
-    "             \ "autoload": {
-    "             \     "filetypes": ["python", "python3", "djangohtml"]
-    "             \ }}
 
     """"""""""""""
     " Shareboard "
@@ -600,15 +576,12 @@ endif
 """"""""""""""""""
 " Tab and indent "
 """"""""""""""""""
-
 filetype plugin indent on
-
 
 set expandtab           " Use spaces instead of tabs
 set smarttab            " Be smart when using tabs ;)
 set shiftwidth=4        " 1 tab == 4 spaces
 set tabstop=4
-
 set autoindent          " Auto indent
 set smartindent         " Smart indent
 set copyindent
@@ -629,7 +602,6 @@ set hlsearch            " Highlight search results
 set incsearch           " Makes search act like search in modern browsers
 set lazyredraw          " Don't redraw while executing macros (good performance config)
 set magic               " For regular expressions turn magic on
-
 cnoremap <expr> /
       \ getcmdtype() == '/' ? '\/' : '/'
 cnoremap <expr> ?
@@ -639,7 +611,6 @@ cnoremap <expr> ?
 """"""""""""
 " Encoding "
 """"""""""""
-
 set encoding=utf8               " Set utf8 as standard encoding and en_US as the standard language
 set ffs=unix,dos,mac            " Use Unix as the standard file type
 
@@ -647,17 +618,13 @@ set ffs=unix,dos,mac            " Use Unix as the standard file type
 """"""""""""""""""
 " User Interface "
 """"""""""""""""""
-
 set ruler               " always show current position
 set number              " show line number
 syntax on               " highlight syntax
 set laststatus=2        " always display statusline
-
 set mouse=a             " use mouse for navigation
 " Newer xterm  knows the extended mouse mode, including tmux, screen
 set ttymouse=xterm2
-
-"set showcmd            " show command on statusline
 set scrolloff=4                         " minimum line above/below the cursor
 set whichwrap+=<,>,[,],b,s,~
 set backspace=eol,start,indent          " Configure backspace so it acts as it should act
@@ -665,7 +632,10 @@ set backspace=eol,start,indent          " Configure backspace so it acts as it s
 set linebreak
 let &showbreak = '+++ '
 set breakat=\ ;:,!?
-set cpoptions+=n
+set cpoptions+=n                " use linenumber column for wrapping
+set report=0                    " report for number of lines being changed everytime
+set wrap                        " turn up wrapping
+set textwidth=0                 " never add a newline for some number of chars
 
 set showmatch                       " Show matching brackets when text indicator is over them
 set matchpairs& matchpairs+=<:>     " add <>
@@ -682,19 +652,14 @@ set t_Co=256
 set t_ut=
 colorscheme wombat256mod
 
-" set nofoldenable                " No folding
-
 set nolist
 set listchars=tab:»\ ,trail:·
-
 set display=lastline    " always show part of the long line
-
 
 
 """""""""""""""
 " Vim Editing "
 """""""""""""""
-
 set hidden                      " hide buffer insted of closing to prevent Undo history
 set switchbuf=useopen           " use opend buffer insted of create new buffer
 
@@ -708,11 +673,6 @@ set noswapfile
 set wildmenu
 set wildmode=longest:full
 set wildoptions=tagfile
-
-set report=0                    " report for number of lines being changed everytime
-
-set wrap
-set textwidth=0                 " never add a newline for some number of chars
 
 " automatically create the directory if it does not exist
 function! s:mkdir(dir, force)
@@ -735,11 +695,9 @@ elseif s:is_windows
 endif
 
 
-
 """""""""""""""""""""""""""""
 " Language Specific Setting "
 """""""""""""""""""""""""""""
-
 " Enable omni completion
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
