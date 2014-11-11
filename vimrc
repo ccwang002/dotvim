@@ -266,6 +266,9 @@ else
     """""""""""""""""""
     " Editing Support "
     """""""""""""""""""
+    " For better wrapping
+    NeoBundle 'vim-jp/autofmt'
+
     NeoBundleLazy 'vim-scripts/Align', {
         \ 'autoload': {'commands': ['Align', 'AlignCtrl']}}
 
@@ -636,6 +639,8 @@ set cpoptions+=n                " use linenumber column for wrapping
 set report=0                    " report for number of lines being changed everytime
 set wrap                        " turn up wrapping
 set textwidth=0                 " never add a newline for some number of chars
+set formatoptions+=j            " make joining comments easier
+set formatexpr=autofmt#japanese#formatexpr()
 
 set showmatch                       " Show matching brackets when text indicator is over them
 set matchpairs& matchpairs+=<:>     " add <>
