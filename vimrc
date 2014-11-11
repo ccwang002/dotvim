@@ -765,7 +765,9 @@ if has('gui_running')
         if has('kaoriya')
             set ambiwidth=auto
         endif
-        set guioptions+=a
+        " Hide menu and toolbar
+        set guioptions-=m
+        set guioptions-=T
     elseif has("gui_gtk2")
         set guifont=Inconsolata\ for\ Powerline\ 14
     endif
