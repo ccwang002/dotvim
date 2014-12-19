@@ -774,7 +774,9 @@ if has('gui_running')
         set guioptions-=m
         set guioptions-=T
     elseif has("gui_gtk2")
-        set guifont=Inconsolata\ for\ Powerline\ 14
+        set guifont=Inconsolata\ for\ Powerline\ 16
+        set guioptions-=m
+        set guioptions-=T
     endif
 
     """""""""""""
