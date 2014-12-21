@@ -720,6 +720,17 @@ autocmd FileType c setlocal conceallevel=0 noexpandtab
 
 " TeX
 autocmd FileType tex setlocal conceallevel=0
+let g:tagbar_type_tex = {
+    \ 'ctagstype' : 'latex',
+    \ 'kinds'     : [
+        \ 's:sections',
+        \ 'g:graphics:0:0',
+        \ 'l:labels',
+        \ 'r:refs:1:0',
+        \ 'p:pagerefs:1:0'
+    \ ],
+    \ 'sort'      : 0,
+\ }
 
 " HTML
 function! GetHTMLFold(lnum)
