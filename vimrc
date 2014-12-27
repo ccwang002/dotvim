@@ -724,8 +724,9 @@ let g:tagbar_type_tex = {
     \ 'ctagstype' : 'latex',
     \ 'kinds'     : [
         \ 's:sections',
-        \ 'g:graphics:0:0',
-        \ 'l:labels',
+        \ 'e:needcheck + todo:0:0',
+        \ 'g:graphics:1:0',
+        \ 'l:labels:1:0',
         \ 'r:refs:1:0',
         \ 'p:pagerefs:1:0'
     \ ],
