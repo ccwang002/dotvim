@@ -51,3 +51,5 @@ backend
 frontend
 microarray
 Colorectal
+softmax
+heatmap
