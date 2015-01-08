@@ -1,31 +1,9 @@
-autoload
-unicode
-powerline
-Inconsolata
-guifont
-syntastic
-neocomplete
-autocomplete
 popup
-NeoComplete
-#eosnippet/!
-neosnippet/!
 cont'd
 untoggle
-ss
-https
-github.
-github
 vimrc
-sudo 
-sudo s
-sudo
-sudo 
 CoffeeScript
 ESC
-runtimepath+
-neobundle.
-vimfiler 
 filetype 
 adenocarcinoma
 Illumina
@@ -39,7 +17,6 @@ workflow
 NGS
 NGCloud
 API
-NGCloud
 convolutional
 histopathology
 MEMS
@@ -59,3 +36,4 @@ SVM
 CNNs
 ImageNet
 Heatmaps
+heatmaps
