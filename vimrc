@@ -445,10 +445,10 @@ else
     " Setting for C++ Linter
     let g:syntastic_cpp_compiler = 'clang++'
     if s:is_darwin
-        let g:syntastic_cpp_include_dirs = [
-                \ '/usr/local/Cellar/r/3.0.2/R.framework/Headers',
-                \ '/usr/local/Cellar/r/3.0.2/R.framework/Resources/library/Rcpp/include',
-                \ ]
+        " let g:syntastic_cpp_include_dirs = [
+        "        \ '/usr/local/Cellar/r/3.0.2/R.framework/Headers',
+        "        \ '/usr/local/Cellar/r/3.0.2/R.framework/Resources/library/Rcpp/include',
+        "        \ ]
     endif
 
     " Setting for HTML(5) Linter
