@@ -432,9 +432,10 @@ else
         \ }}
 
     " Setting for Python Linter
-    let g:syntastic_python_flake8_args="--ignore=E302,W293,W302,W391,W291 --max-complexity 12"
+    let g:syntastic_python_flake8_args="--ignore=E302,E402,W293,W302,W391,W291 --max-complexity 12"
         "W302,W291 trailing whitespace
         "E302 expected 2 blank lines
+        "E402 module level import not at top of file
         "W293 blank line contains whitespace
         "W391 blank line at end of file
 
