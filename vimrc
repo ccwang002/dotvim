@@ -217,6 +217,7 @@ else
     nnoremap <silent> [unite]h :<C-u>Unite history/yank<CR>
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
     nnoremap <silent> [unite]t :<C-u>Unite tab<CR>
+    nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
         " start unite in insert mode
@@ -231,6 +232,29 @@ else
 
         " Enable yank history
         let g:unite_source_history_yank_enable = 1
+
+        " Unite grep setting
+        let g:unite_source_grep_max_candidates = 200
+        if executable('ag')
+            " Use ag in unite grep source.
+            let g:unite_source_grep_command = 'ag'
+            let g:unite_source_grep_default_opts =
+                        \ '-i --line-numbers --nocolor --nogroup --hidden --ignore ' .
+                        \ '''.hg'' --ignore ''.svn'' --ignore ''.git'' --ignore ''.bzr'''
+            let g:unite_source_grep_recursive_opt = ''
+        elseif executable('pt')
+            " Use pt in unite grep source.
+            " https://github.com/monochromegane/the_platinum_searcher
+            let g:unite_source_grep_command = 'pt'
+            let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+            let g:unite_source_grep_recursive_opt = ''
+        elseif executable('ack-grep')
+            " Use ack in unite grep source.
+            let g:unite_source_grep_command = 'ack-grep'
+            let g:unite_source_grep_default_opts =
+                        \ '-i --no-heading --no-color -k -H'
+            let g:unite_source_grep_recursive_opt = ''
+        endif
 
         autocmd MyAutoCmd FileType unite call s:unite_settings()
         function! s:unite_settings()
