@@ -84,7 +84,8 @@ nnoremap j      gj
 nnoremap <Down> g<Down>
 nnoremap k      gk
 nnoremap <Up>   g<Up>
-
+" Restore the original function of ,
+nnoremap <leader>, ,
 " Select till a end of a line
 vnoremap v $h
 
