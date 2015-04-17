@@ -47,20 +47,11 @@ command -nargs=? W w <args>
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
+if s:is_windows
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 else
     set wildignore+=.git\*,.hg\*,.svn\*
 endif
-
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-    exe "normal mz"
-    %s/\s\+$//ge
-    exe "normal `z"
-endfunc
-autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWS()
-autocmd MyAutoCmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 
@@ -450,11 +441,7 @@ else
     let g:tagbar_compact=1
     let g:tagbar_sort=0
 
-    NeoBundle "scrooloose/syntastic", {
-        \ "build": {
-        \     "mac": "pip3 install flake8 && npm -g install coffeelint",
-        \     "unix": "sudo pip3 install flake8 && sudo npm -g install coffeelint",
-        \ }}
+    NeoBundle "scrooloose/syntastic"
 
     " Setting for Python Linter
     let g:syntastic_python_flake8_args="--ignore=E302,E402,W293,W302,W391,W291 --max-complexity 12"
@@ -469,12 +456,6 @@ else
 
     " Setting for C++ Linter
     let g:syntastic_cpp_compiler = 'clang++'
-    if s:is_darwin
-        " let g:syntastic_cpp_include_dirs = [
-        "        \ '/usr/local/Cellar/r/3.0.2/R.framework/Headers',
-        "        \ '/usr/local/Cellar/r/3.0.2/R.framework/Resources/library/Rcpp/include',
-        "        \ ]
-    endif
 
     " Setting for HTML(5) Linter
     " Use tidy-html5
@@ -531,63 +512,63 @@ else
     """"""""""""""
     " Shareboard "
     """"""""""""""
-    NeoBundleLazy "lambdalisue/shareboard.vim", {
-          \ "autoload": {
-          \   "commands": ["SbFtPreview", "SbFtCompile", "ShareboardPreview", "ShareboardCompile"],
-          \ }}
-    function GetFileType(...)
-        " filetype can be given through argument or guess by file extension
-        let ft_tmp = a:0? a:1 : expand("%:e")
-        " if no ft_tmp obtained, end with an error
-        if ft_tmp == ''
-            throw "No filetype found!"
-        elseif ft_tmp =~? 'md\|mkd\|markdown'   " uniform markdown file extension
-            let forced_ft = "markdown"
-        else
-            let forced_ft = ft_tmp
-        endif
-        return forced_ft
-    endfunction
-    function SbFtPreview(...)
-        let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        let g:shareboard_command = s:config_root . '/shareboard/command.sh ' . ft_tmp . ' --mathjax'
-        ShareboardPreview
-    endfunction
-    function SbFtCompile(...)
-        let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        let cmd = "!cat % | " . s:config_root . "/shareboard/command.sh " . ft_tmp . ' --mathjax' . " > " . expand("%:r") . ".html &"
-        silent! execute cmd
-        redraw!
-    endfunction
-    function SbFtStatic(...)
-        let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-        "copy css file
-        "let cp_cmd = "!cp " . s:config_root . "/shareboard/css/combined.css " . expand("%:p:h")
-        "silent! execute cp_cmd
-        let cmd = "!cat % | " . s:config_root . "/shareboard/command.sh " . ft_tmp . ' --self-contained --webtex' . " > " . expand("%:r") . ".static.html"
-        silent! execute cmd
-        redraw!
-    endfunction
-    function! s:shareboard_settings()
-        nnoremap <buffer>[shareboard] <Nop>
-        nmap <buffer><Leader> [shareboard]
-        nnoremap <buffer><silent> [shareboard]v :call SbFtPreview()<CR>
-        nnoremap <buffer><silent> [shareboard]c :call SbFtCompile()<CR>
-        nnoremap <buffer><silent> [shareboard]s :call SbFtStatic()<CR>
-    endfunction
-    autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
-
-    " hooks for shareboard.vim
-    let s:hooks = neobundle#get_hooks("shareboard.vim")
-    function! s:hooks.on_source(bundle)
-        let g:shareboard_use_default_mapping = 0
-        if s:is_linux || s:is_darwin
-            let g:shareboard_host = "0.0.0.0"
-        elseif s:is_windows
-            let g:shareboard_python_path = "C:\\Python34\\pythonw.exe"
-            let g:shareboard_path = "C:\\Python34\\Scripts\\shareboard-script.py"
-        endif
-    endfunction
+    " NeoBundleLazy "lambdalisue/shareboard.vim", {
+    "       \ "autoload": {
+    "       \   "commands": ["SbFtPreview", "SbFtCompile", "ShareboardPreview", "ShareboardCompile"],
+    "       \ }}
+    " function GetFileType(...)
+    "     " filetype can be given through argument or guess by file extension
+    "     let ft_tmp = a:0? a:1 : expand("%:e")
+    "     " if no ft_tmp obtained, end with an error
+    "     if ft_tmp == ''
+    "         throw "No filetype found!"
+    "     elseif ft_tmp =~? 'md\|mkd\|markdown'   " uniform markdown file extension
+    "         let forced_ft = "markdown"
+    "     else
+    "         let forced_ft = ft_tmp
+    "     endif
+    "     return forced_ft
+    " endfunction
+    " function SbFtPreview(...)
+    "     let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
+    "     let g:shareboard_command = s:config_root . '/shareboard/command.sh ' . ft_tmp . ' --mathjax'
+    "     ShareboardPreview
+    " endfunction
+    " function SbFtCompile(...)
+    "     let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
+    "     let cmd = "!cat % | " . s:config_root . "/shareboard/command.sh " . ft_tmp . ' --mathjax' . " > " . expand("%:r") . ".html &"
+    "     silent! execute cmd
+    "     redraw!
+    " endfunction
+    " function SbFtStatic(...)
+    "     let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
+    "     "copy css file
+    "     "let cp_cmd = "!cp " . s:config_root . "/shareboard/css/combined.css " . expand("%:p:h")
+    "     "silent! execute cp_cmd
+    "     let cmd = "!cat % | " . s:config_root . "/shareboard/command.sh " . ft_tmp . ' --self-contained --webtex' . " > " . expand("%:r") . ".static.html"
+    "     silent! execute cmd
+    "     redraw!
+    " endfunction
+    " function! s:shareboard_settings()
+    "     nnoremap <buffer>[shareboard] <Nop>
+    "     nmap <buffer><Leader> [shareboard]
+    "     nnoremap <buffer><silent> [shareboard]v :call SbFtPreview()<CR>
+    "     nnoremap <buffer><silent> [shareboard]c :call SbFtCompile()<CR>
+    "     nnoremap <buffer><silent> [shareboard]s :call SbFtStatic()<CR>
+    " endfunction
+    " autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
+    "
+    " " hooks for shareboard.vim
+    " let s:hooks = neobundle#get_hooks("shareboard.vim")
+    " function! s:hooks.on_source(bundle)
+    "     let g:shareboard_use_default_mapping = 0
+    "     if s:is_linux || s:is_darwin
+    "         let g:shareboard_host = "0.0.0.0"
+    "     elseif s:is_windows
+    "         let g:shareboard_python_path = "C:\\Python34\\pythonw.exe"
+    "         let g:shareboard_path = "C:\\Python34\\Scripts\\shareboard-script.py"
+    "     endif
+    " endfunction
 
     """"""""""""""""""""
     " End of NeoBundle "
@@ -702,15 +683,6 @@ set wildmenu
 set wildmode=longest:full
 set wildoptions=tagfile
 
-" automatically create the directory if it does not exist
-function! s:mkdir(dir, force)
-  if !isdirectory(a:dir) && (a:force ||
-        \ input(printf('"%s" does not exist. Create? [y/N]', a:dir)) =~? '^y\%[es]$')
-    call mkdir(iconv(a:dir, &encoding, &termencoding), 'p')
-  endif
-endfunction
-autocmd MyAutoCmd BufWritePre * call s:mkdir(expand('<afile>:p:h'), v:cmdbang)
-
 " system clipboard integration
 if s:is_darwin
     if $TMUX == ''
@@ -726,6 +698,13 @@ endif
 """""""""""""""""""""""""""""
 " Language Specific Setting "
 """""""""""""""""""""""""""""
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+    exe "normal mz"
+    %s/\s\+$//ge
+    exe "normal `z"
+endfunc
+
 " Enable omni completion
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
@@ -734,6 +713,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTag
 " Python
 autocmd FileType python,python3
     \ setlocal tw=80 omnifunc=pythoncomplete#Complete completeopt-=preview
+autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWS()
 
 " Pandoc (markdown, ...)
 autocmd FileType pandoc,markdown setlocal conceallevel=0
@@ -775,6 +755,11 @@ autocmd FileType html,htmldjango
     \ setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum) ts=2 sw=2
     \ omnifunc=htmlcomplete#CompleteTags
 
+" Coffeescript
+autocmd MyAutoCmd BufWrite *.coffee :call DeleteTrailingWS()
+
+
+
 """"""""""""""""
 " GUI settings "
 """"""""""""""""
@@ -790,10 +775,6 @@ function! ToggleGuiTransp()
 endfunction
 
 if has('gui_running')
-
-    """"""""
-    " Font "
-    """"""""
     if s:is_darwin
         set gfn=Inconsolata:h18
         let g:current_gui_transp=20
