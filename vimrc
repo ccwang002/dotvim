@@ -632,7 +632,7 @@ set laststatus=2        " always display statusline
 set mouse=a             " use mouse for navigation
 " Newer xterm  knows the extended mouse mode, including tmux, screen
 set ttymouse=xterm2
-set scrolloff=4                         " minimum line above/below the cursor
+set scrolloff=0                         " minimum line above/below the cursor
 set whichwrap+=<,>,[,],b,s,~
 set backspace=eol,start,indent          " Configure backspace so it acts as it should act
 
