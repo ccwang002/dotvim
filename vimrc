@@ -534,10 +534,6 @@ else
     NeoBundleLazy "lambdalisue/shareboard.vim", {
           \ "autoload": {
           \   "commands": ["SbFtPreview", "SbFtCompile", "ShareboardPreview", "ShareboardCompile"],
-          \ },
-          \ "build": {
-          \   "mac": "pip install shareboard",
-          \   "unix": "sudo pip install shareboard",
           \ }}
     function GetFileType(...)
         " filetype can be given through argument or guess by file extension
