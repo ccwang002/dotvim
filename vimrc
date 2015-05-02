@@ -267,7 +267,7 @@ else
 	let g:vimfiler_file_icon = '-'
 	let g:vimfiler_marked_file_icon = '*'
     nnoremap <Leader>b :VimFilerExplorer -project<CR>
-    nnoremap <Leader>f :VimFilerBufferDir -horizontal<CR>
+    nnoremap <Leader>f :VimFilerBufferDir -split -horizontal<CR>
     nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
     " Use mouse to open file
     autocmd MyAutoCmd FileType vimfiler
