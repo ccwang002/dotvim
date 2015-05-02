@@ -508,68 +508,6 @@ else
     NeoBundleLazy 'mattn/zencoding-vim', {'autoload': {
         \ 'filetypes': ['html', 'djangohtml'] }}
 
-
-    """"""""""""""
-    " Shareboard "
-    """"""""""""""
-    " NeoBundleLazy "lambdalisue/shareboard.vim", {
-    "       \ "autoload": {
-    "       \   "commands": ["SbFtPreview", "SbFtCompile", "ShareboardPreview", "ShareboardCompile"],
-    "       \ }}
-    " function GetFileType(...)
-    "     " filetype can be given through argument or guess by file extension
-    "     let ft_tmp = a:0? a:1 : expand("%:e")
-    "     " if no ft_tmp obtained, end with an error
-    "     if ft_tmp == ''
-    "         throw "No filetype found!"
-    "     elseif ft_tmp =~? 'md\|mkd\|markdown'   " uniform markdown file extension
-    "         let forced_ft = "markdown"
-    "     else
-    "         let forced_ft = ft_tmp
-    "     endif
-    "     return forced_ft
-    " endfunction
-    " function SbFtPreview(...)
-    "     let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-    "     let g:shareboard_command = s:config_root . '/shareboard/command.sh ' . ft_tmp . ' --mathjax'
-    "     ShareboardPreview
-    " endfunction
-    " function SbFtCompile(...)
-    "     let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-    "     let cmd = "!cat % | " . s:config_root . "/shareboard/command.sh " . ft_tmp . ' --mathjax' . " > " . expand("%:r") . ".html &"
-    "     silent! execute cmd
-    "     redraw!
-    " endfunction
-    " function SbFtStatic(...)
-    "     let ft_tmp =  a:0 ? GetFileType(a:1) : GetFileType()
-    "     "copy css file
-    "     "let cp_cmd = "!cp " . s:config_root . "/shareboard/css/combined.css " . expand("%:p:h")
-    "     "silent! execute cp_cmd
-    "     let cmd = "!cat % | " . s:config_root . "/shareboard/command.sh " . ft_tmp . ' --self-contained --webtex' . " > " . expand("%:r") . ".static.html"
-    "     silent! execute cmd
-    "     redraw!
-    " endfunction
-    " function! s:shareboard_settings()
-    "     nnoremap <buffer>[shareboard] <Nop>
-    "     nmap <buffer><Leader> [shareboard]
-    "     nnoremap <buffer><silent> [shareboard]v :call SbFtPreview()<CR>
-    "     nnoremap <buffer><silent> [shareboard]c :call SbFtCompile()<CR>
-    "     nnoremap <buffer><silent> [shareboard]s :call SbFtStatic()<CR>
-    " endfunction
-    " autocmd MyAutoCmd FileType rst,text,pandoc,markdown,textile call s:shareboard_settings()
-    "
-    " " hooks for shareboard.vim
-    " let s:hooks = neobundle#get_hooks("shareboard.vim")
-    " function! s:hooks.on_source(bundle)
-    "     let g:shareboard_use_default_mapping = 0
-    "     if s:is_linux || s:is_darwin
-    "         let g:shareboard_host = "0.0.0.0"
-    "     elseif s:is_windows
-    "         let g:shareboard_python_path = "C:\\Python34\\pythonw.exe"
-    "         let g:shareboard_path = "C:\\Python34\\Scripts\\shareboard-script.py"
-    "     endif
-    " endfunction
-
     """"""""""""""""""""
     " End of NeoBundle "
     """"""""""""""""""""
