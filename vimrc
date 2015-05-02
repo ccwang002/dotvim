@@ -299,13 +299,14 @@ else
     function! s:hooks.on_source(bundle)
         let g:clang_complete_auto = 0
         let g:clang_auto_select = 0
-        if s:is_linux
-            let g:clang_use_library = 1
-            let g:clang_library_path = "/usr/lib/llvm-3.4/lib"
-        elseif s:is_darwin
-            let g:clang_use_library = 1
-            let g:clang_library_path = "/Library/Developer/CommandLineTools/usr/lib"
-        endif
+        let g:clang_default_keymappings = 0
+        " if s:is_linux
+        "     let g:clang_use_library = 1
+        "     let g:clang_library_path = "/usr/lib/llvm-3.4/lib"
+        " elseif s:is_darwin
+        "     let g:clang_use_library = 1
+        "     let g:clang_library_path = "/Library/Developer/CommandLineTools/usr/lib"
+        " endif
     endfunction
 
     " NeoComplete
@@ -330,7 +331,6 @@ else
             " <CR>: close popup and save indent.
             inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
             function! s:my_cr_function()
-                "return neocomplete#smart_close_popup() . "\<CR>"
                 " For no inserting <CR> key.
                 return pumvisible() ? neocomplete#close_popup() : "\<CR>"
             endfunction
@@ -358,7 +358,6 @@ else
             if !exists('g:neocomplete#force_omni_input_patterns')
               let g:neocomplete#force_omni_input_patterns = {}
             endif
-            let g:neocomplete#force_overwrite_completefunc = 1
             let g:neocomplete#force_omni_input_patterns.c =
                   \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
             let g:neocomplete#force_omni_input_patterns.cpp =
