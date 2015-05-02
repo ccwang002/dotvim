@@ -405,7 +405,7 @@ else
         let g:neosnippet#enable_snipmate_compatibility = 1
 
         " Tell Neosnippet about the other snippets
-        let g:neosnippet#snippets_directory=s:bundle_root . '/vim-snippets/snippets'
+        let g:neosnippet#snippets_directory = s:bundle_root . '/vim-snippets/snippets'
     endfunction
 
     NeoBundle "mattn/emmet-vim", { 'autoload': {
@@ -430,9 +430,6 @@ else
     NeoBundle 'majutsushi/tagbar', {
         \ "autoload": {
         \     "commands": ['TagbarToggle'],
-        \ },
-        \ "build": {
-        \     "mac": "brew install ctags",
         \ }}
     nnoremap <TAB> :TagbarToggle<CR>
     let g:tagbar_width=32
