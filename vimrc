@@ -258,24 +258,24 @@ else
     endfunction
 
     " NERDTree
-    NeoBundleLazy 'scrooloose/nerdtree', {
-                \ 'autoload' : {
-                \      "commands": ["NERDTreeToggle"],
-                \ 'augroup' : 'NERDTreeHijackNetrw'
-                \ }}
-    nnoremap <c-b> :NERDTreeToggle<cr>
-    " change NERDTree to folder of current file
-    nnoremap <Leader>cd :NERDTree %:p:h<cr>
-    let s:hooks = neobundle#get_hooks("nerdtree")
-    function! s:hooks.on_post_source(bundle)
-        let g:NERDTreeDirArrows=1
-        let g:NERDTreeMouseMode=1
-        let g:NERDTreeChDirMode=2
-        let g:NERDTreeMinimalUI=1
-        let g:NERDTreeWinSize=32
-    endfunction
-    " close NERDTree automatically when there are only NERDTree open
-    autocmd MyAutoCmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+    " NeoBundleLazy 'scrooloose/nerdtree', {
+    "             \ 'autoload' : {
+    "             \      "commands": ["NERDTreeToggle"],
+    "             \ 'augroup' : 'NERDTreeHijackNetrw'
+    "             \ }}
+    " nnoremap <c-b> :NERDTreeToggle<cr>
+    " " change NERDTree to folder of current file
+    " nnoremap <Leader>cd :NERDTree %:p:h<cr>
+    " let s:hooks = neobundle#get_hooks("nerdtree")
+    " function! s:hooks.on_post_source(bundle)
+    "     let g:NERDTreeDirArrows=1
+    "     let g:NERDTreeMouseMode=1
+    "     let g:NERDTreeChDirMode=2
+    "     let g:NERDTreeMinimalUI=1
+    "     let g:NERDTreeWinSize=32
+    " endfunction
+    " " close NERDTree automatically when there are only NERDTree open
+    " autocmd MyAutoCmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
     " vim-fugitive use `autocmd` a lost so cannot be loaded with Lazy
     NeoBundle "tpope/vim-fugitive", { 'augroup' : 'fugitive'}
