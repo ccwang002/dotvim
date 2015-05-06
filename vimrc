@@ -468,9 +468,11 @@ else
 
     " Setting for C Linter
     let g:syntastic_c_compiler = 'clang'
+    let g:syntastic_c_compiler_options = '-std=c99'
 
     " Setting for C++ Linter
     let g:syntastic_cpp_compiler = 'clang++'
+    let g:syntastic_cpp_compiler_options = '-std=c++11'
 
     " Setting for HTML(5) Linter
     " Use tidy-html5
