@@ -275,6 +275,9 @@ else
     " Use mouse to open file
     autocmd MyAutoCmd FileType vimfiler
                 \ nmap <buffer> <2-LeftMouse> <Plug>(vimfiler_edit_file)
+    " Open selected files in tab
+    autocmd MyAutoCmd FileType vimfiler
+                \ nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
     " Auto exit if no other buffer left
 	"autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') |
     "            \ q | endif
