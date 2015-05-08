@@ -204,6 +204,7 @@ else
     nmap U [unite]
     nmap <Leader>u [unite]
     nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
+    nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
     nnoremap <silent> [unite]m :<C-u>Unite neomru/file neomru/directory<CR>
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
     nnoremap <silent> [unite]k :<C-u>Unite mapping<CR>
