@@ -202,6 +202,7 @@ else
     NeoBundle 'Shougo/neomru.vim'
     nnoremap [unite] <Nop>
     nmap U [unite]
+    nmap <Leader>u [unite]
     nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
     nnoremap <silent> [unite]m :<C-u>Unite neomru/file neomru/directory<CR>
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
