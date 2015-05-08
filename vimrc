@@ -203,15 +203,15 @@ else
     nnoremap [unite] <Nop>
     nmap U [unite]
     nmap <Leader>u [unite]
+    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
     nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
+    nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
+    nnoremap <silent> [unite]h :<C-u>Unite history/yank<CR>
     nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
+    nnoremap <silent> [unite]k :<C-u>Unite mapping<CR>
     nnoremap <silent> [unite]m :<C-u>Unite neomru/file neomru/directory<CR>
     nnoremap <silent> [unite]o :<C-u>Unite outline<CR>
-    nnoremap <silent> [unite]k :<C-u>Unite mapping<CR>
-    nnoremap <silent> [unite]h :<C-u>Unite history/yank<CR>
-    nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
     nnoremap <silent> [unite]t :<C-u>Unite tab<CR>
-    nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
     let s:hooks = neobundle#get_hooks("unite.vim")
     function! s:hooks.on_source(bundle)
         " start unite in insert mode
