@@ -267,11 +267,11 @@ else
     " Vimfiler
     NeoBundle 'Shougo/vimfiler.vim'
     let g:vimfiler_as_default_explorer = 1
-	let g:vimfiler_tree_leaf_icon = ' '
-	let g:vimfiler_tree_opened_icon = '▾'
-	let g:vimfiler_tree_closed_icon = '▸'
-	let g:vimfiler_file_icon = '-'
-	let g:vimfiler_marked_file_icon = '*'
+    let g:vimfiler_tree_leaf_icon = ' '
+    let g:vimfiler_tree_opened_icon = '▾'
+    let g:vimfiler_tree_closed_icon = '▸'
+    let g:vimfiler_file_icon = '-'
+    let g:vimfiler_marked_file_icon = '*'
     nnoremap <Leader>b :VimFilerBufferDir -explorer<CR>
     nnoremap <Leader>f :VimFilerBufferDir<CR>
     nnoremap <Leader>cd :cd %:p:h<CR>:pwd<CR>
@@ -282,7 +282,7 @@ else
     autocmd MyAutoCmd FileType vimfiler
                 \ nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
     " Auto exit if no other buffer left
-	"autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') |
+    "autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') |
     "            \ q | endif
 
     " NERDTree
