@@ -314,8 +314,13 @@ else
     " For better wrapping
     NeoBundle 'vim-jp/autofmt'
 
-    NeoBundleLazy 'vim-scripts/Align', {
-        \ 'autoload': {'commands': ['Align', 'AlignCtrl']}}
+    " For text/code alignment
+    " NeoBundleLazy 'vim-scripts/Align', {
+    "     \ 'autoload': {'commands': ['Align', 'AlignCtrl']}}
+    NeoBundleLazy 'junegunn/vim-easy-align', {
+            \ 'on_map': '<Plug>(EasyAlign)' }
+    xmap ga <Plug>(EasyAlign)
+    nmap ga <Plug>(EasyAlign)
 
     " clang_complete
     " NeoBundleLazy "Rip-Rip/clang_complete", {
