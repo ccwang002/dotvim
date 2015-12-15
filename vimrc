@@ -237,7 +237,9 @@ else
     endfunction
 
     " Vimfiler
-    NeoBundle 'Shougo/vimfiler.vim'
+    NeoBundleLazy 'Shougo/vimfiler.vim', {
+        \ 'on_cmd': ['VimFilerBufferDir']
+        \ }
     let g:vimfiler_as_default_explorer = 1
     let g:vimfiler_tree_leaf_icon = ' '
     let g:vimfiler_tree_opened_icon = '▾'
@@ -298,10 +300,11 @@ else
     " endfunction
 
     " NeoComplete requires Vim 7.3.885 or above and lua suppor
-    NeoBundle 'Shougo/neocomplete.vim', {
+    NeoBundleLazy 'Shougo/neocomplete.vim', {
         \ 'depends' : 'Shougo/context_filetype.vim',
         \ 'disabled' : !has('lua'),
-        \ 'vim_version' : '7.3.885'
+        \ 'vim_version' : '7.3.885',
+        \ 'on_i': 1,
         \ }
     let s:hooks = neobundle#get_hooks("neocomplete.vim")
     function! s:hooks.on_source(bundle)
@@ -394,7 +397,8 @@ else
     NeoBundleLazy "mattn/emmet-vim", {
         \ 'on_ft': ['html', 'htmldjango'] }
 
-    NeoBundle "terryma/vim-multiple-cursors"
+    NeoBundleLazy "terryma/vim-multiple-cursors", {
+        \ 'on_i': 1 }
 
     NeoBundleLazy "sjl/gundo.vim", {
         \ 'on_cmd': ['GundoToggle'] }
@@ -404,7 +408,7 @@ else
     """""""""""""""
     " Programming "
     """""""""""""""
-    NeoBundle 'majutsushi/tagbar', {
+    NeoBundleLazy 'majutsushi/tagbar', {
         \ 'on_cmd': ['TagbarToggle'] }
     nnoremap <TAB> :TagbarToggle<CR>
     let g:tagbar_width=32
