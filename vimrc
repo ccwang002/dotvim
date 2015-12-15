@@ -270,10 +270,10 @@ else
     NeoBundle 'vim-jp/autofmt'
 
     " For text/code alignment
-    " NeoBundleLazy 'vim-scripts/Align', {
-    "     \ 'autoload': {'commands': ['Align', 'AlignCtrl']}}
     NeoBundleLazy 'junegunn/vim-easy-align', {
-            \ 'on_map': '<Plug>(EasyAlign)' }
+            \ 'on_map': '<Plug>(EasyAlign)',
+            \ 'on_cmd': ['EasyAlign', 'LiveEasyAlign'],
+            \ }
     xmap ga <Plug>(EasyAlign)
     nmap ga <Plug>(EasyAlign)
 
