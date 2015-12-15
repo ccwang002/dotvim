@@ -144,7 +144,7 @@ else
     NeoBundle "michalbachowski/vim-wombat256mod"
 
     NeoBundle "bling/vim-airline"
-    "let g:airline_powerline_fonts = 1
+    " let g:airline_powerline_fonts = 1
     let g:airline_theme = 'powerlineish'
 
     NeoBundleLazy "ap/vim-css-color", {
