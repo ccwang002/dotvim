@@ -277,26 +277,6 @@ else
     xmap ga <Plug>(EasyAlign)
     nmap ga <Plug>(EasyAlign)
 
-    " clang_complete
-    " NeoBundleLazy "Rip-Rip/clang_complete", {
-    "     \ "autoload": {
-    "     \   "filetypes": ['c', 'cpp'],
-    "     \   "insert": 1,
-    "     \ }}
-    " let s:hooks = neobundle#get_hooks("clang_complete")
-    " function! s:hooks.on_source(bundle)
-    "     let g:clang_complete_auto = 0
-    "     let g:clang_auto_select = 0
-    "     let g:clang_default_keymappings = 0
-    "     if s:is_linux
-    "          let g:clang_use_library = 0
-    "          " let g:clang_library_path = "/usr/lib/llvm-3.4/lib"
-    "     elseif s:is_darwin
-    "          let g:clang_use_library = 1
-    "          let g:clang_library_path = "/Library/Developer/CommandLineTools/usr/lib"
-    "     endif
-    " endfunction
-
     " NeoComplete requires Vim 7.3.885 or above and lua suppor
     NeoBundleLazy 'Shougo/neocomplete.vim', {
         \ 'depends' : 'Shougo/context_filetype.vim',
