@@ -199,14 +199,9 @@ else
     " File Management "
     """""""""""""""""""
     NeoBundleLazy "Shougo/unite.vim", {
-        \ "autoload": {
-        \     "commands": ["Unite", "UniteWithBufferDir"]
-        \ }}
+        \ "on_cmd": ['Unite', 'UniteWithBufferDir'] }
 
-    NeoBundleLazy 'Shougo/unite-outline', {
-        \ "autoload": {
-        \     "unite_sources": ["outline"],
-        \ }}
+    NeoBundleLazy 'Shougo/unite-outline'
 
     NeoBundle 'Shougo/neomru.vim'
     nnoremap [unite] <Nop>
@@ -406,9 +401,8 @@ else
 
     NeoBundleLazy "Shougo/neosnippet.vim", {
             \ "depends": ["Shougo/neosnippet-snippets", "honza/vim-snippets"],
-            \ "autoload": {
-            \   "insert": 1,
-            \ }}
+            \ "on_i": 1
+            \ }
     let s:hooks = neobundle#get_hooks("neosnippet.vim")
     function! s:hooks.on_source(bundle)
         " Plugin key-mappings.
@@ -436,37 +430,31 @@ else
         let g:neosnippet#snippets_directory = s:bundle_root . '/vim-snippets/snippets'
     endfunction
 
-    NeoBundle "mattn/emmet-vim", { 'autoload': {
-        \ "filetypes": ['html', 'htmldjango']}}
-    let s:hooks = neobundle#get_hooks("emmet-vim")
-    function! s:hooks.on_source(bundle)
-        " Plugin key-mappings.
-        "let g:user_emmet_expandabbr_key = '<c-e>'
-    endfunction
+    " HTML & CSS
+    NeoBundleLazy "mattn/emmet-vim", {
+        \ 'on_ft': ['html', 'htmldjango'] }
 
     NeoBundle "terryma/vim-multiple-cursors"
 
     NeoBundleLazy "sjl/gundo.vim", {
-        \ "autoload": {
-        \     "commands": ['GundoToggle'],
-        \}}
+        \ 'on_cmd': ['GundoToggle'] }
     nnoremap <Leader>z :GundoToggle<CR>
+
 
     """""""""""""""
     " Programming "
     """""""""""""""
     NeoBundle 'majutsushi/tagbar', {
-        \ "autoload": {
-        \     "commands": ['TagbarToggle'],
-        \ }}
+        \ 'on_cmd': ['TagbarToggle'] }
     nnoremap <TAB> :TagbarToggle<CR>
     let g:tagbar_width=32
     let g:tagbar_autofocus=1
     let g:tagbar_compact=1
     let g:tagbar_sort=0
 
-    NeoBundle "scrooloose/syntastic"
 
+    " Linter for various languages
+    NeoBundle "scrooloose/syntastic"
     " Setting for Python Linter
     let g:syntastic_python_flake8_args="--ignore=E302,E402,W293,W302,W391,W291 --max-complexity 12"
         "W302,W291 trailing whitespace
