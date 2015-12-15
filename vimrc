@@ -148,44 +148,52 @@ else
     let g:airline_theme = 'powerlineish'
 
     NeoBundleLazy "ap/vim-css-color", {
-        \ "autoload": {
-        \   "filetypes": [
-        \       "html", "css",
-        \       "stylus", "less", "sass",
-        \       "javascript", "coffee", "coffeescript",
-        \       "djantohtml"],
-        \ }}
+        \ 'on_ft': [
+        \       'html', 'djangohtml',
+        \       'css', 'stylus', 'less', 'sass',
+        \       'javascript', 'coffee', 'coffeescript'
+        \ ] }
 
     """"""""""""""""""""""""""
     " Syntax / Indent / Omni "
     """"""""""""""""""""""""""
+    " Collection of languange packs for Vim
+    NeoBundle "sheerun/vim-polyglot"
+    let g:polyglot_disabled = ['css']
+
     " syntax /indent /filetypes for git
-    NeoBundleLazy 'tpope/vim-git', {'autoload': {
-        \ 'filetypes': 'git' }}
+    " NeoBundleLazy 'tpope/vim-git', {'autoload': {
+    "     \ 'filetypes': 'git' }}
+
+    " CoffeeScript
+    " NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {
+    "             \ 'filetypes': ['coffee', 'coffeescript'] }}
 
     " syntax for CSS3
-    NeoBundleLazy 'hail2u/vim-css3-syntax', {'autoload': {
-        \ 'filetypes': 'css' }}
+    NeoBundleLazy 'hail2u/vim-css3-syntax', {
+        \ 'on_ft': ['css'] }
 
     " syntax for HTML5
-    NeoBundleLazy 'othree/html5.vim', {'autoload': {
-        \ 'filetypes': ['html', 'djangohtml'] }}
+    " NeoBundleLazy 'othree/html5.vim', {'autoload': {
+    "     \ 'filetypes': ['html', 'djangohtml'] }}
 
     " syntax /indent /omnicomplete for LESS
-    NeoBundleLazy 'groenewege/vim-less.git', {'autoload': {
-        \ 'filetypes': 'less' }}
+    " NeoBundleLazy 'groenewege/vim-less.git', {'autoload': {
+    "     \ 'filetypes': 'less' }}
 
     " syntax for SASS
-    NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {
-        \ 'filetypes': 'sass' }}
+    " NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {
+    "     \ 'filetypes': 'sass' }}
 
     " syntax for Stylus
-    NeoBundleLazy 'wavded/vim-stylus', {'autoload': {
-        \ 'filetypes': 'stylus' }}
+    " NeoBundleLazy 'wavded/vim-stylus', {'autoload': {
+    "     \ 'filetypes': 'stylus' }}
 
-    NeoBundleLazy 'hynek/vim-python-pep8-indent', {'autoload': {
-        \ "filetypes": ["python", "python3", "djangohtml"],
-        \ }}
+    " syntax for Python
+    " NeoBundleLazy 'hynek/vim-python-pep8-indent', {'autoload': {
+    "     \ "filetypes": ["python", "python3", "djangohtml"],
+    "     \ }}
+
 
     """""""""""""""""""
     " File Management "
@@ -524,12 +532,6 @@ else
     let g:syntastic_mode_map={'mode': 'active',
                          \ 'passive_filetypes': ["tex"] }
 
-   " CoffeeScript
-    NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {
-                \ 'filetypes': ['coffee', 'coffeescript'] }}
-    " HTML & CSS
-    NeoBundleLazy 'mattn/zencoding-vim', {'autoload': {
-        \ 'filetypes': ['html', 'djangohtml'] }}
 
     """"""""""""""""""""
     " End of NeoBundle "
