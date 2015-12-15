@@ -323,91 +323,86 @@ else
         \ 'autoload': {'commands': ['Align', 'AlignCtrl']}}
 
     " clang_complete
-    NeoBundleLazy "Rip-Rip/clang_complete", {
-        \ "autoload": {
-        \   "filetypes": ['c', 'cpp'],
-        \   "insert": 1,
-        \ }}
-    let s:hooks = neobundle#get_hooks("clang_complete")
+    " NeoBundleLazy "Rip-Rip/clang_complete", {
+    "     \ "autoload": {
+    "     \   "filetypes": ['c', 'cpp'],
+    "     \   "insert": 1,
+    "     \ }}
+    " let s:hooks = neobundle#get_hooks("clang_complete")
+    " function! s:hooks.on_source(bundle)
+    "     let g:clang_complete_auto = 0
+    "     let g:clang_auto_select = 0
+    "     let g:clang_default_keymappings = 0
+    "     if s:is_linux
+    "          let g:clang_use_library = 0
+    "          " let g:clang_library_path = "/usr/lib/llvm-3.4/lib"
+    "     elseif s:is_darwin
+    "          let g:clang_use_library = 1
+    "          let g:clang_library_path = "/Library/Developer/CommandLineTools/usr/lib"
+    "     endif
+    " endfunction
+
+    " NeoComplete requires Vim 7.3.885 or above and lua suppor
+    NeoBundle 'Shougo/neocomplete.vim', {
+        \ 'depends' : 'Shougo/context_filetype.vim',
+        \ 'disabled' : !has('lua'),
+        \ 'vim_version' : '7.3.885'
+        \ }
+    let s:hooks = neobundle#get_hooks("neocomplete.vim")
     function! s:hooks.on_source(bundle)
-        let g:clang_complete_auto = 0
-        let g:clang_auto_select = 0
-        let g:clang_default_keymappings = 0
-        if s:is_linux
-             let g:clang_use_library = 0
-             " let g:clang_library_path = "/usr/lib/llvm-3.4/lib"
-        elseif s:is_darwin
-             let g:clang_use_library = 1
-             let g:clang_library_path = "/Library/Developer/CommandLineTools/usr/lib"
+        let g:acp_enableAtStartup = 0
+        let g:neocomplete#enable_smart_case = 1
+        let g:neocomplete#auto_completion_start_length = 3
+        let g:neocomplete#sources#syntax#min_keyword_length = 3
+        let g:neocomplete#max_list = 20
+
+        " prevent cursor trigger autopop in insert mode
+        let g:neocomplete#enable_insert_char_pre = 1
+        " trigger after some time
+        "let g:neocomplete#enable_cursor_hold_i = 1
+
+        " <CR>: close popup and save indent.
+        inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+        function! s:my_cr_function()
+            " For no inserting <CR> key.
+            return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+        endfunction
+
+        " <TAB>: completion.
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+
+        " <C-h>, <BS>: close popup and delete backword char.
+        inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+        inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+        inoremap <expr><C-y>  neocomplete#close_popup()
+        inoremap <expr><C-e>  neocomplete#cancel_popup()
+
+        " Close popup by <Space>.
+        "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+        " trigger popup manually
+        inoremap <expr><C-f> neocomplete#start_manual_complete()
+
+        " toggle autocomplete mode
+        inoremap <C-g> <C-O>:NeoCompleteToggle<CR>
+        nnoremap <C-g> :NeoCompleteToggle<CR>
+
+        " Settings with clang_complete
+        if !exists('g:neocomplete#force_omni_input_patterns')
+          let g:neocomplete#force_omni_input_patterns = {}
         endif
+        let g:neocomplete#force_omni_input_patterns.c =
+              \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
+        let g:neocomplete#force_omni_input_patterns.cpp =
+              \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
+        let g:neocomplete#force_omni_input_patterns.objc =
+              \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
+        let g:neocomplete#force_omni_input_patterns.objcpp =
+              \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
     endfunction
-
-    " NeoComplete
-    if has('lua') && v:version > 703 || (v:version == 703 && has('patch885'))
-        NeoBundleLazy "Shougo/neocomplete.vim", {
-            \ "autoload": {
-            \   "insert": 1,
-            \ }}
-        let s:hooks = neobundle#get_hooks("neocomplete.vim")
-        function! s:hooks.on_source(bundle)
-            let g:acp_enableAtStartup = 0
-            let g:neocomplete#enable_smart_case = 1
-            let g:neocomplete#auto_completion_start_length = 3
-            let g:neocomplete#sources#syntax#min_keyword_length = 3
-            let g:neocomplete#max_list = 20
-
-            " prevent cursor trigger autopop in insert mode
-            let g:neocomplete#enable_insert_char_pre = 1
-            " trigger after some time
-            "let g:neocomplete#enable_cursor_hold_i = 1
-
-            " <CR>: close popup and save indent.
-            inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-            function! s:my_cr_function()
-                " For no inserting <CR> key.
-                return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-            endfunction
-
-            " <TAB>: completion.
-            inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-
-            " <C-h>, <BS>: close popup and delete backword char.
-            inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-            inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-            inoremap <expr><C-y>  neocomplete#close_popup()
-            inoremap <expr><C-e>  neocomplete#cancel_popup()
-
-            " Close popup by <Space>.
-            "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
-
-            " trigger popup manually
-            inoremap <expr><C-f> neocomplete#start_manual_complete()
-
-            " toggle autocomplete mode
-            inoremap <C-g> <C-O>:NeoCompleteToggle<CR>
-            nnoremap <C-g> :NeoCompleteToggle<CR>
-
-            " Settings with clang_complete
-            if !exists('g:neocomplete#force_omni_input_patterns')
-              let g:neocomplete#force_omni_input_patterns = {}
-            endif
-            let g:neocomplete#force_omni_input_patterns.c =
-                  \ '[^.[:digit:] *\t]\%(\.\|->\)\w*'
-            let g:neocomplete#force_omni_input_patterns.cpp =
-                  \ '[^.[:digit:] *\t]\%(\.\|->\)\w*\|\h\w*::\w*'
-            let g:neocomplete#force_omni_input_patterns.objc =
-                  \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)'
-            let g:neocomplete#force_omni_input_patterns.objcpp =
-                  \ '\[\h\w*\s\h\?\|\h\w*\%(\.\|->\)\|\h\w*::\w*'
-        endfunction
-        function! s:hooks.on_post_source(bundle)
-            NeoCompleteEnable
-        endfunction
-    else
-        echo "Error: Cannot Load NeoComplete"
-        echo "NeoComplete requires Lua support and Vim > 7.3.885"
-        echo 'To enable Neocomplete, upgrade and compile Vim with "lua" support'
-    endif
+    function! s:hooks.on_post_source(bundle)
+        NeoCompleteEnable
+    endfunction
 
     NeoBundleLazy "Shougo/neosnippet.vim", {
             \ "depends": ["Shougo/neosnippet-snippets", "honza/vim-snippets"],
