@@ -137,6 +137,7 @@ else
         \    "unix"      : "make -f make_unix.mak",
     \ }}
 
+
     """""""""""""""""""
     " Style / Display "
     """""""""""""""""""
@@ -147,12 +148,6 @@ else
     " let g:airline_powerline_fonts = 1
     let g:airline_theme = 'powerlineish'
 
-    NeoBundleLazy "ap/vim-css-color", {
-        \ 'on_ft': [
-        \       'html', 'djangohtml',
-        \       'css', 'stylus', 'less', 'sass',
-        \       'javascript', 'coffee', 'coffeescript'
-        \ ] }
 
     """"""""""""""""""""""""""
     " Syntax / Indent / Omni "
@@ -161,38 +156,16 @@ else
     NeoBundle "sheerun/vim-polyglot"
     let g:polyglot_disabled = ['css']
 
-    " syntax /indent /filetypes for git
-    " NeoBundleLazy 'tpope/vim-git', {'autoload': {
-    "     \ 'filetypes': 'git' }}
-
-    " CoffeeScript
-    " NeoBundleLazy 'kchmck/vim-coffee-script', {'autoload': {
-    "             \ 'filetypes': ['coffee', 'coffeescript'] }}
-
     " syntax for CSS3
     NeoBundleLazy 'hail2u/vim-css3-syntax', {
         \ 'on_ft': ['css'] }
 
-    " syntax for HTML5
-    " NeoBundleLazy 'othree/html5.vim', {'autoload': {
-    "     \ 'filetypes': ['html', 'djangohtml'] }}
-
-    " syntax /indent /omnicomplete for LESS
-    " NeoBundleLazy 'groenewege/vim-less.git', {'autoload': {
-    "     \ 'filetypes': 'less' }}
-
-    " syntax for SASS
-    " NeoBundleLazy 'cakebaker/scss-syntax.vim', {'autoload': {
-    "     \ 'filetypes': 'sass' }}
-
-    " syntax for Stylus
-    " NeoBundleLazy 'wavded/vim-stylus', {'autoload': {
-    "     \ 'filetypes': 'stylus' }}
-
-    " syntax for Python
-    " NeoBundleLazy 'hynek/vim-python-pep8-indent', {'autoload': {
-    "     \ "filetypes": ["python", "python3", "djangohtml"],
-    "     \ }}
+    NeoBundleLazy "ap/vim-css-color", {
+        \ 'on_ft': [
+        \       'html', 'djangohtml',
+        \       'css', 'stylus', 'less', 'sass',
+        \       'javascript', 'coffee', 'coffeescript'
+        \ ] }
 
 
     """""""""""""""""""
@@ -263,7 +236,6 @@ else
         endfunction
     endfunction
 
-
     " Vimfiler
     NeoBundle 'Shougo/vimfiler.vim'
     let g:vimfiler_as_default_explorer = 1
@@ -285,30 +257,12 @@ else
     "autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') |
     "            \ q | endif
 
-    " NERDTree
-    " NeoBundleLazy 'scrooloose/nerdtree', {
-    "             \ 'autoload' : {
-    "             \      "commands": ["NERDTreeToggle"],
-    "             \ 'augroup' : 'NERDTreeHijackNetrw'
-    "             \ }}
-    " nnoremap <c-b> :NERDTreeToggle<cr>
-    " " change NERDTree to folder of current file
-    " nnoremap <Leader>cd :NERDTree %:p:h<cr>
-    " let s:hooks = neobundle#get_hooks("nerdtree")
-    " function! s:hooks.on_post_source(bundle)
-    "     let g:NERDTreeDirArrows=1
-    "     let g:NERDTreeMouseMode=1
-    "     let g:NERDTreeChDirMode=2
-    "     let g:NERDTreeMinimalUI=1
-    "     let g:NERDTreeWinSize=32
-    " endfunction
-    " " close NERDTree automatically when there are only NERDTree open
-    " autocmd MyAutoCmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
     NeoBundleLazy "tpope/vim-fugitive", {
         \ 'augroup': 'fugitive',
         \ 'on_cmd': ['Gstatus', 'Gcommit', 'Gwrite']
         \ }
+
+
     """""""""""""""""""
     " Editing Support "
     """""""""""""""""""
