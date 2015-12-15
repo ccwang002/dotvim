@@ -259,10 +259,8 @@ else
     "autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') |
     "            \ q | endif
 
-    NeoBundleLazy "tpope/vim-fugitive", {
-        \ 'augroup': 'fugitive',
-        \ 'on_cmd': ['Gstatus', 'Gcommit', 'Gwrite']
-        \ }
+    NeoBundle "tpope/vim-fugitive", {
+        \ 'augroup': 'fugitive' }
 
 
     """""""""""""""""""
