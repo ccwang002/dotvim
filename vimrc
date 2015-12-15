@@ -460,66 +460,76 @@ else
 
 
     " Linter for various languages
-    NeoBundle "scrooloose/syntastic"
-    " Setting for Python Linter
-    let g:syntastic_python_flake8_args="--ignore=E302,E402,W293,W302,W391,W291 --max-complexity 12"
-        "W302,W291 trailing whitespace
-        "E302 expected 2 blank lines
-        "E402 module level import not at top of file
-        "W293 blank line contains whitespace
-        "W391 blank line at end of file
+    NeoBundleLazy "scrooloose/syntastic", {
+        \ 'on_i': 1,
+        \ }
+    let s:hooks = neobundle#get_hooks("syntastic")
+    function! s:hooks.on_source(bundle)
+        " Setting for Python Linter
+        let g:syntastic_python_checkers = ['flake8']
+        let g:syntastic_python_flake8_args =
+                    \ "--ignore=E302,E402,W293,W302,W391,W291" .
+                    \ "--max-complexity 12"
+            "W302,W291 trailing whitespace
+            "E302 expected 2 blank lines
+            "E402 module level import not at top of file
+            "W293 blank line contains whitespace
+            "W391 blank line at end of file
 
-    " Setting for C Linter
-    let g:syntastic_c_compiler = 'clang'
-    let g:syntastic_c_compiler_options = '-std=c99'
+        " Setting for C Linter
+        let g:syntastic_c_compiler = 'clang'
+        let g:syntastic_c_compiler_options = '-std=c99'
 
-    " Setting for C++ Linter
-    let g:syntastic_cpp_compiler = 'clang++'
-    let g:syntastic_cpp_compiler_options = '-std=c++11'
+        " Setting for C++ Linter
+        let g:syntastic_cpp_compiler = 'clang++'
+        let g:syntastic_cpp_compiler_options = '-std=c++11'
 
-    " Setting for HTML(5) Linter
-    " Use tidy-html5
-    let g:syntastic_html_tidy_exec='/usr/local/bin/tidy'
-    let g:syntastic_html_tidy_ignore_errors = [
-                \ "<style> isn't allowed in <section>",
-                \ "trimming empty <div>",
-                \ "trimming empty <span>",
-                \ ]
+        " Setting for HTML(5) Linter
+        " Use tidy-html5
+        let g:syntastic_html_tidy_exec='/usr/local/bin/tidy'
+        let g:syntastic_html_tidy_ignore_errors = [
+                    \ "<style> isn't allowed in <section>",
+                    \ "trimming empty <div>",
+                    \ "trimming empty <span>",
+                    \ ]
+        let g:syntastic_html_tidy_blocklevel_tags = [
+                    \ "svg",
+                    \ ]
+        let g:syntastic_html_tidy_inline_tags = [
+                    \ "rect",
+                    \ ]
 
-    let g:syntastic_html_tidy_blocklevel_tags = [
-                \ "svg",
-                \ ]
-    let g:syntastic_html_tidy_inline_tags = [
-                \ "rect",
-                \ ]
+        let g:syntastic_javascript_checkers = ['eslint']
 
-    " Setting for rst Linter
-    let s:rst_accepted_dir_type =
-                \ '\(' .
-                \ 'seealso\|todo\|toctree\|' .
-                \ 'literalinclude\|' .
-                \ 'auto.*' .
-                \ '\)'
-    let s:rst_accepted_text_role = '\(ref\|command\|file\|py:[a-z]*\|meth\|class\|func\)'
-    let s:rst_def_substitution = '\(version\|today\)'
-    let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
-                \ "regex":
-                \ '\(' .
-                \ 'Unknown directive type "' . s:rst_accepted_dir_type . '"\|' .
-                \ 'Unknown interpreted text role "' . s:rst_accepted_text_role . '"\|' .
-                \ 'Undefined substitution referenced: "' . s:rst_def_substitution . '"' .
-                \ '\)',
-                \ }
+        " Setting for rst Linter
+        let s:rst_accepted_dir_type =
+                    \ '\(' .
+                    \ 'seealso\|todo\|toctree\|' .
+                    \ 'literalinclude\|' .
+                    \ 'auto.*' .
+                    \ '\)'
+        let s:rst_accepted_text_role =
+                    \ '\(ref\|command\|file\|py:[a-z]*\|meth\|class\|func\)'
+        let s:rst_def_substitution = '\(version\|today\)'
+        let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
+                    \ "regex":
+                    \ '\(' .
+                    \ 'Unknown directive type "' . s:rst_accepted_dir_type . '"\|' .
+                    \ 'Unknown interpreted text role "' . s:rst_accepted_text_role . '"\|' .
+                    \ 'Undefined substitution referenced: "' . s:rst_def_substitution . '"' .
+                    \ '\)',
+                    \ }
 
-    set statusline+=%#warningmsg#
-    set statusline+=%{SyntasticStatuslineFlag()}
-    set statusline+=%*
-    let g:syntastic_auto_loc_list=1
-    let g:syntastic_loc_list_height=5
-    let g:syntastic_python_checkers=['flake8']
-    let g:syntastic_javascript_checkers=['eslint']
-    let g:syntastic_mode_map={'mode': 'active',
-                         \ 'passive_filetypes': ["tex"] }
+        let g:syntastic_auto_loc_list = 1
+        let g:syntastic_loc_list_height = 5
+        let g:syntastic_mode_map = {
+                    \ 'mode': 'active',
+                    \ 'passive_filetypes': ["tex"] }
+
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+    endfunction
 
 
     """"""""""""""""""""
