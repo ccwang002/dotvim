@@ -305,9 +305,10 @@ else
     " " close NERDTree automatically when there are only NERDTree open
     " autocmd MyAutoCmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-    " vim-fugitive use `autocmd` a lost so cannot be loaded with Lazy
-    NeoBundle "tpope/vim-fugitive", { 'augroup' : 'fugitive'}
-
+    NeoBundleLazy "tpope/vim-fugitive", {
+        \ 'augroup': 'fugitive',
+        \ 'on_cmd': ['Gstatus', 'Gcommit', 'Gwrite']
+        \ }
     """""""""""""""""""
     " Editing Support "
     """""""""""""""""""
