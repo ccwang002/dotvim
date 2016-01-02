@@ -266,6 +266,9 @@ else
     """""""""""""""""""
     " Editing Support "
     """""""""""""""""""
+    " General FileType setting by EditorConfig
+    NeoBundle 'editorconfig/editorconfig-vim'
+
     " For better wrapping
     NeoBundle 'vim-jp/autofmt'
 
