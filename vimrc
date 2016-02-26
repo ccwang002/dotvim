@@ -175,7 +175,7 @@ else
     NeoBundleLazy "Shougo/unite.vim", {
         \ "on_cmd": ['Unite', 'UniteWithBufferDir'] }
 
-    NeoBundleLazy 'Shougo/unite-outline'
+    NeoBundle 'Shougo/unite-outline'
 
     NeoBundle 'Shougo/neomru.vim'
     nnoremap [unite] <Nop>
