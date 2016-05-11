@@ -439,12 +439,13 @@ else
         " Setting for rst Linter
         let s:rst_accepted_dir_type =
                     \ '\(' .
+                    \ 'index\|glossary\|' .
                     \ 'seealso\|todo\|toctree\|' .
                     \ 'literalinclude\|' .
                     \ 'auto.*' .
                     \ '\)'
         let s:rst_accepted_text_role =
-                    \ '\(ref\|command\|file\|py:[a-z]*\|meth\|class\|func\)'
+                    \ '\(ref\|term\|command\|file\|py:[a-z]*\|meth\|class\|func\)'
         let s:rst_def_substitution = '\(version\|today\)'
         let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
                     \ "regex":
