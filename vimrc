@@ -146,7 +146,6 @@ else
 
     NeoBundle "vim-airline/vim-airline"
     NeoBundle "vim-airline/vim-airline-themes"
-    " let g:airline_powerline_fonts = 1
     let g:airline_theme = 'powerlineish'
 
 
@@ -373,11 +372,10 @@ else
     endfunction
 
     " HTML & CSS
-    NeoBundleLazy "mattn/emmet-vim", {
-        \ 'on_ft': ['html', 'htmldjango'] }
+    NeoBundleLazy "mattn/emmet-vim", { 'on_ft': ['html', 'htmldjango'] }
 
-    NeoBundleLazy "terryma/vim-multiple-cursors", {
-        \ 'on_i': 1 }
+    " Multi-cursor editing
+    NeoBundleLazy "terryma/vim-multiple-cursors", { 'on_i': 1 }
 
     " History
     NeoBundleLazy 'mbbill/undotree', { 'on_cmd': ['UndotreeToggle'] }
