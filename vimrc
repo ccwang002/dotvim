@@ -260,9 +260,6 @@ else
     "autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') |
     "            \ q | endif
 
-    NeoBundle "tpope/vim-fugitive", {
-        \ 'augroup': 'fugitive' }
-
 
     """""""""""""""""""
     " Editing Support "
