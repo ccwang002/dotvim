@@ -379,9 +379,9 @@ else
     NeoBundleLazy "terryma/vim-multiple-cursors", {
         \ 'on_i': 1 }
 
-    NeoBundleLazy "sjl/gundo.vim", {
-        \ 'on_cmd': ['GundoToggle'] }
-    nnoremap <Leader>z :GundoToggle<CR>
+    " History
+    NeoBundleLazy 'mbbill/undotree', { 'on_cmd': ['UndotreeToggle'] }
+    nnoremap <Leader>z :UndotreeToggle<CR>
 
 
     """""""""""""""
