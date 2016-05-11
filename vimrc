@@ -163,7 +163,7 @@ else
     NeoBundleLazy "ap/vim-css-color", {
         \ 'on_ft': [
         \       'html', 'djangohtml',
-        \       'css', 'stylus', 'less', 'sass',
+        \       'css', 'stylus', 'less', 'scss',
         \       'javascript', 'coffee', 'coffeescript'
         \ ] }
 
