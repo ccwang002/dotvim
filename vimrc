@@ -381,6 +381,11 @@ else
     NeoBundleLazy 'mbbill/undotree', { 'on_cmd': ['UndotreeToggle'] }
     nnoremap <Leader>z :UndotreeToggle<CR>
 
+    " Folding
+    NeoBundle 'Konfekt/FastFold'
+    let g:fastfold_savehook = 1
+    let g:fastfold_fold_command_suffixes = []
+
 
     """""""""""""""
     " Programming "
