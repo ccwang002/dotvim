@@ -405,6 +405,11 @@ else
 
     " Tex/LaTeX
     NeoBundleLazy "lervag/vimtex", { 'on_ft': ['tex', 'plaintex'] }
+    let s:hooks = neobundle#get_hooks("vimtex")
+    function! s:hooks.on_source(bundle)
+        let g:vimtex_latexmk_enable = 0
+    endfunction
+
 
 
     """""""""""""""
