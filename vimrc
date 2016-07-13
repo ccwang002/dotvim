@@ -61,6 +61,7 @@ endif
 
 " use ',' instead of '\' as <Leader>
 let mapleader = ','
+let maplocalleader = ','
 let g:mapleader = ','
 
 " remove highlight with pressing ESC twice or <leader><cr>
