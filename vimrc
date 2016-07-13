@@ -154,7 +154,7 @@ else
     """"""""""""""""""""""""""
     " Collection of languange packs for Vim
     NeoBundle "sheerun/vim-polyglot"
-    let g:polyglot_disabled = ['css']
+    let g:polyglot_disabled = ['css', 'tex', 'plaintex']
 
     " syntax for CSS3
     NeoBundleLazy 'hail2u/vim-css3-syntax', {
@@ -385,6 +385,9 @@ else
     NeoBundle 'Konfekt/FastFold'
     let g:fastfold_savehook = 1
     let g:fastfold_fold_command_suffixes = []
+
+    " Tex/LaTeX
+    NeoBundleLazy "lervag/vimtex", { 'on_ft': ['tex', 'plaintex'] }
 
 
     """""""""""""""
@@ -625,7 +628,12 @@ autocmd FileType pandoc,markdown setlocal conceallevel=0
 autocmd FileType c setlocal conceallevel=0 noexpandtab
 
 " TeX
-autocmd FileType tex setlocal conceallevel=0
+" By default detect .tex files as LaTeX files
+let g:tex_flavor = "latex"
+autocmd FileType tex,plaintex setlocal conceallevel=0
+" Use vimtex's TOC for outline
+autocmd FileType tex,plaintex nnoremap <buffer> [unite]O :<C-u>Unite vimtex_toc<CR>
+autocmd FileType tex,plaintex nnoremap <buffer> [unite]l :<C-u>Unite vimtex_labels<CR>
 let g:tagbar_type_tex = {
     \ 'ctagstype' : 'latex',
     \ 'kinds'     : [
