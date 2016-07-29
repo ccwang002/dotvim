@@ -168,6 +168,12 @@ else
         \       'javascript', 'coffee', 'coffeescript'
         \ ] }
 
+    " syntax for Rust
+    NeoBundleLazy 'rust-lang/rust.vim', {
+        \ 'on_ft': [
+        \       'rust',
+        \ ] }
+
 
     """""""""""""""""""
     " File Management "
