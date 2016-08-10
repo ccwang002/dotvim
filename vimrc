@@ -416,6 +416,8 @@ else
         let g:vimtex_latexmk_enable = 0
     endfunction
 
+    " Snakemake
+    NeoBundle "ccwang002/vim-snakemake"
 
 
     """""""""""""""
