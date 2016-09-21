@@ -18,7 +18,7 @@ In the following I use the 2nd user vimrc file at `~/.vim/vimrc`. So make sure t
 
 
 ```
-git clone https://github.com/ccwang002/dotvim ~/.vim
+git clone --recursive https://github.com/ccwang002/dotvim ~/.vim
 ```
 
 Then launch `vim` and NeoBundle will fetch and install all required plugins. After installation, relaunch vim and everything should be set.
