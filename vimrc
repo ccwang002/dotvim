@@ -155,7 +155,7 @@ else
     """"""""""""""""""""""""""
     " Collection of languange packs for Vim
     NeoBundle "sheerun/vim-polyglot"
-    let g:polyglot_disabled = ['css', 'tex', 'plaintex']
+    let g:polyglot_disabled = ['css', 'tex', 'plaintex', 'python']
 
     " syntax for CSS3
     NeoBundleLazy 'hail2u/vim-css3-syntax', {
@@ -174,6 +174,10 @@ else
         \       'rust',
         \ ] }
 
+    " syntax for Python
+    NeoBundleLazy 'hdima/python-syntax', {
+        \ 'on_ft': [ 'python', 'pyrex' ],
+        \ }
 
     """""""""""""""""""
     " File Management "
