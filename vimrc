@@ -175,9 +175,15 @@ else
         \ ] }
 
     " syntax for Python
-    NeoBundleLazy 'hdima/python-syntax', {
+    NeoBundleLazy 'vim-python/python-syntax', {
         \ 'on_ft': [ 'python', 'pyrex' ],
         \ }
+    let g:python_highlight_builtin_objs = 1
+    let g:python_highlight_builtin_funcs = 1
+    let g:python_highlight_exceptions = 1
+    let g:python_highlight_string_formatting = 1
+    let g:python_highlight_string_format = 1
+    let g:python_highlight_string_templates = 1
 
     """""""""""""""""""
     " File Management "
