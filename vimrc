@@ -205,7 +205,6 @@ else
     nnoremap <silent> [unite]b :<C-u>Unite buffer<CR>
     nnoremap <silent> [unite]f :<C-u>UniteWithBufferDir -buffer-name=files file file/new<CR>
     nnoremap <silent> [unite]g :<C-u>Unite grep<CR>
-    nnoremap <silent> [unite]h :<C-u>Unite history/yank<CR>
     nnoremap <silent> [unite]j :<C-u>Unite jump<CR>
     nnoremap <silent> [unite]k :<C-u>Unite mapping<CR>
     nnoremap <silent> [unite]m :<C-u>Unite neomru/file neomru/directory<CR>
@@ -222,9 +221,6 @@ else
 
         " Time to update MRU list (now for evey half minute)
         let g:neomru#update_interval = 30
-
-        " Enable yank history
-        let g:unite_source_history_yank_enable = 1
 
         " Unite grep setting
         let g:unite_source_grep_max_candidates = 200
