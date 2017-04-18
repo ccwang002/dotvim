@@ -185,6 +185,11 @@ else
     let g:python_highlight_string_format = 1
     let g:python_highlight_string_templates = 1
 
+    " indent for Python
+    NeoBundleLazy 'Vimjas/vim-python-pep8-indent', {
+        \ 'on_ft': ['python', 'pyrex'],
+        \ }
+
     """""""""""""""""""
     " File Management "
     """""""""""""""""""
@@ -663,8 +668,9 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTag
 
 " Python
-autocmd FileType python,python3
+autocmd FileType python
     \ setlocal tw=80 omnifunc=pythoncomplete#Complete completeopt-=preview
+    \ nosmartindent
 autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWS()
 
 " Pandoc (markdown, ...)
