@@ -260,9 +260,6 @@ else
     " Open selected files in tab
     autocmd MyAutoCmd FileType vimfiler
                 \ nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
-    " Auto exit if no other buffer left
-    "autocmd MyAutoCmd BufEnter * if (winnr('$') == 1 && &filetype ==# 'vimfiler') |
-    "            \ q | endif
 
 
     """""""""""""""""""
@@ -694,9 +691,6 @@ endfunction
 autocmd FileType html,htmldjango
     \ setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum) ts=2 sw=2
     \ omnifunc=htmlcomplete#CompleteTags
-
-" Coffeescript
-autocmd MyAutoCmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 
