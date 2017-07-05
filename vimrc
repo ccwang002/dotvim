@@ -414,6 +414,8 @@ else
     " Snakemake
     NeoBundle "ccwang002/vim-snakemake"
 
+    " PDB
+    NeoBundle 'ccwang002/vim-pdb'
 
     """""""""""""""
     " Programming "
