@@ -408,7 +408,8 @@ else
     NeoBundleLazy "lervag/vimtex", { 'on_ft': ['tex', 'plaintex'] }
     let s:hooks = neobundle#get_hooks("vimtex")
     function! s:hooks.on_source(bundle)
-        let g:vimtex_latexmk_enable = 0
+        let g:vimtex_compiler_enable = 0
+        let g:vimtex_fold_enabled = 1
     endfunction
 
     " Snakemake
