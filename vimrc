@@ -418,6 +418,9 @@ else
     " PDB
     NeoBundle 'ccwang002/vim-pdb'
 
+    " CWL syntax
+    NeoBundle 'manabuishii/vim-cwl'
+
     """""""""""""""
     " Programming "
     """""""""""""""
