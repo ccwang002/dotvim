@@ -155,7 +155,7 @@ else
     """"""""""""""""""""""""""
     " Collection of languange packs for Vim
     NeoBundle "sheerun/vim-polyglot"
-    let g:polyglot_disabled = ['css', 'tex', 'plaintex', 'python']
+    let g:polyglot_disabled = ['css', 'tex', 'plaintex', 'latex', 'python']
 
     " syntax for CSS3
     NeoBundleLazy 'hail2u/vim-css3-syntax', {
@@ -408,7 +408,7 @@ else
     NeoBundleLazy "lervag/vimtex", { 'on_ft': ['tex', 'plaintex'] }
     let s:hooks = neobundle#get_hooks("vimtex")
     function! s:hooks.on_source(bundle)
-        let g:vimtex_compiler_enable = 0
+        let g:vimtex_compiler_enabled = 0
         let g:vimtex_fold_enabled = 1
     endfunction
 
