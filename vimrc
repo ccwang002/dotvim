@@ -649,7 +649,7 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTag
 
 " Python
 autocmd FileType python
-    \ setlocal tw=80 omnifunc=pythoncomplete#Complete completeopt-=preview
+    \ setlocal tw=120 omnifunc=pythoncomplete#Complete completeopt-=preview
     \ nosmartindent
 autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWS()
 
