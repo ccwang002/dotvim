@@ -156,6 +156,8 @@ else
     " Collection of languange packs for Vim
     NeoBundle "sheerun/vim-polyglot"
     let g:polyglot_disabled = ['css', 'tex', 'plaintex', 'latex', 'python']
+    " Disable markdown conceal
+    let g:vim_markdown_conceal = 0
 
     " syntax for CSS3
     NeoBundleLazy 'hail2u/vim-css3-syntax', {
@@ -652,9 +654,6 @@ autocmd FileType python
     \ setlocal tw=120 omnifunc=pythoncomplete#Complete completeopt-=preview
     \ nosmartindent
 autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWS()
-
-" Pandoc (markdown, ...)
-autocmd FileType pandoc,markdown setlocal conceallevel=0
 
 " C
 autocmd FileType c setlocal conceallevel=0 noexpandtab
