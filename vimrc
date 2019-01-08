@@ -296,6 +296,9 @@ else
         let g:neocomplete#sources#syntax#min_keyword_length = 3
         let g:neocomplete#max_list = 20
 
+		if !exists('g:neocomplete#sources')
+		  let g:neocomplete#sources = {}
+		endif
         let g:neocomplete#sources._ = ['buffer', 'file', 'omni']
 
         " prevent cursor trigger autopop in insert mode
