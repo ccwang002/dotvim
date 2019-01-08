@@ -296,10 +296,10 @@ else
         let g:neocomplete#sources#syntax#min_keyword_length = 3
         let g:neocomplete#max_list = 20
 
+        let g:neocomplete#sources._ = ['buffer', 'file', 'omni']
+
         " prevent cursor trigger autopop in insert mode
         let g:neocomplete#enable_insert_char_pre = 1
-        " trigger after some time
-        "let g:neocomplete#enable_cursor_hold_i = 1
 
         " <CR>: close popup and save indent.
         inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
@@ -316,9 +316,6 @@ else
         inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
         inoremap <expr><C-y>  neocomplete#close_popup()
         inoremap <expr><C-e>  neocomplete#cancel_popup()
-
-        " Close popup by <Space>.
-        "inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
 
         " trigger popup manually
         inoremap <expr><C-f> neocomplete#start_manual_complete()
