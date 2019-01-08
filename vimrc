@@ -377,9 +377,9 @@ else
             \: "\<TAB>"
 
         " For snippet_complete marker.
-        if has('conceal')
-            set conceallevel=2 concealcursor=i
-        endif
+        " if has('conceal')
+        "     set conceallevel=2 concealcursor=i
+        " endif
 
         " Enable snipMate compatibility feature.
         let g:neosnippet#enable_snipmate_compatibility = 1
