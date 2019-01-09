@@ -426,13 +426,13 @@ else
     """""""""""""""
     " Programming "
     """""""""""""""
-    NeoBundleLazy 'majutsushi/tagbar', {
-        \ 'on_cmd': ['TagbarToggle'] }
-    nnoremap <TAB> :TagbarToggle<CR>
-    let g:tagbar_width=32
-    let g:tagbar_autofocus=1
-    let g:tagbar_compact=1
-    let g:tagbar_sort=0
+    " NeoBundleLazy 'majutsushi/tagbar', {
+    "     \ 'on_cmd': ['TagbarToggle'] }
+    " nnoremap <TAB> :TagbarToggle<CR>
+    " let g:tagbar_width=32
+    " let g:tagbar_autofocus=1
+    " let g:tagbar_compact=1
+    " let g:tagbar_sort=0
 
 
     " Linter for various languages
