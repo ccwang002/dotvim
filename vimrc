@@ -1,124 +1,37 @@
-" vim: foldlevel=0 sts=4 sw=4 smarttab et ai textwidth=0
-" adapt settings from sites:
-"  * http://lambdalisue.hatenablog.com/entry/2013/06/23/071344
-"  * https://github.com/amix/vimrc
+" vim: foldlevel=0 foldmethod=marker sts=4 sw=4 smarttab et ai textwidth=0
+" This vimrc is inspired from the following settings:
+"  - http://lambdalisue.hatenablog.com/entry/2013/06/23/071344
+"  - https://github.com/amix/vimrc
 
-" skip initialization for vim-tiny or vim-small
+" Skip initialization for vim-tiny or vim-small
 if !1 | finish | endif
 
+" Detect the operating system
 let s:is_windows = has('win16') || has('win32') || has('win64')
 let s:is_cygwin = has('win32unix')
 let s:is_darwin = has('mac') || has('macunix') || has('gui_macvim')
 let s:is_linux = !s:is_windows && !s:is_cygwin && !s:is_darwin
 
-if !s:is_windows
-    " using bash shell (considering fish is not POSIX-compatible)
-    if &shell =~# 'fish$'
-        set shell=/bin/bash
-    endif
-endif
-
-if s:is_windows
-    let s:config_root = expand('~/vimfiles')
-else
-    let s:config_root = expand('~/.vim')
-endif
-let s:bundle_root = s:config_root . '/bundle'
-
-" release autogroup in MyAutoCmd
+" Release autogroup in MyAutoCmd
 augroup MyAutoCmd
     autocmd!
 augroup END
 
-
-
-"""""""""""
-" General "
-"""""""""""
-
-" set lines of history to remember
-set history=100
-
-" :w!! sudo saves the file
-" (useful for handling the permission-denied error)
-cmap w!! w !sudo tee % > /dev/null
-
-command -nargs=? W w <args>
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if s:is_windows
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-else
-    set wildignore+=.git\*,.hg\*,.svn\*
-endif
-
-
-
-"""""""""""""""
-" Key Mapping "
-"""""""""""""""
-
-" use ',' instead of '\' as <Leader>
+" Use ',' instead of '\' as <Leader>
 let mapleader = ','
 let maplocalleader = ','
-let g:mapleader = ','
 
-" remove highlight with pressing ESC twice or <leader><cr>
-nmap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
-nmap <silent> <Leader><cr> :noh<cr>
-
-" Remap VIM 0 to first non-blank character
-" map 0 ^
-
-" Makke easier movement between display lines
-nnoremap j      gj
-nnoremap <Down> g<Down>
-nnoremap k      gk
-nnoremap <Up>   g<Up>
-" Restore the original function of , and <Tab>
-nnoremap <Leader>, ,
-nnoremap <Leader><Tab> <Tab>
-" Select till a end of a line
-vnoremap v $h
-
-" Window navigation
-nnoremap <C-h> <C-w>h
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-nnoremap <C-l> <C-w>l
-
-" Pressing ,ss will toggle and untoggle spell checking
-noremap <leader>ss :setlocal spell!<cr>
-" Shortcuts using <leader>
-noremap <leader>sn ]s
-noremap <leader>sp [s
-noremap <leader>sa zg
-noremap <leader>s? z=
-
-" pressing ,pp will toggle and untoggle paste mode
-" vim does not handle auto-indent in paste mode
-nnoremap <leader>pp :set invpaste<CR>
-
-" global syntax highlighting
-nnoremap <c-s> :syntax sync fromstart<cr>
-
-" show hidden symbols
-nnoremap <leader>. :set invlist<CR>
-
-" trim trailing white spaces
-nnoremap <leader>dw :call DeleteTrailingWS()<CR>
-
-
-"""""""""""
-" Plugins "
-"""""""""""
-
-let s:noplugin = 0
-let s:neobundle_root = s:bundle_root . "/neobundle.vim"
-if !isdirectory(s:neobundle_root) || v:version < 702
-    let s:noplugin = 1
+" Plugins managed by NeoBundle {{{
+" Set up the bundle location
+if s:is_windows
+    let s:bundle_root = expand('~/vimfiles') . '/bundle'
 else
+    let s:bundle_root = expand('~/.vim') . '/bundle'
+endif
+let s:neobundle_root = s:bundle_root . "/neobundle.vim"
+
+" Neobundle require newer vim
+if isdirectory(s:neobundle_root) && v:version >= 702
     if has('vim_starting')
         execute "set runtimepath+=" . s:neobundle_root
         " disable vi compatible features
@@ -126,10 +39,10 @@ else
     endif
     call neobundle#begin(s:bundle_root)
 
-    " let NeoBundle manage NeoBundle
+    " Let NeoBundle manage NeoBundle
     NeoBundleFetch 'Shougo/neobundle.vim'
 
-    " enable async process via vimproc
+    " Enable async process via vimproc
     NeoBundle "Shougo/vimproc", {
         \ "build": {
         \    "windows"   : "make -f make_mingw32.mak",
@@ -138,31 +51,24 @@ else
         \    "unix"      : "make -f make_unix.mak",
     \ }}
 
-
-    """""""""""""""""""
-    " Style / Display "
-    """""""""""""""""""
-    " color themes
+    " Color themes {{{
     NeoBundle "michalbachowski/vim-wombat256mod"
 
     NeoBundle "vim-airline/vim-airline"
     NeoBundle "vim-airline/vim-airline-themes"
     let g:airline_theme = 'powerlineish'
+    " }}}
 
-
-    """"""""""""""""""""""""""
-    " Syntax / Indent / Omni "
-    """"""""""""""""""""""""""
-    " Collection of languange packs for Vim
+    " Language specific syntax highlighting {{{
+    " A bundle of language packs
     NeoBundle "sheerun/vim-polyglot"
     let g:polyglot_disabled = ['css', 'tex', 'plaintex', 'latex', 'python']
-    " Disable markdown conceal
-    let g:vim_markdown_conceal = 0
+    let g:vim_markdown_conceal = 0   " Disable markdown conceal
 
-    " syntax for CSS3
-    NeoBundleLazy 'hail2u/vim-css3-syntax', {
-        \ 'on_ft': ['css'] }
+    " CSS3 syntax
+    NeoBundleLazy 'hail2u/vim-css3-syntax', { 'on_ft': ['css'] }
 
+    " Render colors in CSS
     NeoBundleLazy "ap/vim-css-color", {
         \ 'on_ft': [
         \       'html', 'djangohtml',
@@ -170,13 +76,13 @@ else
         \       'javascript', 'coffee', 'coffeescript'
         \ ] }
 
-    " syntax for Rust
-    NeoBundleLazy 'rust-lang/rust.vim', {
-        \ 'on_ft': [
-        \       'rust',
-        \ ] }
+    " HTML shorcut expansion
+    NeoBundleLazy "mattn/emmet-vim", { 'on_ft': ['html', 'htmldjango'] }
 
-    " syntax for Python
+    " Rust syntax
+    NeoBundleLazy 'rust-lang/rust.vim', { 'on_ft': [ 'rust' ] }
+
+    " Python syntax
     NeoBundleLazy 'vim-python/python-syntax', {
         \ 'on_ft': [ 'python', 'pyrex' ],
         \ }
@@ -187,14 +93,101 @@ else
     let g:python_highlight_string_format = 1
     let g:python_highlight_string_templates = 1
 
-    " indent for Python
+    " Python indentation
     NeoBundleLazy 'Vimjas/vim-python-pep8-indent', {
         \ 'on_ft': ['python', 'pyrex'],
         \ }
 
-    """""""""""""""""""
-    " File Management "
-    """""""""""""""""""
+    " Tex/LaTeX
+    NeoBundleLazy "lervag/vimtex", { 'on_ft': ['tex', 'plaintex'] }
+    let s:hooks = neobundle#get_hooks("vimtex")
+    function! s:hooks.on_source(bundle)
+        let g:vimtex_compiler_enabled = 0
+        let g:vimtex_fold_enabled = 1
+    endfunction
+
+    " Snakemake
+    NeoBundle "ccwang002/vim-snakemake"
+
+    " CWL syntax
+    NeoBundle 'manabuishii/vim-cwl'
+    " }}}
+
+    " Linter {{{
+    NeoBundleLazy "scrooloose/syntastic", {
+        \ 'on_i': 1,
+        \ }
+    let s:hooks = neobundle#get_hooks("syntastic")
+    function! s:hooks.on_source(bundle)
+        " Setting for Python Linter
+        let g:syntastic_python_checkers = ['flake8']
+        let g:syntastic_python_flake8_args =
+                    \ "--ignore=E302,E402,W293,W302,W391,W291" .
+                    \ "--max-complexity=12"
+            "W302,W291 trailing whitespace
+            "E302 expected 2 blank lines
+            "E402 module level import not at top of file
+            "W293 blank line contains whitespace
+            "W391 blank line at end of file
+
+        " Setting for C Linter
+        let g:syntastic_c_compiler = 'clang'
+        let g:syntastic_c_compiler_options = '-std=c99'
+
+        " Setting for C++ Linter
+        let g:syntastic_cpp_compiler = 'clang++'
+        let g:syntastic_cpp_compiler_options = '-std=c++11'
+
+        " Setting for HTML(5) Linter
+        " Use tidy-html5
+        let g:syntastic_html_tidy_exec='/usr/local/bin/tidy'
+        let g:syntastic_html_tidy_ignore_errors = [
+                    \ "<style> isn't allowed in <section>",
+                    \ "trimming empty <div>",
+                    \ "trimming empty <span>",
+                    \ ]
+        let g:syntastic_html_tidy_blocklevel_tags = [
+                    \ "svg",
+                    \ ]
+        let g:syntastic_html_tidy_inline_tags = [
+                    \ "rect",
+                    \ ]
+
+        let g:syntastic_javascript_checkers = ['eslint']
+
+        " Setting for rst Linter
+        let s:rst_accepted_dir_type =
+                    \ '\(' .
+                    \ 'index\|glossary\|' .
+                    \ 'seealso\|todo\|toctree\|' .
+                    \ 'literalinclude\|' .
+                    \ 'auto.*' .
+                    \ '\)'
+        let s:rst_accepted_text_role =
+                    \ '\(ref\|term\|command\|file\|py:[a-z]*\|meth\|class\|func\)'
+        let s:rst_def_substitution = '\(version\|today\)'
+        let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
+                    \ "regex":
+                    \ '\(' .
+                    \ 'Unknown directive type "' . s:rst_accepted_dir_type . '"\|' .
+                    \ 'Unknown interpreted text role "' . s:rst_accepted_text_role . '"\|' .
+                    \ 'Undefined substitution referenced: "' . s:rst_def_substitution . '"' .
+                    \ '\)',
+                    \ }
+
+        let g:syntastic_auto_loc_list = 1
+        let g:syntastic_loc_list_height = 5
+        let g:syntastic_mode_map = {
+                    \ 'mode': 'active',
+                    \ 'passive_filetypes': ["tex"] }
+
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+    endfunction
+    " }}}
+
+    " Unite.vim {{{
     NeoBundleLazy "Shougo/unite.vim", {
         \ "on_cmd": ['Unite', 'UniteWithBufferDir'] }
 
@@ -242,8 +235,9 @@ else
             nmap <buffer> <C-p> <Plug>(unite_select_previous_line)
         endfunction
     endfunction
+    " }}}
 
-    " Vimfiler
+    " Vimfiler {{{
     NeoBundleLazy 'Shougo/vimfiler.vim', {
         \ 'on_cmd': ['VimFilerBufferDir']
         \ }
@@ -262,25 +256,22 @@ else
     " Open selected files in tab
     autocmd MyAutoCmd FileType vimfiler
                 \ nnoremap <silent><buffer><expr> gt vimfiler#do_action('tabopen')
+    " }}}
 
-
-    """""""""""""""""""
-    " Editing Support "
-    """""""""""""""""""
-    " General FileType setting by EditorConfig
+    " Editing Support {{{
+    " Configure gneral FileType setting by EditorConfig
     NeoBundle 'editorconfig/editorconfig-vim'
 
-    " For better wrapping
+    " Better text wrapping for asian wide characters
     NeoBundle 'vim-jp/autofmt'
 
-    " For text/code alignment
+    " Align multiple rows
     NeoBundleLazy 'junegunn/vim-easy-align', {
             \ 'on_map': '<Plug>(EasyAlign)',
             \ 'on_cmd': ['EasyAlign', 'LiveEasyAlign'],
             \ }
-    xmap ga <Plug>(EasyAlign)
-    nmap ga <Plug>(EasyAlign)
 
+    " NeoComplete {{{
     " NeoComplete requires Vim 7.3.885 or above and lua suppor
     NeoBundleLazy 'Shougo/neocomplete.vim', {
         \ 'depends' : 'Shougo/context_filetype.vim',
@@ -385,9 +376,7 @@ else
         " Tell Neosnippet about the other snippets
         let g:neosnippet#snippets_directory = s:bundle_root . '/vim-snippets/snippets'
     endfunction
-
-    " HTML & CSS
-    NeoBundleLazy "mattn/emmet-vim", { 'on_ft': ['html', 'htmldjango'] }
+    " }}}
 
     " Multi-cursor editing
     NeoBundleLazy "terryma/vim-multiple-cursors", { 'on_i': 1 }
@@ -399,213 +388,57 @@ else
     " Folding
     NeoBundle 'Konfekt/FastFold'
     let g:fastfold_savehook = 1
-    let g:fastfold_fold_command_suffixes = []
+    let g:fastfold_fold_command_suffixes =  ['x','X','a','A','o','O','c','C']
+    " }}}
 
-    " Tex/LaTeX
-    NeoBundleLazy "lervag/vimtex", { 'on_ft': ['tex', 'plaintex'] }
-    let s:hooks = neobundle#get_hooks("vimtex")
-    function! s:hooks.on_source(bundle)
-        let g:vimtex_compiler_enabled = 0
-        let g:vimtex_fold_enabled = 1
-    endfunction
-
-    " Snakemake
-    NeoBundle "ccwang002/vim-snakemake"
-
-    " CWL syntax
-    NeoBundle 'manabuishii/vim-cwl'
-
-    """""""""""""""
-    " Programming "
-    """""""""""""""
-    " Linter for various languages
-    NeoBundleLazy "scrooloose/syntastic", {
-        \ 'on_i': 1,
-        \ }
-    let s:hooks = neobundle#get_hooks("syntastic")
-    function! s:hooks.on_source(bundle)
-        " Setting for Python Linter
-        let g:syntastic_python_checkers = ['flake8']
-        let g:syntastic_python_flake8_args =
-                    \ "--ignore=E302,E402,W293,W302,W391,W291" .
-                    \ "--max-complexity=12"
-            "W302,W291 trailing whitespace
-            "E302 expected 2 blank lines
-            "E402 module level import not at top of file
-            "W293 blank line contains whitespace
-            "W391 blank line at end of file
-
-        " Setting for C Linter
-        let g:syntastic_c_compiler = 'clang'
-        let g:syntastic_c_compiler_options = '-std=c99'
-
-        " Setting for C++ Linter
-        let g:syntastic_cpp_compiler = 'clang++'
-        let g:syntastic_cpp_compiler_options = '-std=c++11'
-
-        " Setting for HTML(5) Linter
-        " Use tidy-html5
-        let g:syntastic_html_tidy_exec='/usr/local/bin/tidy'
-        let g:syntastic_html_tidy_ignore_errors = [
-                    \ "<style> isn't allowed in <section>",
-                    \ "trimming empty <div>",
-                    \ "trimming empty <span>",
-                    \ ]
-        let g:syntastic_html_tidy_blocklevel_tags = [
-                    \ "svg",
-                    \ ]
-        let g:syntastic_html_tidy_inline_tags = [
-                    \ "rect",
-                    \ ]
-
-        let g:syntastic_javascript_checkers = ['eslint']
-
-        " Setting for rst Linter
-        let s:rst_accepted_dir_type =
-                    \ '\(' .
-                    \ 'index\|glossary\|' .
-                    \ 'seealso\|todo\|toctree\|' .
-                    \ 'literalinclude\|' .
-                    \ 'auto.*' .
-                    \ '\)'
-        let s:rst_accepted_text_role =
-                    \ '\(ref\|term\|command\|file\|py:[a-z]*\|meth\|class\|func\)'
-        let s:rst_def_substitution = '\(version\|today\)'
-        let g:syntastic_rst_rst2pseudoxml_quiet_messages = {
-                    \ "regex":
-                    \ '\(' .
-                    \ 'Unknown directive type "' . s:rst_accepted_dir_type . '"\|' .
-                    \ 'Unknown interpreted text role "' . s:rst_accepted_text_role . '"\|' .
-                    \ 'Undefined substitution referenced: "' . s:rst_def_substitution . '"' .
-                    \ '\)',
-                    \ }
-
-        let g:syntastic_auto_loc_list = 1
-        let g:syntastic_loc_list_height = 5
-        let g:syntastic_mode_map = {
-                    \ 'mode': 'active',
-                    \ 'passive_filetypes': ["tex"] }
-
-        set statusline+=%#warningmsg#
-        set statusline+=%{SyntasticStatuslineFlag()}
-        set statusline+=%*
-    endfunction
-
-
-    """"""""""""""""""""
-    " End of NeoBundle "
-    """"""""""""""""""""
+    " End of NeoBundle setup
     call neobundle#end()
     " ALL bundles should be inserted BEFORE this line
     NeoBundleCheck " check and install missing bundles
     unlet s:hooks
 endif
 
-
-""""""""""""""""""
-" Tab and indent "
-""""""""""""""""""
+" Enable the plugins
 filetype plugin indent on
+syntax on
+" }}}
 
-set expandtab           " Use spaces instead of tabs
-set smarttab            " Be smart when using tabs ;)
-set shiftwidth=4        " 1 tab == 4 spaces
-set tabstop=4
-set autoindent          " Auto indent
-set smartindent         " Smart indent
-set copyindent
-
-
-"""""""""""
-" Folding "
-"""""""""""
-nnoremap <leader>zt zfat
-
-
-"""""""""""""
-" Searching "
-"""""""""""""
-set ignorecase          " Ignore case when searching
-set smartcase           " When searching try to be smart about cases
-set hlsearch            " Highlight search results
-set incsearch           " Makes search act like search in modern browsers
-set lazyredraw          " Don't redraw while executing macros (good performance config)
-set magic               " For regular expressions turn magic on
-cnoremap <expr> /
-      \ getcmdtype() == '/' ? '\/' : '/'
-cnoremap <expr> ?
-      \ getcmdtype() == '?' ? '\?' : '?'
-
-
-""""""""""""
-" Encoding "
-""""""""""""
-set encoding=utf8               " Set utf8 as standard encoding and en_US as the standard language
-set ffs=unix,dos,mac            " Use Unix as the standard file type
-
-
-""""""""""""""""""
-" User Interface "
-""""""""""""""""""
-set ruler               " always show current position
-set number              " show line number
-syntax on               " highlight syntax
-set laststatus=2        " always display statusline
-set mouse=a             " use mouse for navigation
-" Newer xterm  knows the extended mouse mode, including tmux, screen
-set ttymouse=xterm2
-set scrolloff=0                         " minimum line above/below the cursor
-set whichwrap+=<,>,[,],b,s,~
-set backspace=eol,start,indent          " Configure backspace so it acts as it should act
-
-set linebreak
-let &showbreak = '+++ '
-set breakat=\ ;:,!?
-set cpoptions+=n                " use linenumber column for wrapping
-set report=0                    " report for number of lines being changed everytime
-set wrap                        " turn up wrapping
-set textwidth=0                 " never add a newline for some number of chars
-set formatoptions+=j            " make joining comments easier
-set formatexpr=autofmt#japanese#formatexpr()
-
-set showmatch                       " Show matching brackets when text indicator is over them
-set matchpairs& matchpairs+=<:>     " add <>
-set matchtime=2                     " How many tenths of a second to blink when matching brackets
-
-" No annoying sound on errors
-set noerrorbells
-set visualbell
-set t_vb=
-set tm=500
-
-" color theme
-set t_Co=256
-set t_ut=
-colorscheme wombat256mod
-
-set nolist
-set listchars=tab:»\ ,trail:·
-set display=lastline    " always show part of the long line
-
-
-"""""""""""""""
-" Vim Editing "
-"""""""""""""""
-set hidden                      " hide buffer insted of closing to prevent Undo history
+" Editing {{{
+set history=100                 " set lines of history to remember
+set hidden                      " hide buffer insted of closing to preserve undo history
 set switchbuf=useopen           " use opend buffer insted of create new buffer
+set autoread                    " auto read change out of vim
+set listchars=tab:»\ ,trail:·   " show hidden symbols
+set list                        " show problematic characters
+nnoremap <leader>. :set invlist<CR>
 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
+" Turn backup off, since most stuff is in version control anyway
 set nowritebackup
 set nobackup
-set nowb
 set noswapfile
 
-" turn on wild menu
-set wildmenu
-set wildmode=longest:full
-set wildoptions=tagfile
+" Ignore general compilation artifacts and CVS internal folders
+set wildignore=*.o,*~,*.pyc
+if s:is_windows
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+else
+    set wildignore+=.git\*,.hg\*,.svn\*
+endif
 
-" system clipboard integration
+" Encoding
+set encoding=utf8       " Set utf8 as standard encoding and en_US as the standard language
+set ffs=unix,dos,mac    " Use Unix as the standard file type
+
+" W can also save the file
+command -nargs=? W w <args>
+
+" Shortkey to toggle and untoggle paste mode (stop auto-indentation)
+nnoremap <leader>pp :set invpaste<CR>
+
+" Redo global syntax highlighting
+nnoremap <c-s> :syntax sync fromstart<cr>
+
+" System clipboard integration
 if s:is_darwin
     if $TMUX == ''
         set clipboard=unnamed
@@ -615,33 +448,136 @@ elseif s:is_linux
 elseif s:is_windows
     set clipboard=unnamed
 endif
+" }}}
 
+" Navigation {{{
+" Make easier movement between display lines
+nnoremap j      gj
+nnoremap <Down> g<Down>
+nnoremap k      gk
+nnoremap <Up>   g<Up>
 
-"""""""""""""""""""""""""""""
-" Language Specific Setting "
-"""""""""""""""""""""""""""""
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
+" Restore the original function of , and <Tab>
+nnoremap <Leader>, ,
+nnoremap <Leader><Tab> <Tab>
+
+" Select till a end of a line
+vnoremap v $h
+
+" Navigation between panels
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+" }}}
+
+" Searching {{{
+set ignorecase          " Ignore case when searching
+set smartcase           " When searching try to be smart about cases
+set hlsearch            " Highlight search results
+set incsearch           " Makes search act like search in modern browsers
+set lazyredraw          " Don't redraw while executing macros (good performance config)
+set magic               " For regular expressions turn magic on
+cnoremap <expr> / getcmdtype() == '/' ? '\/' : '/'
+cnoremap <expr> ? getcmdtype() == '?' ? '\?' : '?'
+
+" remove highlight with pressing ESC twice or <leader><cr>
+nmap <silent> <Esc><Esc> :<C-u>nohlsearch<CR>
+nmap <silent> <Leader><cr> :noh<cr>
+
+" }}}
+
+" Tab and indent {{{
+set expandtab           " Use spaces instead of tabs
+set smarttab            " Be smart when using tabs ;)
+set shiftwidth=4        " 1 tab == 4 spaces
+set tabstop=4
+set autoindent          " Auto indent
+set smartindent         " Smart indent
+set copyindent
+" }}}
+
+" Folding {{{
+" Fold a HTML tag
+nnoremap <leader>zt zfat
+" }}}
+
+" Spell checking {{{
+" Pressing ,ss will toggle and untoggle spell checking
+noremap <leader>ss :setlocal spell!<cr>
+" Shortcuts using <leader>
+noremap <leader>sn ]s
+noremap <leader>sp [s
+noremap <leader>sa zg
+noremap <leader>s? z=
+" }}}
+
+" User Interface {{{
+set ruler               " always show current position
+set number              " show line number
+set laststatus=2        " always display statusline
+set mouse=a             " use mouse for navigation
+set scrolloff=0         " minimum line above/below the cursor
+set tm=500              " Time (ms) to wait for a mapping sequence to complete
+set ttymouse=xterm2     " Newer xterm understand the extended mouse mode
+                        " (including tmux, screen)
+
+set linebreak
+let &showbreak = '+++ '
+set breakat=\ ;:,!?
+set display=lastline            " always show part of the long line
+set cpoptions+=n                " use linenumber column for wrapping
+set report=0                    " report for number of lines being changed everytime
+set wrap                        " turn up wrapping
+set whichwrap+=<,>,[,],b,s,~
+set textwidth=0                 " never add a newline for some number of chars
+set formatoptions+=j            " make joining comments easier
+set formatexpr=autofmt#japanese#formatexpr()
+
+set showmatch                   " Show matching brackets when text indicator is over them
+set matchpairs& matchpairs+=<:> " add <>
+set matchtime=2                 " How many tenths of a second to blink when matching brackets
+
+" No annoying sound on errors
+set noerrorbells
+set visualbell
+set t_vb=                       " disable visualbell and beep
+
+" Turn on wild menu
+set wildmenu
+set wildmode=longest:full
+set wildoptions=tagfile
+" }}}
+
+" A custom function to trim trailing white spaces {{{
+func DeleteTrailingWhiteSpace()
     exe "normal mz"
     %s/\s\+$//ge
     exe "normal `z"
 endfunc
+nnoremap <leader>dw :call DeleteTrailingWhiteSpace()<CR>
+" }}}
 
-" Enable omni completion
+" Color theme {{{
+set t_Co=256                " Use 256 colors
+set t_ut=                   " Clear the background color
+colorscheme wombat256mod
+" }}}
+
+" Post language specific settings {{{
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTag
 
 " Python
 autocmd FileType python
-    \ setlocal tw=120 omnifunc=pythoncomplete#Complete completeopt-=preview
+    \ setlocal omnifunc=pythoncomplete#Complete completeopt-=preview
     \ nosmartindent
-autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWS()
+autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWhiteSpace()
 
 " C
 autocmd FileType c setlocal conceallevel=0 noexpandtab
 
-" TeX
+" TeX {{{
 " By default detect .tex files as LaTeX files
 let g:tex_flavor = "latex"
 autocmd FileType tex,plaintex setlocal conceallevel=0
@@ -660,8 +596,9 @@ let g:tagbar_type_tex = {
     \ ],
     \ 'sort'      : 0,
 \ }
+" }}}
 
-" HTML
+" HTML {{{
 function! GetHTMLFold(lnum)
     let n = a:lnum
     if getline(n) =~? '\v\<section'
@@ -679,13 +616,10 @@ endfunction
 autocmd FileType html,htmldjango
     \ setlocal foldmethod=expr foldexpr=GetHTMLFold(v:lnum) ts=2 sw=2
     \ omnifunc=htmlcomplete#CompleteTags
+" }}}
+" }}}
 
-
-
-""""""""""""""""
-" GUI settings "
-""""""""""""""""
-
+" GUI settings {{{
 " Transparency in MacVim
 function! ToggleGuiTransp()
     if &transparency > 0
@@ -717,21 +651,20 @@ if has('gui_running')
         set guioptions-=T
     endif
 
-    """""""""""""
-    " Scrollbar "
-    """""""""""""
+    " Scrollbar {{{
     " Disable scrollbars
     " (real hackers don't use scrollbars for navigation!)
     set guioptions-=r
     set guioptions-=R
     set guioptions-=l
     set guioptions-=L
+    " }}}
 
-    """"""""""""""""""
-    " User Interface "
-    """"""""""""""""""
+    " User Interface {{{
     if has("gui_running")
         set guitablabel=%M\ %t
     endif
+    " }}}
 
 endif
+" }}}

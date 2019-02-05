@@ -1,9 +1,15 @@
-My vim configuration based on [NeoBundle](https://github.com/Shougo/neobundle.vim).
+# My Vim and NeoVim configuration
+
+## Initialization on Vim
+My vim configuration is based on [NeoBundle](https://github.com/Shougo/neobundle.vim).
+
+To use the configuration, clone this repo in any one of the vim configuration folders.
+For example,
+
+    git clone --recursive https://github.com/ccwang002/dotvim ~/.vim
 
 
-## Initialization
-
-Put this git repo in any vim configuration folder. All possible folders can be listed by `vim --version | grep "vimrc file:"`.
+The list of all possible folders can be found by `vim --version | grep "vimrc file:"`:
 
 ```
    system vimrc file: "$VIM/vimrc"
@@ -14,11 +20,14 @@ Put this git repo in any vim configuration folder. All possible folders can be l
 2nd user gvimrc file: "~/.vim/gvimrc"
 ```
 
-In the following I use the 2nd user vimrc file at `~/.vim/vimrc`. So make sure the first candidate file `~/vimrc` does not exist.
+Then launch `vim` and NeoBundle will prompt the user to install all the plugins.
+Relaunch vim and the configuration will be ready.
 
+
+## Initialization on NeoVim
+My neovim configuration is based on [vim-plug](https://github.com/junegunn/vim-plug).
 
 ```
-git clone --recursive https://github.com/ccwang002/dotvim ~/.vim
+cd  ~/.config/nvim
+ln -s ~/.vim/nvim_init.vim init.vim
 ```
-
-Then launch `vim` and NeoBundle will fetch and install all required plugins. After installation, relaunch vim and everything should be set.
