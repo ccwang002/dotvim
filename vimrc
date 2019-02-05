@@ -392,15 +392,17 @@ if isdirectory(s:neobundle_root) && v:version >= 702
     " }}}
 
     " End of NeoBundle setup
+    " All bundles must be specified before this line
     call neobundle#end()
-    " ALL bundles should be inserted BEFORE this line
-    NeoBundleCheck " check and install missing bundles
+
+    " Let NeoBundle check and install missing bundles
+    NeoBundleCheck
     unlet s:hooks
 endif
 
 " Enable the plugins
 filetype plugin indent on
-syntax on
+syntax enable
 " }}}
 
 " Editing {{{
