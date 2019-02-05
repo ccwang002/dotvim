@@ -26,8 +26,29 @@ Relaunch vim and the configuration will be ready.
 
 ## Initialization on NeoVim
 My neovim configuration is based on [vim-plug](https://github.com/junegunn/vim-plug).
+Follow [vim-plug's instruction][vim-plug setup] to download itself, for example,
+
+    curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+Then place the configuration file `nvim_init.vim` at `~/.config/nvim/init.vim`:
 
 ```
 cd  ~/.config/nvim
 ln -s ~/.vim/nvim_init.vim init.vim
 ```
+
+Many plugins require Python support, which can be installed in a Python [venv] environemnt.
+I place the venv folder at `~/.local/share/nvim/pyvenv`:
+
+    python3 -m venv ~/.local/share/nvim/pyvenv
+    . ~/.local/share/nvim/pyvenv/bin/activate
+    pip install pynvim neovim
+
+To set up Python in a different way, check out neovim's documentation `:h provider-python`.
+Note that the `g:python3_host_prog` in `nvim_init.vim` should also be modified.
+
+Run `:PlugInstall` or `:PlugUpdate` in neovim to install the plugins.
+
+[vim-plug setup]: https://github.com/junegunn/vim-plug#neovim
+[venv]: https://docs.python.org/3/library/venv.html
