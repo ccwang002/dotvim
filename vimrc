@@ -296,9 +296,9 @@ else
         let g:neocomplete#sources#syntax#min_keyword_length = 3
         let g:neocomplete#max_list = 20
 
-		if !exists('g:neocomplete#sources')
-		  let g:neocomplete#sources = {}
-		endif
+        if !exists('g:neocomplete#sources')
+            let g:neocomplete#sources = {}
+        endif
         let g:neocomplete#sources._ = ['buffer', 'file', 'omni']
 
         " prevent cursor trigger autopop in insert mode
@@ -379,11 +379,6 @@ else
             \ "\<Plug>(neosnippet_expand_or_jump)"
             \: "\<TAB>"
 
-        " For snippet_complete marker.
-        " if has('conceal')
-        "     set conceallevel=2 concealcursor=i
-        " endif
-
         " Enable snipMate compatibility feature.
         let g:neosnippet#enable_snipmate_compatibility = 1
 
@@ -417,24 +412,12 @@ else
     " Snakemake
     NeoBundle "ccwang002/vim-snakemake"
 
-    " PDB
-    NeoBundle 'ccwang002/vim-pdb'
-
     " CWL syntax
     NeoBundle 'manabuishii/vim-cwl'
 
     """""""""""""""
     " Programming "
     """""""""""""""
-    " NeoBundleLazy 'majutsushi/tagbar', {
-    "     \ 'on_cmd': ['TagbarToggle'] }
-    " nnoremap <TAB> :TagbarToggle<CR>
-    " let g:tagbar_width=32
-    " let g:tagbar_autofocus=1
-    " let g:tagbar_compact=1
-    " let g:tagbar_sort=0
-
-
     " Linter for various languages
     NeoBundleLazy "scrooloose/syntastic", {
         \ 'on_i': 1,
