@@ -53,10 +53,34 @@ if isdirectory(s:neobundle_root) && v:version >= 702
 
     " Color themes {{{
     NeoBundle "michalbachowski/vim-wombat256mod"
+    " }}}
 
-    NeoBundle "vim-airline/vim-airline"
-    NeoBundle "vim-airline/vim-airline-themes"
-    let g:airline_theme = 'powerlineish'
+    " Statusline {{{
+    NeoBundle "itchyny/lightline.vim"
+    let g:lightline = {
+        \ 'active': {
+        \    'left': [
+        \       ['mode', 'paste'],
+        \       ['readonly', 'filename', 'modified', 'ale'],
+        \    ]
+        \ },
+        \ 'component_function': {
+        \    'ale': 'ALELinterStatus'
+        \ }}
+
+    " Add the function to display the linter results
+    function! ALELinterStatus() abort
+        let l:counts = ale#statusline#Count(bufnr(''))  " current buffer
+
+        let l:all_errors = l:counts.error + l:counts.style_error
+        let l:all_non_errors = l:counts.total - l:all_errors
+
+        return l:counts.total == 0 ? 'OK' : printf(
+        \   '%dW %dE',
+        \   all_non_errors,
+        \   all_errors
+        \)
+    endfunction
     " }}}
 
     " Language specific syntax highlighting {{{
