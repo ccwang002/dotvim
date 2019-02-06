@@ -446,9 +446,6 @@ set history=100                 " set lines of history to remember
 set hidden                      " hide buffer insted of closing to preserve undo history
 set switchbuf=useopen           " use opend buffer insted of create new buffer
 set autoread                    " auto read change out of vim
-set listchars=tab:»\ ,trail:·   " show hidden symbols
-set list                        " show problematic characters
-nnoremap <leader>. :set invlist<CR>
 
 " Turn backup off, since most stuff is in version control anyway
 set nowritebackup
@@ -559,6 +556,12 @@ set scrolloff=0         " minimum line above/below the cursor
 set tm=500              " Time (ms) to wait for a mapping sequence to complete
 set ttymouse=xterm2     " Newer xterm understand the extended mouse mode
                         " (including tmux, screen)
+set backspace=2         " Configure backspace so it acts as it should act
+
+set listchars=tab:»\ ,trail:·   " show hidden symbols
+set list                        " show problematic characters
+" Toggle the display of hidden symbols
+nnoremap <leader>. :set invlist<CR>
 
 set linebreak
 let &showbreak = '+++ '
