@@ -162,9 +162,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'michalbachowski/vim-wombat256mod'
 
 " Airline
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-let g:airline_theme = 'powerlineish'
+Plug 'itchyny/lightline.vim'
 
 " Denite.nvim (former Unite.vim)
 " {{{
