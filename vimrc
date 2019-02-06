@@ -615,6 +615,9 @@ autocmd FileType python
     \ nosmartindent
 autocmd MyAutoCmd BufWrite *.py :call DeleteTrailingWhiteSpace()
 
+" Snakemake
+autocmd FileType snakemake setlocal foldmethod=marker
+
 " C
 autocmd FileType c setlocal conceallevel=0 noexpandtab
 
