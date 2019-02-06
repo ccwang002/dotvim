@@ -141,7 +141,24 @@ if isdirectory(s:neobundle_root) && v:version >= 702
     NeoBundleLazy 'w0rp/ale', { 'on_i': 1 }
     let s:hooks = neobundle#get_hooks('ale')
     function! s:hooks.on_source(bundle)
+        let g:ale_lint_on_enter = 0         " Don't run linter on entering a file
+        let g:ale_lint_on_text_changed = 0  " Don't run linter while typing
+        let g:ale_open_list = 1  " List all the errors in a loclist window
+        let g:ale_list_window_size = 4      " Height of the window
+        " let g:ale_set_signs = 0             " Hide the ALE sign gutter
 
+        let g:ale_linters = {
+                \   'python': ['flake8'],
+                \ }
+        " Python linter settings
+        let g:ale_python_flake8_options =
+                \ "--ignore=E302,E402,W293,W302,W391,W291 " .
+                \ "--max-complexity=12"
+        " W302,W291 trailing whitespace
+        " E302 expected 2 blank lines
+        " E402 module level import not at top of file
+        " W293 blank line contains whitespace
+        " W391 blank line at end of file
     endfunction
 
     "NeoBundleLazy "scrooloose/syntastic", {
@@ -149,17 +166,6 @@ if isdirectory(s:neobundle_root) && v:version >= 702
     "    \ }
     "let s:hooks = neobundle#get_hooks("syntastic")
     "function! s:hooks.on_source(bundle)
-    "    " Setting for Python Linter
-    "    let g:syntastic_python_checkers = ['flake8']
-    "    let g:syntastic_python_flake8_args =
-    "                \ "--ignore=E302,E402,W293,W302,W391,W291" .
-    "                \ "--max-complexity=12"
-    "        "W302,W291 trailing whitespace
-    "        "E302 expected 2 blank lines
-    "        "E402 module level import not at top of file
-    "        "W293 blank line contains whitespace
-    "        "W391 blank line at end of file
-    "
     "    " Setting for C Linter
     "    let g:syntastic_c_compiler = 'clang'
     "    let g:syntastic_c_compiler_options = '-std=c99'
@@ -211,7 +217,7 @@ if isdirectory(s:neobundle_root) && v:version >= 702
     "                \ 'mode': 'active',
     "                \ 'passive_filetypes': ["tex"] }
     "
-    "     set statusline+=%#warningmsg#
+    "    set statusline+=%#warningmsg#
     "    set statusline+=%{SyntasticStatuslineFlag()}
     "    set statusline+=%*
     "endfunction
