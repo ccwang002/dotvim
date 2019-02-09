@@ -213,9 +213,6 @@ if isdirectory(s:neobundle_root) && v:version >= 702
     "
     "    let g:syntastic_auto_loc_list = 1
     "    let g:syntastic_loc_list_height = 5
-    "    let g:syntastic_mode_map = {
-    "                \ 'mode': 'active',
-    "                \ 'passive_filetypes': ["tex"] }
     "
     "    set statusline+=%#warningmsg#
     "    set statusline+=%{SyntasticStatuslineFlag()}
