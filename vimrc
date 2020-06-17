@@ -674,11 +674,10 @@ endfunction
 if has('gui_running')
     if s:is_darwin
         set gfn=Inconsolata:h18
-        let g:current_gui_transp=20
-        call ToggleGuiTransp()
+        let g:current_gui_transp=10
         nmap <D-u> :call ToggleGuiTransp()<CR>
     elseif s:is_windows
-        set guifont=Inconsolata_for_Powerline:h16
+        set guifont=Inconsolata:h16
         set guifontwide=MS_Gothic:h16
         if has('kaoriya')
             set ambiwidth=auto
@@ -687,7 +686,7 @@ if has('gui_running')
         set guioptions-=m
         set guioptions-=T
     elseif has("gui_gtk2")
-        set guifont=Inconsolata\ for\ Powerline\ 16
+        set guifont=Inconsolata\ 16
         set guioptions-=m
         set guioptions-=T
     endif
