@@ -673,7 +673,8 @@ endfunction
 
 if has('gui_running')
     if s:is_darwin
-        set gfn=Inconsolata:h18
+        set guifont=Fira\ Code\ ss01\ ss03\ ss05\ ss08:h18
+        set macligatures
         let g:current_gui_transp=10
         nmap <D-u> :call ToggleGuiTransp()<CR>
     elseif s:is_windows
